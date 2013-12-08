@@ -2,9 +2,47 @@
   <table > 
     <tbody >
       <tr><td>UserId: {{subscriptionsModel.userId}}</td></tr>
-      <tr> <td> UserName: {{subscriptionsModel.userName}}</td> </tr>
-      <tr>  <td> Provider: {{subscriptionsModel.provider}}  </td></tr>
+      <tr><td>UserName: {{subscriptionsModel.userName}}</td></tr>
+      <tr><td>Provider: {{subscriptionsModel.provider}}</td></tr>
     </tr>
     </tbody>
   </table>
 </div>
+
+<p>Subscriptions details overview </p>
+<table border="1">
+  <tr>
+    <th>Subscription Name</th>
+    <th>Storage</th>
+    <th>Nodes</th>
+    <th>Options</th>
+  </tr>
+ 
+  <tr ng-repeat="s in subscriptionsModel.subscriptions">
+    <td>{{s.name}}</td>
+    <td>NA/storageQuota{{}}</td>
+    <td>{{s.containers.length}}/NA(containerQuota) </td>
+    <td>
+      <a ng-href="/subscriptions/{{s.id}}/nodes">Manage Nodes</a>
+      <button>Jobs</button>
+      <button>Delete</button>
+    </td>
+  </tr>
+</table>
+
+<p>Errors </p>
+<ul>
+  <li>WIRE UP ERRORS!</li>
+  
+</ul>
+
+
+
+
+
+
+
+
+
+
+
