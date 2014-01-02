@@ -34,6 +34,10 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+app.get('/home',routes.home);
+app.get('/logout', function(req, res){
+    res.redirect('/');
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
