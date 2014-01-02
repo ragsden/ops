@@ -4,6 +4,7 @@ var config = require('./config');
 var request = require('request');
 var qs = require('qs');
 passport.serializeUser(function(Id,done) {
+  console.log(Id);
   done(null,Id);
 });
 
@@ -30,7 +31,8 @@ function getShippableToken(accessToken,done) {
                         }, function(err, res, data){
                           //console.log(data);
                           if (err) {
-                            done(err,null);
+                            console.log(err);
+                            done(err);
                           } else if (res.statusCode > 200) {
                             done(new Error("Status code: "+ res.statusCode),null);
                           } else if (data === "Not found.") {
