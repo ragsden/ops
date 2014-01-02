@@ -1,5 +1,7 @@
 'use strict';
 
+// template for follow up with angular
+
 angular.module('angSpa', []).
 config(function($routeProvider, $locationProvider){
   $routeProvider.
