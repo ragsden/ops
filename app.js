@@ -54,16 +54,8 @@ app.get('/auth/github',
 app.get('/auth/github/callback',
         passport.authenticate('github',{ failureRedirect: '/' }),
         function(req,res) {
-            auth.getShippableToken(req.accessToken,function(err,data) {
-              if(err) {
-                res.redirect('/');
-              }
-              else {
-                res.cookie('shippable-token',data.token);
-                res.redirect('/home');
-              }
-            });
-            
+            res.cookie('shippable-token',req.user.token);
+            res.redirect('/home');
         }
         );
 http.createServer(app).listen(app.get('port'), function(){
