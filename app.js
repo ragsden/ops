@@ -47,6 +47,8 @@ app.configure('production', function(){
 app.get('/', routes.index);
 app.get('/home',ensureAuthenticated,routes.home);
 app.get('/logout', function(req, res){
+    req.logout();
+    res.cookie('shippable-token','');
     res.redirect('/');
 });
 app.get('/auth/github',
