@@ -6,5 +6,7 @@ exports.passport = {
         callbackUrl:'http://localhost:3000/auth/github/callback'
     }
 };
-
+exports.middleware = {
+	endPoint: 'http://mw.shippable.com'
+};
    
