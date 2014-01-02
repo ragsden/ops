@@ -26,8 +26,13 @@ app.use(express.cookieSession({ secret: 'Sh!ppable0psDashboard' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(function(err, req, res, next){
+  res.status(err.status || 500);
+  console.log('here');
+  res.render('500', { error: err });
+});
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) 
   { return next(); }
@@ -44,6 +49,7 @@ app.configure('production', function(){
 
 // Routes
 
+
 app.get('/', routes.index);
 app.get('/home',ensureAuthenticated,routes.home);
 app.get('/logout', function(req, res){
@@ -56,6 +62,7 @@ app.get('/auth/github',
 app.get('/auth/github/callback',
         passport.authenticate('github',{ failureRedirect: '/' }),
         function(req,res) {
+            console.log('here');
             res.cookie('shippable-token',req.user.token);
             res.redirect('/home');
         }
