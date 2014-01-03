@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="angSpa">
   <head>
+    <script src= "/js/lib/angular/angular.js"></script>
+    <script src= "/js/lib/angular/angular-route.js"></script>
+    <script src= "/js/lib/angular/angular-sanitize.js"></script>
+    <script src= "/js/app/app.js"></script>
+    <script src= "/js/app/controllers/homeController.js"></script>
+    <script src= "/js/app/controllers/subscriptionsController.js"></script>
     <title>Shippable: Dashboard-Home</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <p>Welcome  <%= user %></p>
-    <a href="/">Logout</a>
+    <div ng-view>
+      
+    </div>
+    <a href="/logout">Logout</a>
   </body>
 </html>
