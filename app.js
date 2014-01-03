@@ -67,6 +67,7 @@ app.get('/auth/github/callback',
         }
         );
 app.use(function(req, res, next){
+    console.log('default route');
     res.render('home',{ user: 'Logged in user here..'} );
 });
 http.createServer(app).listen(app.get('port'), function(){

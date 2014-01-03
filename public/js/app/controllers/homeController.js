@@ -7,6 +7,6 @@
   //  $scope.data = 'Some data';
 //}]);
 angular.module('angSpa').controller('homeController',['$scope',function($scope) {
-  $scope.data = 'Some data';
+  $scope.data = 'Username';
   $scope.accountId = '1234';
 }]);

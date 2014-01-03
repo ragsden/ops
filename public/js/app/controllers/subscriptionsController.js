@@ -8,6 +8,5 @@
   //  $scope.data = 'Some data';
 //}]);
 angular.module('angSpa').controller('subscriptionsController',['$scope',function($scope) {
-  console.log('sub controller');
-  $scope.sub_data = 'Some sub - data';
+  $scope.sub_data = 'Subscriptions data';
 }]);
