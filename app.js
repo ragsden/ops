@@ -50,8 +50,7 @@ app.configure('production', function(){
 // Routes
 
 
-app.get('/', routes.index);
-app.get('/home',ensureAuthenticated,routes.home);
+app.get('/',routes.home);
 app.get('/logout', function(req, res){
     req.logout();
     res.cookie('shippable-token','');
@@ -67,6 +66,9 @@ app.get('/auth/github/callback',
             res.redirect('/home');
         }
         );
+app.use(function(req, res, next){
+    res.render('home',{ user: 'Logged in user here..'} );
+});
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
