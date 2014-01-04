@@ -1,0 +1,15 @@
+<div>
+  <form name="myForm"> 
+    Enter Github Id: 
+    <input type="text" name= "user_id"  ng-model="username" required></input><br/>
+    <button ng-disabled="myForm.$invalid"  ng-click="getUser()">Search</button><br/>
+    {{err}}
+    <table>
+     <tbody border="1" ng-repeat="n in result">
+       <tr ng-repeat="x in n.identities">
+           <td> <a ng-href="/user/{{n.id}}/subscriptions">{{x.userName}}</a></td>
+      </tr>
+     </tbody>
+     </table>
+  </form>
+</div>

@@ -1,1 +1,9 @@
-{{sub_data}}
+<div>
+  <table ng-repeat="user in result"> 
+    <tbody ng-repeat="identity in user.identities">
+      <tr>  <td> User Id: {{user.id}}  </td></tr>
+      <tr> <td> UserName: {{identity.userName}}</td> </tr>
+    </tr>
+    </tbody>
+  </table>
+</div>

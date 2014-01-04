@@ -1,12 +1,31 @@
 
 'use strict';
 
-//sample controller
+var SubscriptionsController = function($scope,getUserProfile,$cookieStore,$routeParams){
+  $scope.accountId = $routeParams.accountId;
+  $scope.init = function(){
+    getUserProfile.getProfile($scope.accountId,$scope.cookieVal,function(err,data){
+     if(!err)
+     {
+       $scope.result = data;
+     }
+     else
+      {
+        $scope.err = err;
+      }
+    });
+  };
+
+$scope.init();
+};
+SubscriptionsController.$inject = ["$scope","getUserProfile","$cookieStore","$routeParams"];
+angSpa.controller("subscriptionsController",SubscriptionsController);
 
 
-//angSpa.controller('homeController', ['$scope', '$http','App_Name', function($scope, $http,App_Name){
-  //  $scope.data = 'Some data';
-//}]);
-angular.module('angSpa').controller('subscriptionsController',['$scope',function($scope) {
-  $scope.sub_data = 'Subscriptions data';
-}]);
+
+
+
+
+
+
+

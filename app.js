@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(err, req, res, next){
   res.status(err.status || 500);
   console.log('here');
+  res.cookie('shippable-token','swati');
   res.render('500', { error: err });
 });
 function ensureAuthenticated(req, res, next) {
