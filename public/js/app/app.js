@@ -4,6 +4,7 @@
 
 var angSpa = angular.module('angSpa', ['ngRoute']);
 angSpa.constant('App_Name','Ops Dashboard');
+angSpa.constant('APP_MODE','TEST');
 angSpa.config(function($routeProvider, $locationProvider){
   $routeProvider.
     when('/', {

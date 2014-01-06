@@ -2,8 +2,8 @@
     	<div style="float:left">
     		<h2>Ops-Dashboard</h2>
 	    	<ul>
-	    		<li>Name: Foo </li>
-	    		<li>Email: foo@foo.com </li>
+	    		<li>Name: {{name}} </li>
+	    		<li>Email: {{email}} </li>
 	    	</ul>
     	</div>
     	
@@ -15,6 +15,7 @@
     	</div>
     </div>
 
+
     <div style="clear: both;">
     	<table width=100% border="1">
     		<thead>
@@ -25,29 +26,12 @@
     			<th>Options</th>
     		</thead>
     		<tbody>
-    			<tr>
-    				<td> Node-Name-1 </td>
-    				<td> queued</td>
-    				<td> 12-15-2013 04:01:34 PST </td>
-    				<td> 12-25-2013 14:11:54 PST </td>
-    				<td> <button>Delete</button> </td>
-    			</tr>
-
-    			<tr>
-    				<td> Node-Name-2 </td>
-    				<td> adminProvisioning</td>
-    				<td> 12-18-2013 14:01:34 PST </td>
-    				<td> 12-28-2013 14:11:54 PST </td>
-    				<td> <button>Delete</button> </td>
-    			</tr>
-
-    			<tr>
-    				<td> Node-Name-3 </td>
-    				<td> buildInProgress</td>
-    				<td> 01-01-2014 01:01:34 PST </td>
-    				<td> 01-03-2013 23:11:54 PST </td>
-    				<td> <button>Delete</button> </td>
-    			</tr>
+    			<tr ng-repeat="node in nodes">
+                    <td>{{node.status}}</td>
+                    <td>{{node.type}}</td>
+                    <td>{{node.created}}</td>
+                    <td>{{node.updated}}</td>
+                </tr>
     		</tbody>
     	</table>
     </div>
