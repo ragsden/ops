@@ -15,8 +15,13 @@ angSpa.config(function($routeProvider, $locationProvider){
         templateUrl: '/partials/subscriptions.html',
         controller: 'subscriptionsController'
       }).
+    when('/users/:accountId/subscriptions/:subscriptionId/container',
+      { controller: 'containerController',
+        templateUrl: '/partials/containers.html'
+      }).
     otherwise({
       redirectTo: '/'
     });
+    
   $locationProvider.html5Mode(true);
 });

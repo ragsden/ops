@@ -1,9 +1,9 @@
 exports.passport = {
 
     github: {
-        clientId:'f5d924e0dd0b8b9b486f',
-        secret:'40c44a1f462b5e3dc44c9cb004038c1bdea8b230',
-        callbackUrl:'http://192.168.1.186:3000/auth/github/callback'
+        clientId:'5a4c38eeb2aa32a15062',
+        secret:'c3f2c2ea135662116476b739993b3eead2c32592',
+        callbackUrl:'http://localhost:3000/auth/github/callback'
     }
 };
 exports.middleware = {
