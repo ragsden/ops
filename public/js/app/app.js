@@ -2,9 +2,8 @@
 
 // template for follow up with angular
 
-var angSpa = angular.module('angSpa', ['ngRoute']);
+var angSpa = angular.module('angSpa', ['ngRoute','ngCookies']);
 angSpa.constant('App_Name','Ops Dashboard');
-angSpa.constant('APP_MODE','TEST');
 angSpa.config(function($routeProvider, $locationProvider){
   $routeProvider.
     when('/', {

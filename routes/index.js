@@ -9,7 +9,7 @@ exports.index = function(req, res){
 exports.home = function(req,res) {
   
     if(req.user) {
-    res.render('home',{ user: 'Logged in user here..'} );
+    res.render('home');
     }
     else {
   res.render('index', { title: 'Shippable: Ops-Dashboard' });
