@@ -38,7 +38,7 @@ angular.module('angSpa').controller('containerController',['$scope','$http','$ro
   		$scope.errors = [];
   		$scope.nodes = [];
   		
-  		var token = $cookieStore.get(config.tokenId);
+  		var token = $cookieStore.get(config.shippableTokenIdentifier);
   		token = "x";
   		if(!token) {
   			console.log('No cookie found');
