@@ -1,21 +1,25 @@
 'use strict';
 
 var UserController = function($scope,$location,searchUser,$cookieStore) {
-  $scope.accountId = '1234';
   $scope.githubId = "";
- 
+  $scope.users=[{
+             id:"",
+             identities:[{
+                     provider:"",
+                     userName:""
+                   }]
+            }];
+  $scope.err="";
   $cookieStore.put('shippable-token','swati');
   $scope.token= $cookieStore.get('shippable-token');
 
   $scope.getUser = function()
   {
-    //  $location.search('id', 123);
     searchUser.getUsers($scope.githubId,$scope.token,function(err,data){
     if(!err)
       {
-        $scope.result = data;
+        $scope.users = data;
       }
-     // $location.path('/search/'+ $scope.accountId);
    else
      {
        $scope.err = err;

@@ -16,7 +16,7 @@ angSpa.config(function($routeProvider, $locationProvider){
         controller: 'subscriptionsController'
       }).
     otherwise({
-      redirectTo: '/'
+      redirectTo: '/users'
     });
   $locationProvider.html5Mode(true);
 });
