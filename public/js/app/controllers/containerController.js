@@ -4,28 +4,28 @@
 //sample controller
 
 
-angular.module('angSpa').controller('containerController',['$scope','$http','$routeParams','$cookieStore',
-	function($scope, $http,$routeParams,$cookieStore) 
+angular.module('angSpa').controller('containerController',['$scope','$http','$routeParams','$cookieStore','ContainerService',
+	function($scope, $http,$routeParams,$cookieStore,containerService) 
 	{
-	var APP_MODE="TEST";
-	var middlewareUrl = "http://api.shippable.com";
-	if(APP_MODE === 'TEST') {
+	if(config.runMode === 'TEST') {
 		console.log('test mode');
-		$scope.subscriptionName = "Trail Subscription";
 		$scope.nodes = [
 			{ 
+				'Id': '2340-3433-5874-6873',
 				'status': 'queued', 
 				'type': 'Node-Type-1', 
 				'created': '2013-Dec-01 13:54 PM (PST)', 
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			},
 			{ 
+				'Id': '2340-3433-5874-6873',
 				'status': 'adminProviisioning', 
 				'type': 'Node-Type-2', 
 				'created': '2013-Dec-01 13:54 PM (PST)', 
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			},
 			{ 
+				'Id': '2340-3433-5874-6873',
 				'status': 'buildInProgress', 
 				'type': 'Node-Type-1', 
 				'created': '2013-Dec-01 13:54 PM (PST)', 
@@ -37,8 +37,9 @@ angular.module('angSpa').controller('containerController',['$scope','$http','$ro
   	else {
   		$scope.errors = [];
   		$scope.nodes = [];
-  		$scope.name= '';
-  		var token = $cookieStore.get('shippable-token');
+  		
+  		var token = $cookieStore.get(config.tokenId);
+  		token = "x";
   		if(!token) {
   			console.log('No cookie found');
   			$scope.errors.push('Not a authenticated user');
@@ -46,47 +47,51 @@ angular.module('angSpa').controller('containerController',['$scope','$http','$ro
   		else 
   		{
   			//Make $http call to get some real data..
-  			console.log('Hitting middleware');
-	  		$http.defaults.headers.common['Authorization']='token ' + token;
-	  		$http.defaults.headers.common['Content-Type']='application/json;charset=utf8';
-	  		var found = false;
-	  		//Get the profile data..
-	  		var accountInfoUrl = middlewareUrl + "/accounts/" + $routeParams.accountId;
-	  		$http.get(accountInfoUrl).success(function(data) {
-	  			var profile = data.identities;
-	  			for(var i=0;i<profile.length;i++) {
-	  				if(profile[i].provider === 'github') {
-	  					$scope.name = profile[i].username;
-	  					found = true;
-	  					break;
-	  				}
-	  			}
-	  			if(!found) {
-	  				$scope.errors.push('No valid github profiles found for this user');
-	  			}
+  			console.log('Hitting middleware ' + config.MW_URL);
+  			
+			containerService.getContainerInfo($routeParams.subscriptionId,token,function(profileData) {
+				$scope.nodes =  profileData.nodes;
+				$scope.errors = profileData.errors;
+			});
+  		}
+  	}
 
-	  		}).error(function(data) {
-	  			console.log('Error getting account information');
-	  			$scope.name = '';
-	  			$scope.errors.push('There was a error getting the account information');
-	  		});
+}]);
 
-	  		//Get the container data..
-	  		var containerInfoUrl = middlewareUrl + "/subscriptions" + $routeParams.subscriptionId+"/nodes";
-	  		$http.get(containerInfoUrl).success(function(data) {
+angular.module('angSpa').factory('ContainerService',function($http) {
+	var middlewareUrl = config.MW_URL;
+	return {
+
+		getContainerInfo: function(subscriptionId,token,done) {
+			var profileData = {};
+			profileData.nodes = [];
+			profileData.errors=[];
+			var containerInfoUrl = middlewareUrl + "/subscriptions/" + subscriptionId+"/nodes";
+	  		$http(
+	  			{
+	  				method: 'GET', 
+	  				url: containerInfoUrl, 
+	  				headers: {
+	  					'Authorization': 'token ' + token,
+	  					'Content-Type' : 'application/json;charset=utf8'
+	  					 }
+	  			})
+	  		.success(function(data) {
 	  			for(var i=0;i<data.length;i++) {
-	  				$scope.nodes.push({ 
+	  				profileData.nodes.push({ 
+	  					'id' : data[i].id,
 	  					'status' : data[i].status,
 	  					'type' : data[i].type,
 	  					'created': data[i].created,
 	  					'updated' : data[i].updated  
 	  				});
+	  				done(profileData);
 	  			}
 	  		}).error(function(data) {
-	  			console.log('Error getting subscription information');
-	  			$scope.errors.push("There was a error getting subscription information");
+	  			console.log('Error getting subscription information ' + data);
+	  			profileData.errors.push("There was a error getting subscription information");
+	  			done(profileData);
 	  		});
-  		}
-  	}
-
-}]);
+		}
+	}
+});
