@@ -10,4 +10,5 @@ exports.passport = {
 exports.middleware = {
 	endPoint: settings.middleware.endPoint
 };
+exports.runMode = settings.runMode;
    
