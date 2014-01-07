@@ -2,22 +2,22 @@
 'use strict';
 
 var SubscriptionsController = function($scope,getUserProfile,$cookieStore,$routeParams){
-  $scope.accountId='';
-  $scope.subscriptionsModel = [{
+  $scope.subscriptionsModel = {
     userId : "",
     userName : "",
     provider : "",
-  }];
-
-  $scope.accountId = $routeParams.accountId;
+    subscriptions:[{
+     }],
+  };
+  
   var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.init = function(){
-    getUserProfile.getProfile($scope.accountId,token,function(err,data){
+    getUserProfile.getProfile($routeParams.accountId,token,function(err,data){
      if(!err)
      {
-       $scope.subscriptionsModel[0].userId = data.id;
-       $scope.subscriptionsModel[0].userName = data.identities[0].userName;
-       $scope.subscriptionsModel[0].provider = data.identities[0].provider;
+       $scope.subscriptionsModel.userId = data.id;
+       $scope.subscriptionsModel.userName = data.identities[0].userName;
+       $scope.subscriptionsModel.provider = data.identities[0].provider;
      }
      else
       {
