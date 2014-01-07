@@ -1,8 +1,8 @@
-angSpa.factory('getAccountsById',function($http){
+angSpa.factory('getAccountById',function($http){
  var middlewareUrl = config.MW_URL;
   var GetAccountById = function(){
         };
-     GetAccountById.prototype.getAccountById = function(id,token,done){
+     GetAccountById.prototype.getAccount = function(id,token,done){
      if(config.runMode=="TEST")
        {
          var data= {
