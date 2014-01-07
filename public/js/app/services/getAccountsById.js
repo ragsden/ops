@@ -1,5 +1,6 @@
 angSpa.factory('getAccountsById',function($http){
-     var GetAccountById = function(){
+ var middlewareUrl = config.MW_URL;
+  var GetAccountById = function(){
         };
      GetAccountById.prototype.getAccountById = function(id,token,done){
      if(config.runMode=="TEST")
@@ -23,7 +24,8 @@ angSpa.factory('getAccountsById',function($http){
        }
      else
       {
-        $http({method: 'GET', url: 'http://mw.shippable.com/accounts/'+id,headers : {Authorization: 'token' + token}}).
+        var getAccountsByIdUrl = middlewareUrl + "/accounts/" + id;
+        $http({method: 'GET',url: getAccountsByIdUrl ,headers : {Authorization: 'token' + token}}).
         success(function(data, status, headers, config) {
           done(null,data);
         }).

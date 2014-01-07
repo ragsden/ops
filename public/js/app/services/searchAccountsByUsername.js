@@ -1,5 +1,6 @@
 angSpa.factory('searchAccountsByUsername',function($http){
-   var SearchAccounts = function(){
+  var middlewareUrl = config.MW_URL; 
+  var SearchAccounts = function(){
    var data1= "";
    } 
    SearchAccounts.prototype.searchAccounts = function(githubId,token,done){
@@ -24,7 +25,8 @@ angSpa.factory('searchAccountsByUsername',function($http){
      }
    else
     {
-      $http({method: 'GET', url: 'http://mw.shippable.com/accounts/search/'+githubId,headers : {Authorization:'token'+ token}}).
+      var serachAccountsUrl = middlewareUrl + "accounts/search" + githubId
+      $http({method: 'GET', url: searchAccountsUrl, headers : {Authorization:'token'+ token}}).
        success(function(data, status, headers, config) {
        done(null,data);
         }).
