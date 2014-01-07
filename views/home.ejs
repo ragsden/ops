@@ -10,14 +10,22 @@
     <script src= "/js/app/controllers/subscriptionsController.js"></script>
     <script src= "/js/app/services/searchUser.js"></script>
     <script src= "/js/app/services/getUserProfile.js"></script>
+    <script src= "/js/app/controllers/containerController.js"></script>
+    <script>
+      var config = {
+        MW_URL: "<%= config.middleware.endPoint %>",
+        runMode: "<%= config.runMode %>",
+        tokenId: "<%= config.shippableTokenIdentifier %>"
+      }
+    </script>
     <title>Shippable: Dashboard-Home</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <p>Welcome  <%= user %></p>
+    <a href="/logout">Logout</a>
     <div ng-view>
       
     </div>
-    <a href="/logout">Logout</a>
+    
   </body>
 </html>
