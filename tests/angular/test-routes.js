@@ -13,8 +13,8 @@ describe('Testing routes',function() {
 	it('should check if containers URL resolves correctly',function() {
 		module('angSpa');
 		inject(function($route) {
-			var controller = $route.routes['/users/:accountId/subscriptions/:subscriptionId/container'].controller;
-			var templateUrl = $route.routes['/users/:accountId/subscriptions/:subscriptionId/container'].templateUrl;
+			var controller = $route.routes['/users/:accountId/subscriptions/:subscriptionId/containers'].controller;
+			var templateUrl = $route.routes['/users/:accountId/subscriptions/:subscriptionId/containers'].templateUrl;
 
 			controller.should.be.equal('containerController');
 			templateUrl.should.be.equal('/partials/containers.html');
