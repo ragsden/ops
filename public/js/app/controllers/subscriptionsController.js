@@ -3,8 +3,7 @@
 
 var SubscriptionsController = function($scope,getUserProfile,$cookieStore,$routeParams){
   $scope.accountId = $routeParams.accountId;
-  $cookieStore.put('shippable-token','swati');
-  $scope.token = $cookieStore.get('shippable-token');
+  var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.init = function(){
     getUserProfile.getProfile($scope.accountId,$scope.token,function(err,data){
      if(!err)

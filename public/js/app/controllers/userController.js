@@ -10,12 +10,10 @@ var UserController = function($scope,$location,searchUser,$cookieStore) {
                    }]
             }];
   $scope.err="";
-  $cookieStore.put('shippable-token','swati');
-  $scope.token= $cookieStore.get('shippable-token');
-
+  var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.getUser = function()
   {
-    searchUser.getUsers($scope.githubId,$scope.token,function(err,data){
+    searchUser.getUsers($scope.githubId,token,function(err,data){
     if(!err)
       {
         $scope.users = data;

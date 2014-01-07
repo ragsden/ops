@@ -1,9 +1,9 @@
-angSpa.factory('searchUser',function($http,RUN_MODE){
+angSpa.factory('searchUser',function($http){
    var SearchUser = function(){
    var data1= "";
    } 
    SearchUser.prototype.getUsers = function(githubId,token,done){
-    if(RUN_MODE=="dev")
+    if(config.runMode=="TEST")
      {
         var exp= [{
             id: "123456", // The Shippable account id

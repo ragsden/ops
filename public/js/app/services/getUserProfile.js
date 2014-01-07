@@ -1,8 +1,8 @@
-angSpa.factory('getUserProfile',function($http,RUN_MODE){
+angSpa.factory('getUserProfile',function($http){
      var GetProfile = function(){
         };
      GetProfile.prototype.getProfile = function(id,token,done){
-     if(RUN_MODE=="dev")
+     if(config.runMode=="TEST")
        {
          var data= [{
               id: "123456",
