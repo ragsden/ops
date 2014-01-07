@@ -1,4 +1,4 @@
-
+var config = require('../config');
 /*
  * GET home page.
  */
@@ -8,13 +8,15 @@ exports.index = function(req, res){
 }; 
 exports.home = function(req,res) {
   
-    if(req.user) {
-    res.render('home',{ user: 'Logged in user here..'} );
+    //if(req.user) 
+    {
+    	console.log('xx  ' + config);
+    	res.render('home', { config : config  });
     }
-    else {
-  res.render('index', { title: 'Shippable: Ops-Dashboard' });
+    //else {
+	//  res.render('index', { title: 'Shippable: Ops-Dashboard' });
 
-    }
+    //}
 
     
 
