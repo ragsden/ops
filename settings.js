@@ -11,4 +11,4 @@ exports.middleware = {
 };
    
 exports.runMode = "TEST";
-exports.tokenId = "ops.shippable.com:token";
+exports.shippableTokenIdentifier = "ops.shippable.com:token";

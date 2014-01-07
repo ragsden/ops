@@ -102,7 +102,7 @@ function runapp() {
           app.get('/',routes.home);
           app.get('/logout', function(req, res){
               req.logout();
-              res.cookie('shippable-token','');
+              res.cookie(config.shippableTokenIdentifier,'');
               res.redirect('/');
           });
           app.get('/auth/github',
@@ -111,7 +111,7 @@ function runapp() {
                   passport.authenticate('github',{ failureRedirect: '/' }),
                   function(req,res) {
                       console.log('here');
-                      res.cookie(config.tokenId,req.user.token);
+                      res.cookie(config.shippableTokenIdentifier,req.user.token);
                       res.redirect('/home');
                   }
                   );
