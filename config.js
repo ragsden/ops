@@ -11,4 +11,4 @@ exports.middleware = {
 	endPoint: settings.middleware.endPoint
 };
 exports.runMode = settings.runMode;
-   
+exports.tokenId = settings.tokenId;   

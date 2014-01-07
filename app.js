@@ -63,7 +63,7 @@ app.get('/auth/github/callback',
         passport.authenticate('github',{ failureRedirect: '/' }),
         function(req,res) {
             console.log('here');
-            res.cookie('shippable-token',req.user.token);
+            res.cookie(config.tokenId,req.user.token);
             res.redirect('/home');
         }
         );
