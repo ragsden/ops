@@ -9,6 +9,7 @@ var express = require('express')
   , passport = require('passport')
   , clientSessions = require("client-sessions")
   , path = require('path')
+  , config = require('./config')
   , auth = require('./auth');
 var app =exports.app =  express();
 auth.init();
@@ -68,7 +69,7 @@ app.get('/auth/github/callback',
         );
 app.use(function(req, res, next){
     console.log('default route');
-    res.render('home',{ user: 'Logged in user here..'} );
+    res.render('home',{ config: config} );
 });
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

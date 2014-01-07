@@ -1,12 +1,13 @@
+var settings = require('./settings');
 exports.passport = {
 
     github: {
-        clientId:'5a4c38eeb2aa32a15062',
-        secret:'c3f2c2ea135662116476b739993b3eead2c32592',
-        callbackUrl:'http://localhost:3000/auth/github/callback'
+        clientId: settings.passport.github.clientId,
+        secret: settings.passport.github.secret,
+        callbackUrl: settings.passport.github.callbackUrl
     }
 };
 exports.middleware = {
-	endPoint: 'http://mw.shippable.com'
+	endPoint: settings.middleware.endPoint
 };
    
