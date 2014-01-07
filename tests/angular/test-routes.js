@@ -3,10 +3,10 @@ describe('Testing routes',function() {
 		module('angSpa');
 		inject(function($route) {
 			//console.log($route.routes['/']);
-			var controller = $route.routes['/'].controller;
-			var templateUrl = $route.routes['/'].templateUrl;
-			controller.should.be.equal('homeController');
-			templateUrl.should.be.equal('/partials/users.html');
+			var controller = $route.routes['/accounts'].controller;
+			var templateUrl = $route.routes['/accounts'].templateUrl;
+			controller.should.be.equal('accountsController');
+			templateUrl.should.be.equal('/partials/search.html');
 		});
 	});
 
