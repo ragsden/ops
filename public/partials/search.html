@@ -6,10 +6,12 @@
     {{err}}
     <table>
       <th>Users</th><th>Provider</th>
-     <tbody ng-repeat="account in accountsModel.accounts">
-       <tr ng-repeat="a in account.identities">
+     <tbody ng-repeat="account in accountsModel.accounts" >
+       <tr ng-repeat="a in account.identities" ng-if="account.id">
            <td> <a ng-href="/accounts/{{account.id}}/subscriptions">{{a.userName}}</a></td>
            <td> {{a.provider}}</td>
+           <td><button  ng-click="getAccountById()" >Show User Profile</button></td>
+           <td><button ng-click="getSubscriptions(account.id)">Show Subscriptions</button></td>
        </tr>
      </tbody>
      </table>

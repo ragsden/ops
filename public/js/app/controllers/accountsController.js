@@ -25,6 +25,10 @@ var AccountsController = function($scope,$location,searchAccountsByUsername,$coo
      }
    });
   }
+  $scope.getSubscriptions = function(accountId)
+  {
+  $location.path("/accounts/"+accountId+"/subscriptions");
+  }
 };
 AccountsController.$inject = ["$scope","$location","searchAccountsByUsername","$cookieStore"];
 angSpa.controller("accountsController",AccountsController);
