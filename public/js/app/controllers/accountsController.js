@@ -1,6 +1,6 @@
 'use strict';
 
-var AccountsController = function($scope,$location,searchUser,$cookieStore) {
+var AccountsController = function($scope,$location,searchAccountsByUsername,$cookieStore) {
   $scope.githubId = "";
   $scope.accounts=[{
              id:"",
@@ -13,7 +13,7 @@ var AccountsController = function($scope,$location,searchUser,$cookieStore) {
   var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.getAccount = function()
   {
-    searchUser.searchAccounts($scope.githubId,token,function(err,data){
+    searchAccountsByUsername.searchAccounts($scope.githubId,token,function(err,data){
     if(!err)
       {
         $scope.accounts = data;
@@ -25,5 +25,5 @@ var AccountsController = function($scope,$location,searchUser,$cookieStore) {
    });
   }
 };
-AccountsController.$inject = ["$scope","$location","searchUser","$cookieStore"];
+AccountsController.$inject = ["$scope","$location","searchAccountsByUsername","$cookieStore"];
 angSpa.controller("accountsController",AccountsController);

@@ -1,4 +1,4 @@
-angSpa.factory('searchUser',function($http){
+angSpa.factory('searchAccountsByUsername',function($http){
    var SearchAccounts = function(){
    var data1= "";
    } 

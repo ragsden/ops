@@ -1,7 +1,7 @@
 
 'use strict';
 
-var SubscriptionsController = function($scope,getUserProfile,$cookieStore,$routeParams){
+var SubscriptionsController = function($scope,getAccountsById,$cookieStore,$routeParams){
   $scope.subscriptionsModel = {
     userId : "",
     userName : "",
@@ -12,7 +12,7 @@ var SubscriptionsController = function($scope,getUserProfile,$cookieStore,$route
   
   var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.init = function(){
-    getUserProfile.getAccountById($routeParams.accountId,token,function(err,data){
+    getAccountsById.getAccountById($routeParams.accountId,token,function(err,data){
      if(!err)
      {
        $scope.subscriptionsModel.userId = data.id;
@@ -28,7 +28,7 @@ var SubscriptionsController = function($scope,getUserProfile,$cookieStore,$route
 
 $scope.init();
 };
-SubscriptionsController.$inject = ["$scope","getUserProfile","$cookieStore","$routeParams"];
+SubscriptionsController.$inject = ["$scope","getAccountsById","$cookieStore","$routeParams"];
 angSpa.controller("subscriptionsController",SubscriptionsController);
 
 

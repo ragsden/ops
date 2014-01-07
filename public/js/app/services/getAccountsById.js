@@ -1,4 +1,4 @@
-angSpa.factory('getUserProfile',function($http){
+angSpa.factory('getAccountsById',function($http){
      var GetAccountById = function(){
         };
      GetAccountById.prototype.getAccountById = function(id,token,done){
