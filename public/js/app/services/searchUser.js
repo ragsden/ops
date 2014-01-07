@@ -1,8 +1,8 @@
 angSpa.factory('searchUser',function($http){
-   var SearchUser = function(){
+   var SearchAccounts = function(){
    var data1= "";
    } 
-   SearchUser.prototype.getUsers = function(githubId,token,done){
+   SearchAccounts.prototype.searchAccounts = function(githubId,token,done){
     if(config.runMode=="TEST")
      {
         var exp= [{
@@ -34,5 +34,5 @@ angSpa.factory('searchUser',function($http){
        });
     };
  };
-   return new SearchUser();
+   return new SearchAccounts();
 });

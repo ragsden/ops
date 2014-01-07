@@ -1,7 +1,7 @@
 angSpa.factory('getUserProfile',function($http){
-     var GetProfile = function(){
+     var GetAccountById = function(){
         };
-     GetProfile.prototype.getProfile = function(id,token,done){
+     GetAccountById.prototype.getAccountById = function(id,token,done){
      if(config.runMode=="TEST")
        {
          var data= {
@@ -33,6 +33,6 @@ angSpa.factory('getUserProfile',function($http){
         });
       }
      };
-   return new GetProfile();
+   return new GetAccountById();
 
 });

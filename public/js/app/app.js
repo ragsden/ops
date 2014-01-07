@@ -5,11 +5,11 @@
 var angSpa = angular.module('angSpa', ['ngRoute','ngCookies']);
 angSpa.config(function($routeProvider, $locationProvider){
   $routeProvider.
-    when('/users', {
+    when('/accounts', {
       templateUrl: '/partials/search.html',
-      controller: 'userController'
+      controller: 'accountsController'
     }).
-    when('/user/:accountId/subscriptions',
+    when('/accounts/:accountId/subscriptions',
       {
         templateUrl: '/partials/subscriptions.html',
         controller: 'subscriptionsController'
@@ -19,7 +19,7 @@ angSpa.config(function($routeProvider, $locationProvider){
         templateUrl: '/partials/containers.html'
       }).
     otherwise({
-      redirectTo: '/users'
+      redirectTo: '/accounts'
     });
     
   $locationProvider.html5Mode(true);

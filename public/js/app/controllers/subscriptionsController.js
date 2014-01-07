@@ -12,7 +12,7 @@ var SubscriptionsController = function($scope,getUserProfile,$cookieStore,$route
   
   var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.init = function(){
-    getUserProfile.getProfile($routeParams.accountId,token,function(err,data){
+    getUserProfile.getAccountById($routeParams.accountId,token,function(err,data){
      if(!err)
      {
        $scope.subscriptionsModel.userId = data.id;
