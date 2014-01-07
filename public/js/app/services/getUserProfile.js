@@ -4,7 +4,7 @@ angSpa.factory('getUserProfile',function($http){
      GetProfile.prototype.getProfile = function(id,token,done){
      if(config.runMode=="TEST")
        {
-         var data= [{
+         var data= {
               id: "123456",
               avatarId: "XXX",
               avatarUrl: "YYY",
@@ -18,7 +18,7 @@ angSpa.factory('getUserProfile',function($http){
                  avatarId: "XXX",
                  provider: "github"  // `github` or `bitbucket`
                }]
-          }]
+          };
          done(null,data);
        }
      else

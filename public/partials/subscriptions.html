@@ -1,8 +1,9 @@
 <div>
-  <table ng-repeat="user in result"> 
-    <tbody ng-repeat="identity in user.identities">
-      <tr> <td> UserName: {{identity.userName}}</td> </tr>
-      <tr>  <td> Provider: {{identity.provider}}  </td></tr>
+  <table ng-repeat="userProfile in subscriptionsModel"> 
+    <tbody >
+      <tr><td>UserId: {{userProfile.userId}}</td></tr>
+      <tr> <td> UserName: {{userProfile.userName}}</td> </tr>
+      <tr>  <td> Provider: {{userProfile.provider}}  </td></tr>
     </tr>
     </tbody>
   </table>
