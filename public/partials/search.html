@@ -2,14 +2,17 @@
   <form name="myForm"> 
     Enter Github Id: 
     <input type="text" name= "user_id"  ng-model="username" required></input><br/>
-    <button ng-disabled="myForm.$invalid"  ng-click="getUser()">Search</button><br/>
+    <button ng-disabled="myForm.$invalid"  ng-click="getUser()">Search</button><br/></br>
     {{err}}
     <table>
+      <th>Users</th><th>Provider</th>
      <tbody border="1" ng-repeat="n in result">
        <tr ng-repeat="x in n.identities">
            <td> <a ng-href="/user/{{n.id}}/subscriptions">{{x.userName}}</a></td>
-      </tr>
+           <td> {{x.provider}}</td>
+       </tr>
      </tbody>
      </table>
-  </form>
+   </form>
+   </br>
 </div>

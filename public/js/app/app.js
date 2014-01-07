@@ -3,12 +3,12 @@
 // template for follow up with angular
 
 var angSpa = angular.module('angSpa', ['ngRoute','ngCookies']);
-angSpa.constant('App_Name','Ops Dashboard');
+angSpa.constant('RUN_MODE','dev');
 angSpa.config(function($routeProvider, $locationProvider){
   $routeProvider.
-    when('/', {
+    when('/users', {
       templateUrl: '/partials/search.html',
-      controller: 'homeController'
+      controller: 'userController'
     }).
     when('/user/:accountId/subscriptions',
       {

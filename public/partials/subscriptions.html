@@ -1,8 +1,8 @@
 <div>
   <table ng-repeat="user in result"> 
     <tbody ng-repeat="identity in user.identities">
-      <tr>  <td> User Id: {{user.id}}  </td></tr>
       <tr> <td> UserName: {{identity.userName}}</td> </tr>
+      <tr>  <td> Provider: {{identity.provider}}  </td></tr>
     </tr>
     </tbody>
   </table>

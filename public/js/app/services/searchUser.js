@@ -1,9 +1,9 @@
-angSpa.factory('searchUser',function($http,App_Name){
+angSpa.factory('searchUser',function($http,RUN_MODE){
    var SearchUser = function(){
    var data1= "";
    } 
-   SearchUser.prototype.getUsers = function(name,cookie,done){
-    if(App_Name=="Ops Dashboard")
+   SearchUser.prototype.getUsers = function(githubId,token,done){
+    if(RUN_MODE=="dev")
      {
         var exp= [{
             id: "123456", // The Shippable account id
@@ -24,7 +24,7 @@ angSpa.factory('searchUser',function($http,App_Name){
      }
    else
     {
-      $http({method: 'GET', url: 'http://mw.shippable.com/accounts/search/'+name,headers : {Authorization:'token'+ cookie}}).
+      $http({method: 'GET', url: 'http://mw.shippable.com/accounts/search/'+githubId,headers : {Authorization:'token'+ token}}).
        success(function(data, status, headers, config) {
        done(null,data);
         }).

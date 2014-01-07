@@ -1,8 +1,8 @@
-angSpa.factory('getUserProfile',function($http,App_Name){
+angSpa.factory('getUserProfile',function($http,RUN_MODE){
      var GetProfile = function(){
         };
-     GetProfile.prototype.getProfile = function(id,cookie,done){
-     if(App_Name=="Ops Dashboard")
+     GetProfile.prototype.getProfile = function(id,token,done){
+     if(RUN_MODE=="dev")
        {
          var data= [{
               id: "123456",
@@ -23,7 +23,7 @@ angSpa.factory('getUserProfile',function($http,App_Name){
        }
      else
       {
-        $http({method: 'GET', url: 'http://mw.shippable.com/accounts/'+id,headers : {Authorization: 'token' + cookie}}).
+        $http({method: 'GET', url: 'http://mw.shippable.com/accounts/'+id,headers : {Authorization: 'token' + token}}).
         success(function(data, status, headers, config) {
           done(null,data);
         }).
