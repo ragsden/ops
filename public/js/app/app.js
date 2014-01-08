@@ -22,6 +22,12 @@ angSpa.config(function($routeProvider, $locationProvider){
     otherwise({
       redirectTo: '/'
     });
+    angSpa.run(['$httpProvider','$cookieStore',function($httpProvider,$cookieStore) {
+      var token = $cookieStore.get(config.shippableTokenIdentifier);
+      $httpProvider.defaults.headers.common['Authorization']='token ' + token;
+      $http.defaults.headers.common['Content-Type']='application/json;charset=utf8';
+  
+    }]);
     
   $locationProvider.html5Mode(true);
 });

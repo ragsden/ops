@@ -4,10 +4,11 @@
 //sample controller
 
 
-angular.module('angSpa').controller('containerController',['$scope','$http','$routeParams','$cookieStore','ContainerService',
-	function($scope, $http,$routeParams,$cookieStore,containerService) 
+angular.module('angSpa').controller('containerController',['$scope','$http','$routeParams',
+	'NodeService',
+	function($scope, $http,$routeParams,nodeService) 
 	{
-	if(config.runMode === 'TEST') {
+		if(JSON.stringify(config.runMode).toLowerCase() == 'test') {
 		console.log('test mode');
 		$scope.nodes = [
 			{ 
@@ -37,61 +38,26 @@ angular.module('angSpa').controller('containerController',['$scope','$http','$ro
   	else {
   		$scope.errors = [];
   		$scope.nodes = [];
-  		
-  		var token = $cookieStore.get(config.shippableTokenIdentifier);
-  		token = "x";
-  		if(!token) {
-  			console.log('No cookie found');
-  			$scope.errors.push('Not a authenticated user');
-  		}
-  		else 
-  		{
-  			//Make $http call to get some real data..
-  			console.log('Hitting middleware ' + config.MW_URL);
   			
-			containerService.getContainerInfo($routeParams.subscriptionId,token,function(profileData) {
-				$scope.nodes =  profileData.nodes;
-				$scope.errors = profileData.errors;
-			});
-  		}
+		nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
+			if(err) {
+				$scope.errors.push('Error getting container information');
+			}
+			else {
+				if(data) {
+					for(var i=0;i<data.length;i++) {
+		  				$scope.nodes.push({ 
+		  					'id' : data[i].id,
+		  					'status' : data[i].status,
+		  					'type' : data[i].type,
+		  					'created': data[i].created,
+		  					'updated' : data[i].updated  
+		  				});
+		  			}
+	  			}
+  			}
+		});
   	}
 
 }]);
 
-angular.module('angSpa').factory('ContainerService',function($http) {
-	var middlewareUrl = config.MW_URL;
-	return {
-
-		getContainerInfo: function(subscriptionId,token,done) {
-			var profileData = {};
-			profileData.nodes = [];
-			profileData.errors=[];
-			var containerInfoUrl = middlewareUrl + "/subscriptions/" + subscriptionId+"/nodes";
-	  		$http(
-	  			{
-	  				method: 'GET', 
-	  				url: containerInfoUrl, 
-	  				headers: {
-	  					'Authorization': 'token ' + token,
-	  					'Content-Type' : 'application/json;charset=utf8'
-	  					 }
-	  			})
-	  		.success(function(data) {
-	  			for(var i=0;i<data.length;i++) {
-	  				profileData.nodes.push({ 
-	  					'id' : data[i].id,
-	  					'status' : data[i].status,
-	  					'type' : data[i].type,
-	  					'created': data[i].created,
-	  					'updated' : data[i].updated  
-	  				});
-	  				done(profileData);
-	  			}
-	  		}).error(function(data) {
-	  			console.log('Error getting subscription information ' + data);
-	  			profileData.errors.push("There was a error getting subscription information");
-	  			done(profileData);
-	  		});
-		}
-	}
-});

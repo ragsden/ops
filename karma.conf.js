@@ -31,7 +31,7 @@ module.exports = function(config) {
             'karma-chrome-launcher',
             'karma-phantomjs-launcher'
         ],
-
+        logLevel: config.LOG_DEBUG,
         junitReporter: {
             outputFile: 'shippable/testresults/unit.xml',
             suite: ''
