@@ -11,7 +11,7 @@ angular.module('angSpa').factory('NodeService',function($http) {
 	  		.success(function(data,status,header,config) {
 	  				done(null,data);
 	  		}).error(function(data,status,headers,config) {
-	  			done(status);
+	  			done(status,data);
 	  		});
 		};
 	};
