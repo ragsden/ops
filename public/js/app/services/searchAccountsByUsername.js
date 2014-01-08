@@ -11,6 +11,9 @@ angSpa.factory('searchAccountsByUsername',function($http){
             identities: [{
                 provider: "github", // `github` or `bitbucket`
                 userName: "swati730", // The user name supplied by the identity provider
+               },{
+                 provider: "bitbucket",
+                 userName: "swati730",
                }]
           },{
             id: "78910", 

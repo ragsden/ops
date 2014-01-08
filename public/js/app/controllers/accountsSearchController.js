@@ -8,13 +8,13 @@ var AccountsSearchController = function($scope,$location,searchAccountsByUsernam
                                  userName:""
                                }]
                       }],
-             githubId:"",
+             loginId:"",
              err: ""
             };
   var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.getAccount = function()
   {
-    searchAccountsByUsername.searchAccounts($scope.accountsModel.githubId,token,function(err,data){
+    searchAccountsByUsername.searchAccounts($scope.accountsModel.loginId,token,function(err,data){
     if(!err)
       {
         $scope.accountsSearchModel.accounts = data;
