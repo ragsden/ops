@@ -8,6 +8,7 @@
     <script src= "/js/app/app.js"></script>
     <script src= "/js/app/controllers/accountsSearchController.js"></script>
     <script src= "/js/app/controllers/accountController.js"></script>
+    <script src= "/js/app/services/nodeservices.js"></script>
     <script src= "/js/app/controllers/subscriptionsController.js"></script>
     <script src= "/js/app/services/searchAccountsByUsername.js"></script>
     <script src= "/js/app/services/getAccountById.js"></script>
@@ -16,7 +17,7 @@
       var config = {
         MW_URL: "<%= config.middleware.endPoint %>",
         runMode: "<%= config.runMode %>",
-        tokenId: "<%= config.shippableTokenIdentifier %>"
+        shippableTokenIdentifier: "<%= config.shippableTokenIdentifier %>"
       }
     </script>
     <title>Shippable: Dashboard-Home</title>
