@@ -8,18 +8,12 @@ exports.index = function(req, res){
 }; 
 exports.home = function(req,res) {
   
-    //if(req.user) 
+    if(req.user) 
     {
-    	console.log('xx  ' + config);
     	res.render('home', { config : config  });
     }
-    //else {
-	//  res.render('index', { title: 'Shippable: Ops-Dashboard' });
-
-    //}
-
-    
-
-  //  res.render('home',{ user: 'Logged in user here..'} );
+    else {
+     res.render('index', { title: 'Shippable: Ops-Dashboard' });
+    }
 
 };

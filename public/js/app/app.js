@@ -15,10 +15,10 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
     }
   }]); 
    
-  $routeProvider.when('/', { templateUrl: '/partials/users.html', controller: 'homeController'}).
-    when('/users/:accountId', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController'}).
+  $routeProvider.when('/accounts', { templateUrl: '/partials/search.html', controller: 'accountsController'}).
+    when('/users/:accountId/subscriptions', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController'}).
     when('/subscriptions/:subscriptionId/containers', { controller: 'containerController', templateUrl: '/partials/containers.html'}).
-    otherwise({ redirectTo: '/' });
+    otherwise({ redirectTo: '/accounts' });
 
   $locationProvider.html5Mode(true);
   }).factory('Auth',['$cookieStore',function ($cookieStore) {
