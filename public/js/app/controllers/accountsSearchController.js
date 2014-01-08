@@ -1,7 +1,7 @@
 'use strict';
 
-var AccountsController = function($scope,$location,searchAccountsByUsername,$cookieStore) {
-  $scope.accountsModel={
+var AccountsSearchController = function($scope,$location,searchAccountsByUsername,$cookieStore) {
+  $scope.accountsSearchModel={
              accounts:[{  id:"",
                           identities:[{
                                  provider:"",
@@ -9,26 +9,30 @@ var AccountsController = function($scope,$location,searchAccountsByUsername,$coo
                                }]
                       }],
              githubId:"",
+             err: ""
             };
-  $scope.err="";
   var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.getAccount = function()
   {
     searchAccountsByUsername.searchAccounts($scope.accountsModel.githubId,token,function(err,data){
     if(!err)
       {
-        $scope.accountsModel.accounts = data;
+        $scope.accountsSearchModel.accounts = data;
       }
    else
      {
-       $scope.err = err;
+       $scope.accountsSearchModel.err = err;
      }
    });
+  }
+  $scope.getAccountById= function(accountId)
+  {
+  $location.path("/accounts/"+accountId);
   }
   $scope.getSubscriptions = function(accountId)
   {
   $location.path("/accounts/"+accountId+"/subscriptions");
   }
 };
-AccountsController.$inject = ["$scope","$location","searchAccountsByUsername","$cookieStore"];
-angSpa.controller("accountsController",AccountsController);
+AccountsSearchController.$inject = ["$scope","$location","searchAccountsByUsername","$cookieStore"];
+angSpa.controller("accountsSearchController",AccountsSearchController);

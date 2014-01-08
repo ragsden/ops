@@ -3,14 +3,14 @@
     Enter Github Id: 
     <input type="text" name= "user_id"  ng-model="accountsModel.githubId" required></input><br/>
     <button ng-disabled="myForm.$invalid"  ng-click="getAccount()">Search</button><br/></br>
-    {{err}}
+    {{accountsSearchModel.err}}
     <table>
       <th>Users</th><th>Provider</th>
-     <tbody ng-repeat="account in accountsModel.accounts" >
+     <tbody ng-repeat="account in accountsSearchModel.accounts" >
        <tr ng-repeat="a in account.identities" ng-if="account.id">
-           <td> <a ng-href="/accounts/{{account.id}}/subscriptions">{{a.userName}}</a></td>
+           <td>{{a.userName}}</td>
            <td> {{a.provider}}</td>
-           <td><button  ng-click="getAccountById()" >Show User Profile</button></td>
+           <td><button  ng-click="getAccountById(account.id)" >Show User Profile</button></td>
            <td><button ng-click="getSubscriptions(account.id)">Show Subscriptions</button></td>
        </tr>
      </tbody>
