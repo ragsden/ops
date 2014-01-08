@@ -6,6 +6,7 @@
     <script src= "/js/lib/angular/angular-sanitize.js"></script>
     <script src= "/js/lib/angular/angular-cookies.js"></script>
     <script src= "/js/app/app.js"></script>
+    <script src= "/js/app/services/nodeservices.js"></script>
     <script src= "/js/app/controllers/accountsController.js"></script>
     <script src= "/js/app/controllers/subscriptionsController.js"></script>
     <script src= "/js/app/services/searchAccountsByUsername.js"></script>
@@ -15,7 +16,7 @@
       var config = {
         MW_URL: "<%= config.middleware.endPoint %>",
         runMode: "<%= config.runMode %>",
-        tokenId: "<%= config.shippableTokenIdentifier %>"
+        shippableTokenIdentifier: "<%= config.shippableTokenIdentifier %>"
       }
     </script>
     <title>Shippable: Dashboard-Home</title>
