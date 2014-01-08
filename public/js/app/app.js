@@ -10,7 +10,7 @@ angSpa.config(function($routeProvider, $locationProvider){
       templateUrl: '/partials/users.html',
       controller: 'homeController'
     }).
-    when('/users/:accountId',
+    when('/users/:accountId/subscriptions',
       {
         templateUrl: '/partials/subscriptions.html',
         controller: 'subscriptionsController'
