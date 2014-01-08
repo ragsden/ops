@@ -1,12 +1,41 @@
 
 'use strict';
 
-//sample controller
+var SubscriptionsController = function($scope,getAccountById,$cookieStore,$routeParams){
+  $scope.subscriptionsModel = {
+    userId : "",
+    userName : "",
+    provider : "",
+    subscriptions:[{
+     }],
+  };
+  
+  var token = $cookieStore.get(config.shippableTokenIdentifier);
+  $scope.init = function(){
+    getAccountById.getAccount($routeParams.accountId,token,function(err,data){
+     if(!err)
+     {
+       $scope.subscriptionsModel.userId = data.id;
+       $scope.subscriptionsModel.userName = data.identities[0].userName;
+       $scope.subscriptionsModel.provider = data.identities[0].provider;
+     }
+     else
+      {
+        $scope.err = err;
+      }
+    });
+  };
+
+$scope.init();
+};
+SubscriptionsController.$inject = ["$scope","getAccountById","$cookieStore","$routeParams"];
+angSpa.controller("subscriptionsController",SubscriptionsController);
 
 
-//angSpa.controller('homeController', ['$scope', '$http','App_Name', function($scope, $http,App_Name){
-  //  $scope.data = 'Some data';
-//}]);
-angular.module('angSpa').controller('subscriptionsController',['$scope',function($scope) {
-  $scope.sub_data = 'Subscriptions data';
-}]);
+
+
+
+
+
+
+

@@ -3,14 +3,13 @@
 // template for follow up with angular
 
 var angSpa = angular.module('angSpa', ['ngRoute','ngCookies']);
-angSpa.constant('App_Name','Ops Dashboard');
 angSpa.config(function($routeProvider, $locationProvider){
   $routeProvider.
-    when('/', {
-      templateUrl: '/partials/users.html',
-      controller: 'homeController'
+    when('/accounts', {
+      templateUrl: '/partials/search.html',
+      controller: 'accountsController'
     }).
-    when('/users/:accountId',
+    when('/accounts/:accountId/subscriptions',
       {
         templateUrl: '/partials/subscriptions.html',
         controller: 'subscriptionsController'
@@ -20,7 +19,7 @@ angSpa.config(function($routeProvider, $locationProvider){
         templateUrl: '/partials/containers.html'
       }).
     otherwise({
-      redirectTo: '/'
+      redirectTo: '/accounts'
     });
     
   $locationProvider.html5Mode(true);
