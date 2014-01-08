@@ -4,12 +4,11 @@
 //sample controller
 
 
-angular.module('angSpa').controller('containerController',['$scope','$http','$routeParams',
+angular.module('angSpa').controller('containerController',['$scope','$routeParams',
 	'NodeService',
-	function($scope, $http,$routeParams,nodeService) 
+	function($scope,$routeParams,nodeService) 
 	{
-		if(JSON.stringify(config.runMode).toLowerCase() == 'test') {
-		console.log('test mode');
+		if(config.runMode.toLowerCase() === "test") {
 		$scope.nodes = [
 			{ 
 				'Id': '2340-3433-5874-6873',

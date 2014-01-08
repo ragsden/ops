@@ -8,7 +8,7 @@ angular.module('angSpa').factory('NodeService',function($http) {
 	  				method: 'GET', 
 	  				url: containerInfoUrl
 	  			})
-	  		.success(function(data) {
+	  		.success(function(data,status,header,config) {
 	  				done(null,data);
 	  		}).error(function(data,status,headers,config) {
 	  			done(status);

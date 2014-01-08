@@ -4,30 +4,36 @@
 
 var angSpa = angular.module('angSpa', ['ngRoute','ngCookies']);
 angSpa.constant('App_Name','Ops Dashboard');
-angSpa.config(function($routeProvider, $locationProvider){
-  $routeProvider.
-    when('/', {
-      templateUrl: '/partials/users.html',
-      controller: 'homeController'
-    }).
-    when('/users/:accountId',
-      {
-        templateUrl: '/partials/subscriptions.html',
-        controller: 'subscriptionsController'
-      }).
-    when('/subscriptions/:subscriptionId/containers',
-      { controller: 'containerController',
-        templateUrl: '/partials/containers.html'
-      }).
-    otherwise({
-      redirectTo: '/'
-    });
-    angSpa.run(['$httpProvider','$cookieStore',function($httpProvider,$cookieStore) {
-      var token = $cookieStore.get(config.shippableTokenIdentifier);
-      $httpProvider.defaults.headers.common['Authorization']='token ' + token;
-      $http.defaults.headers.common['Content-Type']='application/json;charset=utf8';
+angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
   
-    }]);
-    
+  $httpProvider.interceptors.push(['$q', function($q) {
+  return {  
+    request: function(config) { return config || $q.when(config); },
+    requestError: function(rejection) { return $q.reject(rejection); },
+    response: function(response) { return response || $q.when(response); },
+    responseError: function(rejection) {  return $q.reject(rejection); }
+    }
+  }]); 
+   
+  $routeProvider.when('/', { templateUrl: '/partials/users.html', controller: 'homeController'}).
+    when('/users/:accountId', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController'}).
+    when('/subscriptions/:subscriptionId/containers', { controller: 'containerController', templateUrl: '/partials/containers.html'}).
+    otherwise({ redirectTo: '/' });
+
   $locationProvider.html5Mode(true);
-});
+  }).factory('Auth',['$cookieStore',function ($cookieStore) {
+      var _shippableMiddwareAPIToken = { };
+      return {
+          shippableMiddwareAPIToken : _shippableMiddwareAPIToken,
+          get : function() {
+            _shippableMiddwareAPIToken =  $cookieStore.get(config.shippableTokenIdentifier);
+            return _shippableMiddwareAPIToken;
+          } 
+        }
+      }])
+
+  .run(['Auth','$http',function(Auth,$http) {
+      $http.defaults.headers.common['Authorization']='token ' + Auth.get();
+      $http.defaults.headers.common['Content-Type']='application/json;charset=utf8';
+    }]);
+  
