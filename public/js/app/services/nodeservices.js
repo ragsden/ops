@@ -14,6 +14,22 @@ angular.module('angSpa').factory('NodeService',function($http) {
 	  			done(status,data);
 	  		});
 		};
+
+		NodeService.prototype.createNodeForSubscriptionId = function(subscriptionId,nodeType,done) {
+			var nodeCreationUrl = middlewareUrl+"/subscriptions/"+subscriptionId+"/nodes";
+			var postData = { type: nodeType };
+			$http(
+	  			{
+	  				method: 'POST', 
+	  				url: nodeCreationUrl,
+	  				data: postData
+	  			})
+	  		.success(function(data,status,header,config) {
+	  				done(status,data);
+	  		}).error(function(data,status,headers,config) {
+	  			done(status,data);
+	  		});	
+		};
 	};
 	return new NodeService();
 });

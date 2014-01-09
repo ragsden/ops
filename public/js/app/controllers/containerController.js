@@ -5,9 +5,15 @@
 
 
 angular.module('angSpa').controller('containerController',['$scope','$routeParams',
-	'NodeService',
-	function($scope,$routeParams,nodeService) 
+	'NodeService','NodeTypeService',
+	function($scope,$routeParams,nodeService,nodeTypeService) 
 	{
+		//Model
+		$scope.selectedNodeId = "";
+		$scope.nodeTypes = [];
+		$scope.nodes = [];
+		$scope.errorsAndMessages = [];
+
 		if(config.runMode.toLowerCase() === "test") {
 		$scope.nodes = [
 			{ 
@@ -32,15 +38,53 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			}
 		];
-		$scope.errors = [];
+		$scope.errorsAndMessages = [];
+		$scope.nodeTypes = [
+			{ 'id' : '1234-4567-35256','name' : 'Test-1'},
+			{ 'id' : '1234-4567-35256','name' : 'Test-2'}
+		];
+		$scope.selectedNodeId = $scope.nodeTypes[0].id;
+		$scope.addNode = function() {
+			$scope.errorsAndMessages.push('Calling Add for in test mode. Nothing executed');
+		}
 	}
   	else {
-  		$scope.errors = [];
-  		$scope.nodes = [];
+  		$scope.addNode = function() {
+  			nodeService.createNodeForSubscriptionId($routeParams.subscriptionId,$scope.selectedNodeId,
+  				function(err,data) {
+  					if(err) {
+  						if(err === 403) {
+  							$scope.errorsAndMessages.push('Error creating subscription. Node quota expired');
+  						}
+  						else if(err === 202) {
+  							$scope.errorsAndMessages.push('The container has been queued for provisioning');
+  						}
+  					}
+  					else {
+  						$scope.errorsAndMessages.push('No status returned for creating a node for this subscription');
+  					}
+  			});
+  		}
+
+  		nodeTypeService.getAllNodeTypes(function(err,data) {
+  			if(err) {
+  				$scope.errorsAndMessages.push('Error getting node types');
+  			}
+  			else {
+  				if(data) {
+  					for(var x = 0; x<data.length;x++) {
+  						if(x === 0) {
+  							$scope.selectedNodeId = data[x].id;
+  						}
+  						$scope.nodeNames.push({ 'id' : data[x].id, 'name' : data[x].name });
+  					}
+  				}
+  			}
+  		});
   			
 		nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
 			if(err) {
-				$scope.errors.push('Error getting container information');
+				$scope.errorsAndMessages.push('Error getting container information');
 			}
 			else {
 				if(data) {
