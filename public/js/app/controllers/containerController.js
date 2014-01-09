@@ -12,7 +12,7 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
 		$scope.selectedNodeId = "";
 		$scope.nodeTypes = [];
 		$scope.nodes = [];
-		$scope.errors = [];
+		$scope.errorsAndMessages = [];
 
 		if(config.runMode.toLowerCase() === "test") {
 		$scope.nodes = [
@@ -38,14 +38,14 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			}
 		];
-		$scope.errorsandMessages = [];
+		$scope.errorsAndMessages = [];
 		$scope.nodeTypes = [
 			{ 'id' : '1234-4567-35256','name' : 'Test-1'},
 			{ 'id' : '1234-4567-35256','name' : 'Test-2'}
 		];
 		$scope.selectedNodeId = $scope.nodeTypes[0].id;
 		$scope.addNode = function() {
-			$scope.errors.push('Calling Add for in test mode. Nothing executed');
+			$scope.errorsAndMessages.push('Calling Add for in test mode. Nothing executed');
 		}
 	}
   	else {
@@ -54,21 +54,21 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
   				function(err,data) {
   					if(err) {
   						if(err === 403) {
-  							$scope.errors.push('Error creating subscription. Node quota expired');
+  							$scope.errorsAndMessages.push('Error creating subscription. Node quota expired');
   						}
   						else if(err === 202) {
-  							$scope.errors.push('The container has been queued for provisioning');
+  							$scope.errorsAndMessages.push('The container has been queued for provisioning');
   						}
   					}
   					else {
-  						$scope.errors.push('No status returned for creating a node for this subscription');
+  						$scope.errorsAndMessages.push('No status returned for creating a node for this subscription');
   					}
   			});
   		}
 
   		nodeTypeService.getAllNodeTypes(function(err,data) {
   			if(err) {
-  				$scope.errors.push('Error getting node types');
+  				$scope.errorsAndMessages.push('Error getting node types');
   			}
   			else {
   				if(data) {
@@ -84,7 +84,7 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
   			
 		nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
 			if(err) {
-				$scope.errors.push('Error getting container information');
+				$scope.errorsAndMessages.push('Error getting container information');
 			}
 			else {
 				if(data) {
