@@ -51,7 +51,24 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
   	else {
   		$scope.addNode = function() {
   			
-  		}	
+  		}
+
+  		nodeTypeService.getAllNodeTypes(function(err,data) {
+  			if(err) {
+  				$scope.errors.push('Error getting node types');
+  			}
+  			else {
+  				if(data) {
+  					for(var x = 0; x<data.length;x++) {
+  						if(x === 0) {
+  							$scope.selectedNodeId = data[x].id;
+  						}
+  						$scope.nodeNames.push({ 'id' : data[x].id, 'name' : data[x].name });
+  					}
+  				}
+  			}
+  		});
+  			
 		nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
 			if(err) {
 				$scope.errors.push('Error getting container information');
