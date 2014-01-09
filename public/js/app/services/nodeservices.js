@@ -30,6 +30,20 @@ angular.module('angSpa').factory('NodeService',function($http) {
 	  			done(status,data);
 	  		});	
 		};
+
+		NodeService.prototype.deleteNodeById = function(subscriptionId,nodeId,done) {
+			var nodeDeleteUrl = middlewareUrl+"/subscriptions/"+subscriptionId+"/nodes/"+nodeId;
+			$http(
+	  			{
+	  				method: 'DELETE', 
+	  				url: nodeDeleteUrl
+	  			})
+	  		.success(function(data,status,header,config) {
+	  				done(status,data);
+	  		}).error(function(data,status,headers,config) {
+	  			done(status,data);
+	  		});		
+		};
 	};
 	return new NodeService();
 });
