@@ -38,19 +38,32 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			}
 		];
-		$scope.errors = [];
+		$scope.errorsandMessages = [];
 		$scope.nodeTypes = [
 			{ 'id' : '1234-4567-35256','name' : 'Test-1'},
 			{ 'id' : '1234-4567-35256','name' : 'Test-2'}
 		];
 		$scope.selectedNodeId = $scope.nodeTypes[0].id;
 		$scope.addNode = function() {
-
+			$scope.errors.push('Calling Add for in test mode. Nothing executed');
 		}
 	}
   	else {
   		$scope.addNode = function() {
-  			
+  			nodeService.createNodeForSubscriptionId($routeParams.subscriptionId,$scope.selectedNodeId,
+  				function(err,data) {
+  					if(err) {
+  						if(err === 403) {
+  							$scope.errors.push('Error creating subscription. Node quota expired');
+  						}
+  						else if(err === 202) {
+  							$scope.errors.push('The container has been queued for provisioning');
+  						}
+  					}
+  					else {
+  						$scope.errors.push('No status returned for creating a node for this subscription');
+  					}
+  			});
   		}
 
   		nodeTypeService.getAllNodeTypes(function(err,data) {
