@@ -5,12 +5,12 @@
 
 
 angular.module('angSpa').controller('containerController',['$scope','$routeParams',
-	'NodeService',
-	function($scope,$routeParams,nodeService) 
+	'NodeService','NodeTypeService',
+	function($scope,$routeParams,nodeService,nodeTypeService) 
 	{
 		//Model
-		$scope.selectedNodeName = "";
-		$scope.nodeNames = [];
+		$scope.selectedNodeId = "";
+		$scope.nodeTypes = [];
 		$scope.nodes = [];
 		$scope.errors = [];
 
@@ -39,23 +39,19 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
 			}
 		];
 		$scope.errors = [];
-		$scope.nodeNames = [
-			"Test-1" ,
-			"Test-2"
+		$scope.nodeTypes = [
+			{ 'id' : '1234-4567-35256','name' : 'Test-1'},
+			{ 'id' : '1234-4567-35256','name' : 'Test-2'}
 		];
-		$scope.selectedNodeName = $scope.nodeNames[0];
+		$scope.selectedNodeId = $scope.nodeTypes[0].id;
 		$scope.addNode = function() {
 
 		}
 	}
   	else {
-  		$scope.errors = [];
-  		$scope.nodes = [];
-
   		$scope.addNode = function() {
   			
-  		}
-  			
+  		}	
 		nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
 			if(err) {
 				$scope.errors.push('Error getting container information');
