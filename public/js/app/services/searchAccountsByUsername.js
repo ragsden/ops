@@ -11,6 +11,9 @@ angSpa.factory('searchAccountsByUsername',function($http){
             identities: [{
                 provider: "github", // `github` or `bitbucket`
                 userName: "swati730", // The user name supplied by the identity provider
+               },{
+                 provider: "bitbucket",
+                 userName: "swati730",
                }]
           },{
             id: "78910", 
@@ -25,7 +28,7 @@ angSpa.factory('searchAccountsByUsername',function($http){
      }
    else
     {
-      var serachAccountsUrl = middlewareUrl + "accounts/search" + githubId
+      var searchAccountsUrl = middlewareUrl + "accounts/search" + githubId
       $http({method: 'GET', url: searchAccountsUrl, headers : {Authorization:'token'+ token}}).
        success(function(data, status, headers, config) {
        done(null,data);

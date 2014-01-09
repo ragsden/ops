@@ -1,0 +1,12 @@
+<div>
+  <table > 
+    <tbody ng-if="accountModel.userId">
+      <tr><td>UserId: {{accountModel.userId}}</td></tr>
+      <tr> <td> UserName: {{accountModel.userName}}</td> </tr>
+      <tr>  <td> Provider: {{accountModel.provider}}  </td></tr>
+    </tr>
+    </tbody>
+  </table>
+  {{accountModel.err}}
+  </br></br> <a href="/accounts">Back</a>
+</div>

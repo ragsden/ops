@@ -5,8 +5,8 @@ describe('Testing routes',function() {
 			//console.log($route.routes['/']);
 			var controller = $route.routes['/accounts'].controller;
 			var templateUrl = $route.routes['/accounts'].templateUrl;
-			controller.should.be.equal('accountsController');
-			templateUrl.should.be.equal('/partials/search.html');
+			controller.should.be.equal('accountsSearchController');
+			templateUrl.should.be.equal('/partials/accountsSearch.html');
 		});
 	});
 

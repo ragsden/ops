@@ -3,7 +3,6 @@
 // template for follow up with angular
 
 var angSpa = angular.module('angSpa', ['ngRoute','ngCookies']);
-angSpa.constant('App_Name','Ops Dashboard');
 angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
   
   $httpProvider.interceptors.push(['$q', function($q) {
@@ -15,8 +14,9 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
     }
   }]); 
    
-  $routeProvider.when('/accounts', { templateUrl: '/partials/search.html', controller: 'accountsController'}).
-    when('/accounts/:accountId/subscriptions', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController'}).
+  $routeProvider.when('/accounts', { templateUrl: '/partials/accountsSearch.html', controller: 'accountsSearchController'}).
+  when('/accounts/:accountId',{templateUrl: '/partials/account.html', controller: 'accountController'}).  
+  when('/accounts/:accountId/subscriptions', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController'}).
     when('/subscriptions/:subscriptionId/nodes', { controller: 'nodesController', templateUrl: '/partials/nodes.html'}).
     otherwise({ redirectTo: '/accounts' });
 

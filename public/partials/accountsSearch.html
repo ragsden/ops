@@ -1,0 +1,32 @@
+<div>
+  <form name="myForm"> 
+    Enter Github Id: 
+    <input type="text" name= "user_id"  ng-model="accountsModel.loginId" required></input><br/>
+    <button ng-disabled="myForm.$invalid"  ng-click="getAccount()">Search</button><br/></br>
+    {{accountsSearchModel.err}}
+     <table ng-repeat="account in accountsSearchModel.accounts" ng-if="account.id">
+       <thead> 
+         <th>Account Id</th> 
+         <th>Identities</th>
+         <th>Actions</th>
+       </thead>
+       <tbody>
+         <tr> 
+           <td>{{account.id}}</td>
+           <td> <table>
+                  <tbody ng-repeat="a in account.identities">
+                    <tr>
+                       <td>  {{a.userName}}:{{a.provider}}</td>
+                    </tr>
+                   </tbody>
+                 </table>
+           </td>    
+           <td><button  ng-click="getAccountById(account.id)" >Show Account Profile</button>
+               <button ng-click="getSubscriptions(account.id)">Show Subscriptions</button>
+           </td>
+       </tr>
+     </tbody>
+     </table>
+   </form>
+   </br>
+</div>
