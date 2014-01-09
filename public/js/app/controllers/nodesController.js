@@ -47,8 +47,25 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 		$scope.addNode = function() {
 			$scope.errorsAndMessages.push('Calling Add for in test mode. Nothing executed');
 		}
+		$scope.deleteNode = function(nodeId) {
+			$scope.errorsAndMessages.push('Called node delete in test mode. Nothing executed');
+		}
 	}
   	else {
+  		$scope.deleteNode = function(nodeId) {
+  			nodeService.deleteNodeById($routeParams.subscriptionId,$scope.selectedNodeId,
+  				function(err,data) {
+  					if(err) {
+  						if(err === 202) {
+  							$scope.errorsAndMessages.push('The container has been queued for deprovisioning');
+  						}
+  					}
+  					else {
+  						$scope.errorsAndMessages.push('No status returned for deleting the node ');
+  					}
+  			});
+  		}
+
   		$scope.addNode = function() {
   			nodeService.createNodeForSubscriptionId($routeParams.subscriptionId,$scope.selectedNodeId,
   				function(err,data) {
