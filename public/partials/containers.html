@@ -1,5 +1,6 @@
     <div style="clear:both;">
     	<div style="float:right;">
+            <select ng-model="selectedNodeName" ng-options="nodeName for nodeName in nodeNames"></select>
     		<button ng-click="addNode()">Add</button>
     	</div>
     </div>

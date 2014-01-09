@@ -8,6 +8,12 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
 	'NodeService',
 	function($scope,$routeParams,nodeService) 
 	{
+		//Model
+		$scope.selectedNodeName = "";
+		$scope.nodeNames = [];
+		$scope.nodes = [];
+		$scope.errors = [];
+
 		if(config.runMode.toLowerCase() === "test") {
 		$scope.nodes = [
 			{ 
@@ -33,6 +39,11 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
 			}
 		];
 		$scope.errors = [];
+		$scope.nodeNames = [
+			"Test-1" ,
+			"Test-2"
+		];
+		$scope.selectedNodeName = $scope.nodeNames[0];
 		$scope.addNode = function() {
 
 		}
