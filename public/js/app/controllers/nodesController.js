@@ -53,7 +53,17 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 	}
   	else {
   		$scope.deleteNode = function(nodeId) {
-
+  			nodeService.deleteNodeById($routeParams.subscriptionId,$scope.selectedNodeId,
+  				function(err,data) {
+  					if(err) {
+  						if(err === 202) {
+  							$scope.errorsAndMessages.push('The container has been queued for deprovisioning');
+  						}
+  					}
+  					else {
+  						$scope.errorsAndMessages.push('No status returned for deleting the node ');
+  					}
+  			});
   		}
 
   		$scope.addNode = function() {
