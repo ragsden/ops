@@ -47,8 +47,15 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 		$scope.addNode = function() {
 			$scope.errorsAndMessages.push('Calling Add for in test mode. Nothing executed');
 		}
+		$scope.deleteNode = function(nodeId) {
+			$scope.errorsAndMessages.push('Called node delete in test mode. Nothing executed');
+		}
 	}
   	else {
+  		$scope.deleteNode = function(nodeId) {
+
+  		}
+
   		$scope.addNode = function() {
   			nodeService.createNodeForSubscriptionId($routeParams.subscriptionId,$scope.selectedNodeId,
   				function(err,data) {
