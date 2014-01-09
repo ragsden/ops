@@ -33,10 +33,17 @@ angular.module('angSpa').controller('containerController',['$scope','$routeParam
 			}
 		];
 		$scope.errors = [];
+		$scope.addNode = function() {
+
+		}
 	}
   	else {
   		$scope.errors = [];
   		$scope.nodes = [];
+
+  		$scope.addNode = function() {
+  			
+  		}
   			
 		nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
 			if(err) {
