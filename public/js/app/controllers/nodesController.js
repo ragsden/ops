@@ -4,7 +4,7 @@
 //sample controller
 
 
-angular.module('angSpa').controller('containerController',['$scope','$routeParams',
+angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 	'NodeService','NodeTypeService',
 	function($scope,$routeParams,nodeService,nodeTypeService) 
 	{
