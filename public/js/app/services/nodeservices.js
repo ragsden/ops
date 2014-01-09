@@ -25,7 +25,7 @@ angular.module('angSpa').factory('NodeService',function($http) {
 	  				data: postData
 	  			})
 	  		.success(function(data,status,header,config) {
-	  				done(null,data);
+	  				done(status,data);
 	  		}).error(function(data,status,headers,config) {
 	  			done(status,data);
 	  		});	
