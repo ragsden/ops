@@ -1,6 +1,7 @@
     <div style="clear:both;">
     	<div style="float:right;">
-    		<button>Add</button>
+            <select ng-model="selectedNodeId" ng-options="node.id as node.name for node in nodeTypes"></select>
+    		<button ng-click="addNode()">Add</button>
     	</div>
     </div>
 
@@ -8,7 +9,7 @@
     <div style="clear: both;">
         <table width=100% border="1">
     		<thead>
-                <th>Container Id</th>
+                <th>Node Id</th>
     			<th>Node Status</th>
     			<th>Node Type</th>
     			<th>Created</th>
@@ -22,7 +23,7 @@
                     <td>{{node.type}}</td>
                     <td>{{node.created}}</td>
                     <td>{{node.updated}}</td>
-                    <td><button>Delete</button></td>
+                    <td><button ng-click="deleteNode(node.Id)">Delete</button></td>
                 </tr>
     		</tbody>
     	</table>
@@ -30,7 +31,7 @@
 
     <div style="clear:both;">
         <h4>Errors</h4>
-        <ul ng-repeat = "error in errors">
+        <ul ng-repeat = "error in errorsAndMessages">
             <li>{{error}}</li>
         </ul>
     </div>

@@ -9,10 +9,13 @@
     <script src= "/js/app/controllers/accountsSearchController.js"></script>
     <script src= "/js/app/controllers/accountController.js"></script>
     <script src= "/js/app/services/nodeservices.js"></script>
+    <script src= "/js/app/services/nodetypeService.js"></script>
     <script src= "/js/app/controllers/subscriptionsController.js"></script>
     <script src= "/js/app/services/searchAccountsByUsername.js"></script>
     <script src= "/js/app/services/getAccountById.js"></script>
-    <script src= "/js/app/controllers/containerController.js"></script>
+    <script src= "/js/app/services/getSubscriptionsByAccountId.js"></script>
+    <script src= "/js/app/services/getSubscriptionPlanByPlanId.js"></script>
+    <script src= "/js/app/controllers/nodesController.js"></script>
     <script>
       var config = {
         MW_URL: "<%= config.middleware.endPoint %>",
@@ -24,7 +27,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <a href="/logout">Logout</a>
+    <a href="/logout" target="_self">Logout</a>
     <div ng-view>
       
     </div>

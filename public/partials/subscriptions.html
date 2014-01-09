@@ -2,9 +2,43 @@
   <table > 
     <tbody >
       <tr><td>UserId: {{subscriptionsModel.userId}}</td></tr>
-      <tr> <td> UserName: {{subscriptionsModel.userName}}</td> </tr>
-      <tr>  <td> Provider: {{subscriptionsModel.provider}}  </td></tr>
+      <tr><td>UserName: {{subscriptionsModel.userName}}</td></tr>
+      <tr><td>Provider: {{subscriptionsModel.provider}}</td></tr>
     </tr>
     </tbody>
   </table>
 </div>
+
+<p>Subscriptions information overview </p>
+<table border="1">
+  <tr>
+    <th>Subscription Name</th>
+    <th>Options</th>
+  </tr>
+ 
+  <tr ng-repeat="s in subscriptionsModel.subscriptions">
+    <td>{{s.name}}</td>
+    <td>
+      <button ng-click="getToNodesOnSubId(s.id)">Manage Nodes</button>
+      <button>Jobs</button>
+      <button>Delete</button>
+    </td>
+  </tr>
+</table>
+
+<p>Errors </p>
+<ul>
+  <li ng-repeat="error in errors">{{error}}</li>
+  
+</ul>
+
+
+
+
+
+
+
+
+
+
+
