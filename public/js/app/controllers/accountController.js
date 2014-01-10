@@ -1,20 +1,29 @@
 
 var AccountController = function($scope,$location,getAccountById,$cookieStore,$routeParams) {
   $scope.accountModel={
-                 userId : "",
-                 userName : "",
-                 provider : "",
-                 err : "",
-                      };
+                 id: "",
+                 avatarId: "",
+                 avatarUrl: "",
+                 systemRole: [""], 
+                 identities: [{
+                      providerId: "", 
+                      firstName: "" ,
+                      lastName: "",
+                      userName: "",
+                      displayName: "",
+                      avatarUrl: "",
+                      avatarId: "",
+                      provider: ""  
+                   }],
+                err : "",
+              };
   var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.getAccount = function()
   {
     getAccountById.getAccount($routeParams.accountId,token,function(err,data){
      if(!err)
      {
-       $scope.accountModel.userId = data.id;
-       $scope.accountModel.userName = data.identities[0].userName;
-       $scope.accountModel.provider = data.identities[0].provider;
+       $scope.accountModel = data;
      }
      else
       {

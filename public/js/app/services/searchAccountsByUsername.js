@@ -22,14 +22,12 @@ angSpa.factory('searchAccountsByUsername',function($http){
                 userName: "swatigoyal", 
                }]
           }]
-          //  var data1="Error";
-          //  done(data1);    //To test error condition
         done(null,exp);
      }
    else
     {
-      var searchAccountsUrl = middlewareUrl + "accounts/search" + githubId
-      $http({method: 'GET', url: searchAccountsUrl, headers : {Authorization:'token'+ token}}).
+      var searchAccountsUrl = middlewareUrl + "accounts/search" + githubId;
+      $http({method: 'GET', url: searchAccountsUrl}).
        success(function(data, status, headers, config) {
        done(null,data);
         }).
