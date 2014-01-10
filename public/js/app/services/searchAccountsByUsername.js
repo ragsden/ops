@@ -29,7 +29,7 @@ angSpa.factory('searchAccountsByUsername',function($http){
    else
     {
       var searchAccountsUrl = middlewareUrl + "accounts/search" + githubId
-      $http({method: 'GET', url: searchAccountsUrl, headers : {Authorization:'token'+ token}}).
+      $http({method: 'GET', url: searchAccountsUrl}).
        success(function(data, status, headers, config) {
        done(null,data);
         }).

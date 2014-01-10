@@ -24,9 +24,6 @@ var AccountController = function($scope,$location,getAccountById,$cookieStore,$r
      if(!err)
      {
        $scope.accountModel = data;
-     //  $scope.accountModel.userId = data.id;
-     //  $scope.accountModel.userName = data.identities[0].userName;
-     //  $scope.accountModel.provider = data.identities[0].provider;
      }
      else
       {
