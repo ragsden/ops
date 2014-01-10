@@ -100,6 +100,9 @@ function runapp() {
 
 
           app.get('/',routes.home);
+          app.get('/accounts',function(req,res) {
+              res.render('home', { config : config  });
+          });
           app.get('/logout', function(req, res){
               req.logout();
               res.cookie(config.shippableTokenIdentifier,'');
@@ -110,9 +113,8 @@ function runapp() {
           app.get('/auth/github/callback',
                   passport.authenticate('github',{ failureRedirect: '/' }),
                   function(req,res) {
-                      console.log('here');
-                      res.cookie(config.shippableTokenIdentifier,req.user.token);
-                      res.redirect('/home');
+                      res.cookie(config.shippableTokenIdentifier,JSON.stringify(req.user.token));
+                      res.redirect('/accounts');
                   }
                   );
           app.use(function(req, res, next){

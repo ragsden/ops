@@ -12,36 +12,32 @@ passport.deserializeUser(function(Id,done) {
 	done(null,Id);
 });
 
-function getShippableToken(accessToken,done) {
+function getShippableToken(_accessToken,done) {
 
 	var postData = {
-                          provider:'github',
-                          accessToken: {
-                          	token: accessToken
-                          }
-                        };
-                        var d = qs.stringify(postData);
-         request.post({
-                          url: config.middleware.endPoint + "/accounts/tokens",
-                          body: d,
-                          headers: {
-                            'Content-Type': 'application/json;charset=utf-8',
-                            'Content-Length' : d.length
-                          }
-                        }, function(err, res, data){
-                          //console.log(data);
-                          if (err) {
-                            console.log(err);
-                            done(err);
-                          } else if (res.statusCode > 200) {
-                            done(new Error("Status code: "+ res.statusCode),null);
-                          } else if (data === "Not found.") {
-                            done(new Error("Undefined."),null);
-                          } else {
-                            data = JSON.parse(data);
-                            return done(null,{ token: data.token });
-                          }
-                        });
+      provider: "github",
+      accessToken: {
+        token: _accessToken
+      }
+    };
+    request({
+      method: "POST",
+      url: config.middleware.endPoint + "/accounts/tokens",
+      json: postData
+    }, function(err, res, data){
+      if (err) {
+        console.log(err);
+        done(err);
+      } else if (res.statusCode > 200) {
+        done(new Error("Status code: "+ res.statusCode),null);
+      } else if (data === "Not found.") {
+        console.log('err');
+        done(new Error("Undefined."),null);
+      } else {
+        console.log('all is well');
+        return done(null,data);
+      }
+    });
 }
 
 function getGithubStrategy() {

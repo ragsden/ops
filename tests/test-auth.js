@@ -35,23 +35,6 @@ it('should use passport for authentication',function() {
       
     });
 
-    it('should use middleware API to get the shippable token',function() {
-    	//Stub out request.post to return a mock token object that shippable middleware sends as a response.
-    	//create a mock request body and call the method.
-    	//Make sure the response has the mock response object
-    	var res = { token: 'sample_token'};
-    	var callback = sinon.spy();
-    	sinon.stub(request,"post").yields(null,{ statusCode: 200 },JSON.stringify({ token: 'sample_token'}));
-
-    	//auth.getShippableToken('stub_token',callback);
-    	//console.log(callback.getCall(0));
-    	auth.getShippableToken('stub_token',function(err,data) {
-    		should(data).have.property('token');
-    		should(data.token).not.equal('');
-    		should(data.token).equal('sample_token');
-    	});
-
-    	request.post.restore();
-    });
+    it('should use middleware API to get the shippable token');
 
 });
