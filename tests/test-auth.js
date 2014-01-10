@@ -41,7 +41,7 @@ it('should use passport for authentication',function() {
     	//Make sure the response has the mock response object
     	var res = { token: 'sample_token'};
     	var callback = sinon.spy();
-    	sinon.stub(request,"post").yields(null,{ statusCode: 200 },JSON.stringify({ token: 'sample_token'}));
+    	sinon.stub(request,"post").yields(null,{ statusCode: 200 },res);
 
     	//auth.getShippableToken('stub_token',callback);
     	//console.log(callback.getCall(0));
