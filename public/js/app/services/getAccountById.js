@@ -18,6 +18,15 @@ angSpa.factory('getAccountById',function($http){
                  avatarUrl: "YYY",
                  avatarId: "XXX",
                  provider: "github"  // `github` or `bitbucket`
+              },{ 
+                 providerId: "2",
+                 firstName: "A",
+                 lastName: "B",
+                 userName: "ABCD",
+                 displayName: "D",
+                 avatarUrl: "WWW",
+                 avatarId: "AAA",
+                 provider: "bitbucket"  // `github` or `bitbucket`
                }]
           };
          done(null,data);
