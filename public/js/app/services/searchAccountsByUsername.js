@@ -3,7 +3,7 @@ angSpa.factory('searchAccountsByUsername',function($http){
   var SearchAccounts = function(){
    var data1= "";
    } 
-   SearchAccounts.prototype.searchAccounts = function(githubId,token,done){
+   SearchAccounts.prototype.searchAccounts = function(githubId,done){
     if(config.runMode=="TEST")
      {
         var exp= [{
@@ -26,15 +26,13 @@ angSpa.factory('searchAccountsByUsername',function($http){
      }
    else
     {
-      var searchAccountsUrl = middlewareUrl + "accounts/search" + githubId;
+      var searchAccountsUrl = middlewareUrl + "/accounts/search" + githubId;
       $http({method: 'GET', url: searchAccountsUrl}).
-       success(function(data, status, headers, config) {
-       done(null,data);
-        }).
-       error(function(data, status, headers, config) {
-       var data1="You entered a wrong id!"
-         done(data1);
-       });
+      success(function(data,status,header,config) {
+            done(status,data);
+        }).error(function(data,status,headers,config) {
+          done(status,data);
+        }); 
     };
  };
    return new SearchAccounts();

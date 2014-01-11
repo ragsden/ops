@@ -11,18 +11,19 @@ var AccountsSearchController = function($scope,$location,searchAccountsByUsernam
              loginId:"",
              err: ""
             };
-  var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.getAccount = function()
   {
-    searchAccountsByUsername.searchAccounts($scope.accountsSearchModel.loginId,token,function(err,data){
-    if(!err)
-      {
-        $scope.accountsSearchModel.accounts = data;
+    searchAccountsByUsername.searchAccounts($scope.accountsSearchModel.loginId,function(err,data){
+      console.log(err);
+      if(err === 401) {
+                $scope.accountsSearchModel.err = 'You are not allowed to use this feature.';
       }
-   else
-     {
-       $scope.accountsSearchModel.err = err;
-     }
+      else if(err === 404) {
+                $scope.accountsSearchModel.err = 'The requested user was not found';
+      }
+      else if (!err) {
+       $scope.accountsSearchModel.accounts = data; 
+      }
    });
   }
   $scope.getAccountById= function(accountId)
