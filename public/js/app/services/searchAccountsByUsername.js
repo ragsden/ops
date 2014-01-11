@@ -32,8 +32,15 @@ angSpa.factory('searchAccountsByUsername',function($http){
        done(null,data);
         }).
        error(function(data, status, headers, config) {
-       var data1="You entered a wrong id!"
-         done(data1);
+         if(status === 401) {
+          done('You are not authorized to view this data');
+         }
+         else if(status === 404) {
+          done('No user Id found. ' + data);
+         }
+         else { 
+          done(data);
+        }
        });
     };
  };
