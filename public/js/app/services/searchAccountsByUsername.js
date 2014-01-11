@@ -3,7 +3,7 @@ angSpa.factory('searchAccountsByUsername',function($http){
   var SearchAccounts = function(){
    var data1= "";
    } 
-   SearchAccounts.prototype.searchAccounts = function(githubId,token,done){
+   SearchAccounts.prototype.searchAccounts = function(githubId,done){
     if(config.runMode=="TEST")
      {
         var exp= [{
@@ -28,20 +28,11 @@ angSpa.factory('searchAccountsByUsername',function($http){
     {
       var searchAccountsUrl = middlewareUrl + "/accounts/search" + githubId;
       $http({method: 'GET', url: searchAccountsUrl}).
-       success(function(data, status, headers, config) {
-       done(null,data);
-        }).
-       error(function(data, status, headers, config) {
-         if(status === 401) {
-          done('You are not authorized to view this data');
-         }
-         else if(status === 404) {
-          done('No user Id found. ' + data);
-         }
-         else { 
-          done(data);
-        }
-       });
+      success(function(data,status,header,config) {
+            done(status,data);
+        }).error(function(data,status,headers,config) {
+          done(status,data);
+        }); 
     };
  };
    return new SearchAccounts();
