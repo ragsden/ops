@@ -4,7 +4,6 @@ var config = require('./config');
 var request = require('request');
 var qs = require('qs');
 passport.serializeUser(function(Id,done) {
-  console.log(Id);
   done(null,Id);
 });
 
