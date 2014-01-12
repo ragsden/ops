@@ -15,6 +15,7 @@ module.exports = function(config) {
             'public/js/lib/angular/*.min.js',
             'public/js/lib/angular/angular-scenario.js'
         ],
+        preprocessors : { 'public/js/app/**/*.js' : 'coverage' },
 
         autoWatch: false,
         singleRun: true,
@@ -26,6 +27,7 @@ module.exports = function(config) {
         plugins: [
             'karma-junit-reporter',
             'karma-jasmine',
+            'karma-coverage',
             'karma-ng-scenario',
             'karma-chrome-launcher',
             'karma-phantomjs-launcher'
@@ -34,6 +36,13 @@ module.exports = function(config) {
         junitReporter: {
             outputFile: 'shippable/testresults/unit.xml',
             suite: ''
+        },
+
+        reporters : ['progress','coverage'],
+        coverageReporter : {
+            type:'cobertura',
+            dir: 'shippable/codecoverage/',
+            file: 'angular_coverage.xml'
         }
 
     })
