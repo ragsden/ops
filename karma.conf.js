@@ -38,7 +38,7 @@ module.exports = function(config) {
             suite: ''
         },
 
-        reporters : ['progress','coverage'],
+        reporters : ['progress','coverage','junit'],
         coverageReporter : {
             type:'cobertura',
             dir: 'shippable/codecoverage/',
