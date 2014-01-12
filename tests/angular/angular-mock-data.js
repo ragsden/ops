@@ -3,7 +3,7 @@ This file contains all the test data used by the tests.
 */
 var config = {
         MW_URL: "http://www.example.com",
-        runMode: "test",
+        runMode: "",
         shippableTokenIdentifier: "ops.shippable.com:token"
       }
       var testData = { 
@@ -18,6 +18,10 @@ var config = {
       					'updated': ''
       				 }
       				 ],
-      			'negativesubscriptionNodesGETParameter': [ ]
+      			'negativesubscriptionNodesGETParameter': [ ],
+            'nodeTypesGET': [
+              { 'id' : '707f4f77bcf86cd799439012','name' : 'Test-1'},
+              { 'id' : '127f1f77bcf86cd799439012','name' : 'Test-2'}
+            ]
       }
 

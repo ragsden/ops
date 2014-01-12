@@ -82,8 +82,9 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
   					}
   			});
   		}
-
+  		console.log('inside controller ' + $routeParams.subscriptionId);	
   		nodeTypeService.getAllNodeTypes(function(err,data) {
+  			console.log('node type ' + data);
   			if(err) {
   				$scope.errorsAndMessages.push('Error getting node types');
   			}
@@ -93,13 +94,13 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
   						if(x === 0) {
   							$scope.selectedNodeId = data[x].id;
   						}
-  						$scope.nodeNames.push({ 'id' : data[x].id, 'name' : data[x].name });
+  						$scope.nodeTypes.push({ 'id' : data[x].id, 'name' : data[x].name });
   					}
   				}
   			}
   		});
-  			
-		nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
+  		nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
+			console.log('data ' + data);
 			if(err) {
 				$scope.errorsAndMessages.push('Error getting container information');
 			}
