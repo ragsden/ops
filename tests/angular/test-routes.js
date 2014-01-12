@@ -5,8 +5,10 @@ describe('Testing routes',function() {
 			//console.log($route.routes['/']);
 			var controller = $route.routes['/accounts'].controller;
 			var templateUrl = $route.routes['/accounts'].templateUrl;
-			controller.should.be.equal('accountsSearchController');
-			templateUrl.should.be.equal('/partials/accountsSearch.html');
+			expect(controller).toEqual('accountsSearchController');
+			expect(templateUrl).toEqual('/partials/accountsSearch.html');
+			//controller.should.be.equal('accountsSearchController');
+			//templateUrl.should.be.equal('/partials/accountsSearch.html');
 		});
 	});
 
@@ -15,10 +17,8 @@ describe('Testing routes',function() {
 		inject(function($route) {
 			var controller = $route.routes['/subscriptions/:subscriptionId/nodes'].controller;
 			var templateUrl = $route.routes['/subscriptions/:subscriptionId/nodes'].templateUrl;
-
-			controller.should.be.equal('nodesController');
-			templateUrl.should.be.equal('/partials/nodes.html');
-
+			expect(controller).toEqual('nodesController');
+			expect(templateUrl).toEqual('/partials/nodes.html');
 		});
 	})
 });

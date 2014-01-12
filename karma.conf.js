@@ -5,10 +5,9 @@ module.exports = function(config) {
         files: [
             'public/js/lib/angular/angular.js',
             'public/js/lib/angular/angular-*.js',
-            'public/js/app/**/*.js',
             'public/js/lib/angular/angular-mocks.js',
-            'tests/angular/**/*.js',
-            'node_modules/should/should.js'
+            'public/js/app/**/*.js',
+            'tests/angular/**/*.js'
         ],
 
         exclude: [
@@ -20,13 +19,13 @@ module.exports = function(config) {
         autoWatch: false,
         singleRun: true,
 
-        frameworks: ['mocha'],
+        frameworks: ['jasmine'],
 
         browsers: ['PhantomJS'],
 
         plugins: [
             'karma-junit-reporter',
-            'karma-mocha',
+            'karma-jasmine',
             'karma-ng-scenario',
             'karma-chrome-launcher',
             'karma-phantomjs-launcher'
