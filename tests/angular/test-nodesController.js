@@ -1,3 +1,4 @@
+//Testing controllers... 
 describe('NodesController',function() {
 	var ctrlScope;
 	var nodeService;
@@ -7,36 +8,43 @@ describe('NodesController',function() {
 	var httpBackend;
 	beforeEach(function() {
 		module('angSpa');
-
+		//Need to inject all required dependencies to setup the test
 		inject(function($rootScope,$httpBackend,$routeParams,$controller,NodeService,NodeTypeService) {
-		ctrlScope = $rootScope.$new();
-		nodeService = NodeService;
-		nodeTypeService = NodeTypeService;
-		routeParams = $routeParams;
-		httpBackend = $httpBackend;
-		var spy = spyOn(nodeService,'getNodesBySubscriptionId').andCallThrough();
-		spyOn(nodeTypeService,'getAllNodeTypes').andCallThrough();
+			//Create a new scope so that we can inspect the controller's $scope.
+			ctrlScope = $rootScope.$new();
+			nodeService = NodeService;
+			nodeTypeService = NodeTypeService;
+			routeParams = $routeParams;
+			httpBackend = $httpBackend;
 
-		routeParams.subscriptionId = testData.subscriptionNodesGETParameter;
+			//spy on the service API calls, and monitor them, but let them execute.
+			//We just want to check if they are used in the controller
+			spyOn(nodeService,'getNodesBySubscriptionId').andCallThrough();
+			spyOn(nodeService,'createNodeForSubscriptionId').andCallThrough();
+			spyOn(nodeTypeService,'getAllNodeTypes').andCallThrough();
+			
 
+			routeParams.subscriptionId = testData.subscriptionNodesGETParameter;
 
-		httpBackend.expect('GET',config.MW_URL+'/nodetypes')
-				.respond(200,testData.nodeTypesGET);
+			//Since the controller calls these APIs we expect to get some data back
+			//The services actually mock out the backend service, here we just want to check
+			//the API call and its output.
+			httpBackend.expect('GET',config.MW_URL+'/nodetypes')
+					.respond(200,testData.nodeTypesGET);
+			httpBackend.expect('GET',config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes')
+					.respond(200,testData.subscriptionNodesGET);
 
-		httpBackend.expect('GET',config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes')
-				.respond(200,testData.subscriptionNodesGET);
+			//create the controller. The parameters are the same as used in the actual controller.
+			ctrl = $controller('nodesController',
+				{
+					$scope: ctrlScope, 
+					$routeParams:routeParams,
+					NodeService:nodeService,
+					NodeTypeService: nodeTypeService }
+					)	;
 
-		
-		ctrl = $controller('nodesController',
-			{
-				$scope: ctrlScope, 
-				$routeParams:routeParams,
-				NodeService:nodeService,
-				NodeTypeService: nodeTypeService }
-				)	;
-
-		
-		});
+			
+			});
 	});
 	
 	it('should call getNodesBySubscriptionId and getAllNodeTypes when the controller is created',function() {
@@ -44,5 +52,23 @@ describe('NodesController',function() {
 		expect(nodeService.getNodesBySubscriptionId).toHaveBeenCalled();
 		
 		httpBackend.flush();
+
+		expect(ctrlScope.nodes.length).toBe(1);
+		expect(ctrlScope.nodeTypes.length).toBe(2);
+		//console.log('Sel ' +ctrlScope.selectedNodeId);
+		//Can add more checks here to validate if test data is assigned in the controller's scope
+	});
+
+	it('should call createNodeForSubscriptionId of nodeService',function() {
+		//Positive Test: If this POST gets called, we expect a 200 response.
+		httpBackend.expectPOST(config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes', { type : ''})
+			.respond(202);
+		ctrlScope.addNode();
+		httpBackend.flush();
+		expect(nodeService.createNodeForSubscriptionId).toHaveBeenCalled();
+		//After httpBackend is flushed, based on the we should have data in the ctrlScope
+		//We just check here if the correct status has been checked.
+		expect(ctrlScope.errorsAndMessages[0]).toBe('The container has been queued for provisioning');
+
 	});
 });
