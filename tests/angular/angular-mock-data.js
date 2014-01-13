@@ -26,8 +26,10 @@ var config = {
             'createNodePOST' : { 'type' : '707f4f77bcf86cd799439012' },
             'createNodePOSTNegative' : { 'type' : '707f4f77bcf86cd799439012' },
       
-          //subscriptionsPage test-data
-          'subscriptions': 
+          //subscriptionsPage subscriptions:test-data
+          'accountIdGETParam': '1234567890qwertyuiop',
+          'negAccountIdGETParam': '1234567890qwertyuiop',
+          'subscriptionsGET': 
               [{
                   id: '123f1f77bcf86cd799439011',
                   name: 'Free Plan',
@@ -38,15 +40,20 @@ var config = {
                   created: '2013-Dec-01 13:54 PM (PST)',
                   updated: '2014-Jan-03 22:54 PM (PST)'
               }],
-
-          'plan': 
+          'negSubscriptionsGET': [ ],
+          
+          //subscriptionsPage plan:test-data
+          'planGETParam': '0000000000000000000000000000000X',
+          'negPlanGETParam': '0000000000000000000000000000000X',
+          'planGET': 
               {
                 id: '0000000000000000000000000000000X',
                 name: 'Free',
                 containerQuota: 1,
                 privateProjectsQuota: 1,
                 storageGigaBytesQuota: 1
-              }
+              },
+           'negPlanGET': {}
       
       }
 
