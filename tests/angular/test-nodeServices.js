@@ -18,7 +18,12 @@ describe('Nodes Page',function() {
 				.respond(202,testData.createNodePOST);
 
 				httpBackend.when('POST',config.MW_URL+'/subscriptions/'+testData.negativesubscriptionNodesGETParameter+'/nodes')
-				.respond(403,testData.createNodePOST);
+				.respond(403,{});
+
+				httpBackend.when('DELETE',
+					config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes/'+testData.subscriptionNodesGET[0].id)
+				.respond(202,{});
+
 
 				nodeService = NodeService;
 				bootstrapped = true;
@@ -58,7 +63,6 @@ describe('Nodes Page',function() {
 			});
 
 			httpBackend.flush();
-			console.log(status);
 			expect(result).toBe(undefined);
 			expect(status).toBe(404);
 		});
@@ -91,8 +95,20 @@ describe('Nodes Page',function() {
 			expect(status).toBe(403);
 		});
 
-	});
+		it('deletes a node',function() {
+			var status;
+			nodeService.deleteNodeById(
+				testData.subscriptionNodesGETParameter,
+				testData.subscriptionNodesGET[0].id,function(err,data) {
+					status = err;
+				});
 
+			httpBackend.flush();
+			expect(status).toBe(202);
+		});
+
+	});
+	
 	afterEach(function() {
 		httpBackend.verifyNoOutstandingExpectation();
      	httpBackend.verifyNoOutstandingRequest();

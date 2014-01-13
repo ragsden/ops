@@ -21,6 +21,7 @@ describe('NodesController',function() {
 			//We just want to check if they are used in the controller
 			spyOn(nodeService,'getNodesBySubscriptionId').andCallThrough();
 			spyOn(nodeService,'createNodeForSubscriptionId').andCallThrough();
+			spyOn(nodeService,'deleteNodeById').andCallThrough();
 			spyOn(nodeTypeService,'getAllNodeTypes').andCallThrough();
 			
 
@@ -70,5 +71,15 @@ describe('NodesController',function() {
 		//We just check here if the correct status has been checked.
 		expect(ctrlScope.errorsAndMessages[0]).toBe('The container has been queued for provisioning');
 
+	});
+
+	it('should call deleteNode for a container',function() {
+		httpBackend.expectDELETE(
+			config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes/'+testData.subscriptionNodesGET[0].id)
+		.respond(202);
+
+		ctrlScope.deleteNode(testData.subscriptionNodesGET[0].id);
+		httpBackend.flush();
+		expect(nodeService.deleteNodeById).toHaveBeenCalled();
 	});
 });

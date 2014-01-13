@@ -33,7 +33,7 @@ function getShippableToken(_accessToken,done) {
         console.log('err');
         done(new Error("Undefined."),null);
       } else {
-        console.log('all is well');
+        console.log('Shippable Token auth succeeded.');
         return done(null,data);
       }
     });

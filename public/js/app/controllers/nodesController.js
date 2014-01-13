@@ -53,7 +53,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 	}
   	else {
   		$scope.deleteNode = function(nodeId) {
-  			nodeService.deleteNodeById($routeParams.subscriptionId,$scope.selectedNodeId,
+  			nodeService.deleteNodeById($routeParams.subscriptionId,nodeId,
   				function(err,data) {
   					if(err) {
   						if(err === 202) {
@@ -82,9 +82,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
   					}
   			});
   		}
-  		console.log('inside controller ' + $routeParams.subscriptionId);	
   		nodeTypeService.getAllNodeTypes(function(err,data) {
-  			console.log('node type ' + data);
   			if(err) {
   				$scope.errorsAndMessages.push('Error getting node types');
   			}
@@ -100,7 +98,6 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
   			}
   		});
   		nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
-			console.log('data ' + data);
 			if(err) {
 				$scope.errorsAndMessages.push('Error getting container information');
 			}
