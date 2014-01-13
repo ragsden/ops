@@ -20,5 +20,16 @@ describe('Testing routes',function() {
 			expect(controller).toEqual('nodesController');
 			expect(templateUrl).toEqual('/partials/nodes.html');
 		});
-	})
+	});
+
+    it('should check if subscriptionsController URL resolves correctly', function(){
+        module('angSpa');
+        inject(function($route){
+            var controller = $route.routes['/accounts/:accountId/subscriptions'].controller;
+            var templateUrl = $route.routes['/accounts/:accountId/subscriptions'].templateUrl;
+            expect(controller).toEqual('subscriptionsController');
+            expect(templateUrl).toEqual('/partials/subscriptions.html');
+        });
+    });
+
 });
