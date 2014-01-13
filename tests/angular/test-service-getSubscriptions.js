@@ -7,7 +7,6 @@ describe('Testing getSubscriptions service module', function(){
     module('angSpa');
     inject(function($httpBackend, getSubscriptions){
         if(!bootstrapped){
-            console.log('b');
             httpBackend = $httpBackend;
             httpBackend.when('GET', config.MW_URL + '/accounts/' + testData.accountIdGETParam + '/subscriptions')
             .respond(200, testData.subscriptionsGET);
@@ -23,7 +22,6 @@ describe('Testing getSubscriptions service module', function(){
 
   // tests
   it('test- get the subscriptions using accountId', function(){
-    console.log(testData.accountIdGETParam + '  sub  ' + getSubs);
     var subsArray;
     getSubs.getSubscriptionsByAccountId(testData.accountIdGETParam, function(err, data){
         subsArray = data;

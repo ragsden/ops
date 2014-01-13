@@ -49,7 +49,7 @@ var config = {
               {
                 id: '0000000000000000000000000000000X',
                 name: 'Free',
-                containerQuota: 1,
+                nodesQuota: 1,
                 privateProjectsQuota: 1,
                 storageGigaBytesQuota: 1
               },
