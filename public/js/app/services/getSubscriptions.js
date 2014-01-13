@@ -1,8 +1,8 @@
-angSpa.factory('getSubscriptionsByAccountId',function($http){
+angSpa.factory('getSubscriptions',function($http){
  var middlewareUrl = config.MW_URL;
-  var GetSubscriptionsByAccountId = function(){
+  var GetSubscriptions = function(){
         };
-     GetSubscriptionsByAccountId.prototype.getSubscriptions = function(accountId,token,done){
+     GetSubscriptions.prototype.getSubscriptionsByAccountId = function(accountId,token,done){
      if(config.runMode=="TEST")
        {
          var data =  [{
@@ -31,6 +31,6 @@ angSpa.factory('getSubscriptionsByAccountId',function($http){
         });
       }
      };
-   return new GetSubscriptionsByAccountId();
+   return new GetSubscriptions();
 
 });

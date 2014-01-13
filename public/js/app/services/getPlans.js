@@ -1,8 +1,8 @@
-angSpa.factory('getSubscriptionPlanByPlanId',function($http){
+angSpa.factory('getPlans',function($http){
  var middlewareUrl = config.MW_URL;
-  var GetSubscriptionPlanByPlanId = function(){
+  var GetPlans = function(){
         };
-     GetSubscriptionPlanByPlanId.prototype.getSubscriptionPlan = function(planId,token,done){
+     GetPlans.prototype.getPlanByPlanId = function(planId,token,done){
      if(config.runMode=="TEST")
        {
         var data= {
@@ -27,6 +27,6 @@ angSpa.factory('getSubscriptionPlanByPlanId',function($http){
         });
       }
      };
-   return new GetSubscriptionPlanByPlanId();
+   return new GetPlans();
 
 });
