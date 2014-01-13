@@ -1,9 +1,10 @@
 angSpa.factory('getSubscriptions',function($http){
  var middlewareUrl = config.MW_URL;
-  var GetSubscriptions = function(){
-        };
-     GetSubscriptions.prototype.getSubscriptionsByAccountId = function(accountId,token,done){
-     if(config.runMode=="TEST")
+ var getSubscriptions = function(){
+        
+     getSubscriptions.prototype.getSubscriptionsByAccountId = function(accountId, done){
+     console.log('testing');
+       /*if(config.runMode=="TEST")
        {
          var data =  [{
                        id: 'a53535c2-fd39-42b1-9c0e-a27000a3aXXX',
@@ -18,7 +19,7 @@ angSpa.factory('getSubscriptions',function($http){
 
          done(null,data);
        }
-     else
+     else*/
       {
         var subsUrl = middlewareUrl + "/accounts/" + accountId + "/subscriptions";
         $http({ method: 'GET', url: subsUrl}).
@@ -31,6 +32,7 @@ angSpa.factory('getSubscriptions',function($http){
         });
       }
      };
-   return new GetSubscriptions();
+   };
+   return new getSubscriptions();
 
 });

@@ -39,11 +39,11 @@ var SubscriptionsController = function($scope, $location, getAccountById, getSub
       }
     });
 
-    getSubscriptions.getSubscriptionsByAccountId($routeParams.accountId, token, function(err, subsData){
+    getSubscriptions.getSubscriptionsByAccountId($routeParams.accountId, function(err, subsData){
     if(!err){
       for(var i=0; i < subsData.length; i++) {
        
-         getPlans.getPlanByPlanId(subsData[i].plan, token, function(err, planData){
+         getPlans.getPlanByPlanId(subsData[i].plan, function(err, planData){
          if(!err){
              var subscriptionData = new subscriptionDataObject(subsData[i].id, 
                                                                subsData[i].name, 

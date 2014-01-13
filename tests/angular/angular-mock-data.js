@@ -28,7 +28,7 @@ var config = {
       
           //subscriptionsPage subscriptions:test-data
           'accountIdGETParam': '1234567890qwertyuiop',
-          'negAccountIdGETParam': '1234567890qwertyuiop',
+          'negAccountIdGETParam': '1234512345qwertyuiop',
           'subscriptionsGET': 
               [{
                   id: '123f1f77bcf86cd799439011',
@@ -44,7 +44,7 @@ var config = {
           
           //subscriptionsPage plan:test-data
           'planGETParam': '0000000000000000000000000000000X',
-          'negPlanGETParam': '0000000000000000000000000000000X',
+          'negPlanGETParam': '0000000000000000000000000000000Y',
           'planGET': 
               {
                 id: '0000000000000000000000000000000X',

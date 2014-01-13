@@ -2,7 +2,7 @@ angSpa.factory('getPlans',function($http){
  var middlewareUrl = config.MW_URL;
   var GetPlans = function(){
         };
-     GetPlans.prototype.getPlanByPlanId = function(planId,token,done){
+     GetPlans.prototype.getPlanByPlanId = function(planId, done){
      if(config.runMode=="TEST")
        {
         var data= {
