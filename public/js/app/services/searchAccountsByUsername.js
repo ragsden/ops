@@ -1,4 +1,4 @@
-angSpa.factory('searchAccountsByUsername',function($http){
+  angSpa.factory('searchAccountsByUsername',function($http){
   var middlewareUrl = config.MW_URL; 
   var SearchAccounts = function(){
    var data1= "";
@@ -26,7 +26,7 @@ angSpa.factory('searchAccountsByUsername',function($http){
      }
    else
     {
-      var searchAccountsUrl = middlewareUrl + "/accounts/search" + githubId;
+      var searchAccountsUrl = middlewareUrl + "/accounts/search/" + githubId;
       $http({method: 'GET', url: searchAccountsUrl}).
       success(function(data,status,header,config) {
             done(status,data);
