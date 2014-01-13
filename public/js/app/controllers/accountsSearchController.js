@@ -14,14 +14,13 @@ var AccountsSearchController = function($scope,$location,searchAccountsByUsernam
   $scope.getAccount = function()
   {
     searchAccountsByUsername.searchAccounts($scope.accountsSearchModel.loginId,function(err,data){
-      console.log(err);
       if(err === 401) {
                 $scope.accountsSearchModel.err = 'You are not allowed to use this feature.';
       }
       else if(err === 404) {
                 $scope.accountsSearchModel.err = 'The requested user was not found';
       }
-      else if (!err) {
+      else {
        $scope.accountsSearchModel.accounts = data; 
       }
    });
@@ -37,3 +36,4 @@ var AccountsSearchController = function($scope,$location,searchAccountsByUsernam
 };
 AccountsSearchController.$inject = ["$scope","$location","searchAccountsByUsername","$cookieStore"];
 angSpa.controller("accountsSearchController",AccountsSearchController);
+

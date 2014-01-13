@@ -1,17 +1,17 @@
 <div>
   <form name="myForm"> 
     Enter Github Id: 
-    <input type="text" name= "user_id"  ng-model="accountsModel.loginId" required></input><br/>
+    <input type="text" name= "user_id"  ng-model="accountsSearchModel.loginId" required></input><br/>
     <button ng-disabled="myForm.$invalid"  ng-click="getAccount()">Search</button><br/></br>
     {{accountsSearchModel.err}}
-     <table ng-repeat="account in accountsSearchModel.accounts" ng-if="account.id">
+     <table>
        <thead> 
          <th>Account Id</th> 
          <th>Identities</th>
          <th>Actions</th>
        </thead>
        <tbody>
-         <tr> 
+         <tr ng-repeat="account in accountsSearchModel.accounts"> 
            <td>{{account.id}}</td>
            <td> <table>
                   <tbody ng-repeat="a in account.identities">
