@@ -5,7 +5,7 @@ run:
 	mkdir -p $(LOGDIR)
 	supervisor app.js
 
-TESTS = tests/*.js
+TESTS = tests/node/*.js
 TESTDATA = shippable/testresults
 test:
 	mkdir -p $(TESTDATA)

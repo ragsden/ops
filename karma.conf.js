@@ -5,10 +5,9 @@ module.exports = function(config) {
         files: [
             'public/js/lib/angular/angular.js',
             'public/js/lib/angular/angular-*.js',
-            'public/js/app/**/*.js',
             'public/js/lib/angular/angular-mocks.js',
-            'tests/angular/**/*.js',
-            'node_modules/should/should.js'
+            'public/js/app/**/*.js',
+            'tests/angular/**/*.js'
         ],
 
         exclude: [
@@ -16,17 +15,19 @@ module.exports = function(config) {
             'public/js/lib/angular/*.min.js',
             'public/js/lib/angular/angular-scenario.js'
         ],
+        preprocessors : { 'public/js/app/**/*.js' : 'coverage' },
 
         autoWatch: false,
         singleRun: true,
 
-        frameworks: ['mocha'],
+        frameworks: ['jasmine'],
 
         browsers: ['PhantomJS'],
 
         plugins: [
             'karma-junit-reporter',
-            'karma-mocha',
+            'karma-jasmine',
+            'karma-coverage',
             'karma-ng-scenario',
             'karma-chrome-launcher',
             'karma-phantomjs-launcher'
@@ -35,6 +36,13 @@ module.exports = function(config) {
         junitReporter: {
             outputFile: 'shippable/testresults/unit.xml',
             suite: ''
+        },
+
+        reporters : ['progress','coverage','junit'],
+        coverageReporter : {
+            type:'cobertura',
+            dir: 'shippable/codecoverage/',
+            file: 'angular_coverage.xml'
         }
 
     })
