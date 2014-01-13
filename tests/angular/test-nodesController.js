@@ -41,7 +41,7 @@ describe('NodesController',function() {
 					$routeParams:routeParams,
 					NodeService:nodeService,
 					NodeTypeService: nodeTypeService }
-					)	;
+					);
 
 			
 			});

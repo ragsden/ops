@@ -13,6 +13,13 @@ describe('Nodes Page',function() {
 				.respond(200,testData.subscriptionNodesGET);
 				httpBackend.when('GET',config.MW_URL+'/subscriptions/'+testData.negativesubscriptionNodesGETParameter+'/nodes')
 				.respond(404,testData.negativesubscriptionNodesGET);
+
+				httpBackend.when('POST',config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes')
+				.respond(202,testData.createNodePOST);
+
+				httpBackend.when('POST',config.MW_URL+'/subscriptions/'+testData.negativesubscriptionNodesGETParameter+'/nodes')
+				.respond(403,testData.createNodePOST);
+
 				nodeService = NodeService;
 				bootstrapped = true;
 			}
@@ -34,6 +41,7 @@ describe('Nodes Page',function() {
 			//Make sure that the http call inside the method returns the data that we have given
 			//as part of tests
 			expect(result.length).toBe(1);
+			//Check if the result of the service call matches the data expected.
 			expect(result[0].id).toBe(testData.subscriptionNodesGET[0].id);
 
 		});
@@ -53,6 +61,34 @@ describe('Nodes Page',function() {
 			console.log(status);
 			expect(result).toBe(undefined);
 			expect(status).toBe(404);
+		});
+
+		it('creates a new node',function() {
+			var status;
+			nodeService.createNodeForSubscriptionId(
+				testData.subscriptionNodesGETParameter,testData.subscriptionNodesGET[0].id,
+				function(err,data) {
+
+				status = err;
+
+			});
+
+			httpBackend.flush();
+			expect(status).toBe(202);
+		});
+
+		it('returns 403 when node quota is expired',function() {
+			var status;
+			nodeService.createNodeForSubscriptionId(
+				testData.negativesubscriptionNodesGETParameter,testData.subscriptionNodesGET[0].id,
+				function(err,data) {
+
+				status = err;
+				
+			});
+
+			httpBackend.flush();
+			expect(status).toBe(403);
 		});
 
 	});
