@@ -2,7 +2,6 @@ angular.module('angSpa').factory('NodeService',function($http) {
 	var middlewareUrl = config.MW_URL;
 	var NodeService = function() {
 		NodeService.prototype.getNodesBySubscriptionId = function(subscriptionId,done) {
-			console.log('Calling getNodesBySubscriptionId');
 			var containerInfoUrl = middlewareUrl+"/subscriptions/"+subscriptionId+"/nodes";
 			$http(
 	  			{
