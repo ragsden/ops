@@ -21,7 +21,7 @@ describe('Testing getPlans service module', function(){
  
 
   // tests
-  it('test- get plan using planId', function(){
+  it('testing- get plan using valid planId', function(){
     var planObj;
     getPlansService.getPlanByPlanId(testData.planIdGETParam, function(err, data){
         planObj = data;
@@ -29,6 +29,12 @@ describe('Testing getPlans service module', function(){
 
     httpBackend.flush();
     expect(planObj.id).toBe('0000000000000000000000000000000X');
+    expect(planObj.name).toBe('Free');
+    expect(planObj.nodesQuota).toBe(1);
+    expect(planObj.privateProjectsQuota).toBe(1);
+    expect(planObj.storageGigaBytesQuota).toBe(1);
   });   
+
+  it('testing- get plan using invalid planId');
   
 });
