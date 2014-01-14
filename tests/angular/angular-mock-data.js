@@ -31,7 +31,7 @@ var config = {
             'negaccountsSearchByUsernameGETParam': 'abc',     
              'accountsGET':
                 [{
-                  'id': '1234567890qwertyuiop', 
+                  'id': '1234567890qwertyuiopasdf', 
                   'identities': [{
                      'provider': 'github', 
                      'userName': 'testUser',
