@@ -119,7 +119,7 @@ function runapp() {
                   );
           app.use(function(req, res, next){
               console.log('default route');
-              res.render('home',{ config: config} );
+              res.redirect('/');
           });
           http.createServer(app).listen(app.get('port'), function(){
             console.log('Express server listening on port ' + app.get('port'));
