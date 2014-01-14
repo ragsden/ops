@@ -100,10 +100,7 @@ function runapp() {
 
 
           app.get('/',routes.home);
-          app.get('/accounts',function(req,res) {
-              res.render('home', { config : config  });
-          });
-          app.get('/logout', function(req, res){
+           app.get('/logout', function(req, res){
               req.logout();
               res.cookie(config.shippableTokenIdentifier,'');
               res.redirect('/');
@@ -118,8 +115,15 @@ function runapp() {
                   }
                   );
           app.use(function(req, res, next){
+
               console.log('default route');
-              res.redirect('/');
+
+              if(req.user) {
+                res.render('home', { config : config  });   
+              }
+              else {
+                res.redirect('/');
+              }
           });
           http.createServer(app).listen(app.get('port'), function(){
             console.log('Express server listening on port ' + app.get('port'));
