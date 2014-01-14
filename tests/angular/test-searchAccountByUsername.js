@@ -12,7 +12,7 @@ describe('AccountsSearch Page',function() {
 				httpBackend.when('GET',config.MW_URL+'/accounts/search/'+testData.accountsSearchByUsernameGETParam)
 				.respond(200,testData.accountsGET);
 				httpBackend.when('GET',config.MW_URL+'/accounts/search/'+testData.negaccountsSearchByUsernameGETParam)
-				.respond(404,testData.negativesubscriptionNodesGET);
+				.respond(200,testData.negAccountsGET);
 				searchAccountsService = searchAccountsByUsername;
 				bootstrapped = true;
 			}
@@ -36,7 +36,7 @@ describe('AccountsSearch Page',function() {
 		});
 
 		//Negative test
-		it('gets 404 for invalid username',function() {
+		it('checks for null array for invalid username',function() {
 			var result ;
 			var status ;
 					
@@ -46,9 +46,8 @@ describe('AccountsSearch Page',function() {
 			});
 
 			httpBackend.flush();
-			expect(result).toBe(undefined);
-			expect(status).toBe(404);
-		});
+			expect(result.length).toBe(0);
+			});
 
 	});
 	
