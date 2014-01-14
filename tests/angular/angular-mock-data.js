@@ -27,10 +27,9 @@ var config = {
             'createNodePOSTNegative' : { 'type' : '707f4f77bcf86cd799439012' },
       
           //subscriptionsPage subscriptions:test-data
-          'accountIdGETParam': '1234567890qwertyuiop',
-          'negAccountIdGETParam': '1234512345qwertyuiop',
-          'subscriptionsGET': 
-              [{
+          'accountIdGETParam': '1234567890qwertyuiopasdf',
+          'negAccountIdGETParam': '1234512345qwertyuiopasdf',
+          'subscriptionsGET': [{
                   id: '123f1f77bcf86cd799439011',
                   name: 'Free Plan',
                   plan: '0000000000000000000000000000000X',
@@ -43,8 +42,8 @@ var config = {
           'negSubscriptionsGET': [ ],
           
           //subscriptionsPage plan:test-data
-          'planGETParam': '0000000000000000000000000000000X',
-          'negPlanGETParam': '0000000000000000000000000000000Y',
+          'planIdGETParam': '0000000000000000000000000000000X',
+          'negPlanIdGETParam': '0000000000000000000000000000000Y',
           'planGET': 
               {
                 id: '0000000000000000000000000000000X',
@@ -53,7 +52,7 @@ var config = {
                 privateProjectsQuota: 1,
                 storageGigaBytesQuota: 1
               },
-           'negPlanGET': {}
-      
+           'negPlanGET': {},
+                
       }
 
