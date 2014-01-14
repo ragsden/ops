@@ -17,10 +17,9 @@ var AccountController = function($scope,$location,getAccountById,$cookieStore,$r
                    }],
                 err : "",
               };
-  var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.getAccount = function()
   {
-    getAccountById.getAccount($routeParams.accountId,token,function(err,data){
+    getAccountById.getAccount($routeParams.accountId,function(err,data){
      if(!err)
      {
        $scope.accountModel = data;

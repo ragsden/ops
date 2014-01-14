@@ -2,7 +2,7 @@ angSpa.factory('getAccountById',function($http){
  var middlewareUrl = config.MW_URL;
   var GetAccountById = function(){
         };
-     GetAccountById.prototype.getAccount = function(id,token,done){
+     GetAccountById.prototype.getAccount = function(id,done){
      if(config.runMode=="TEST")
        {
          var data= {
@@ -36,11 +36,11 @@ angSpa.factory('getAccountById',function($http){
         var getAccountsByIdUrl = middlewareUrl + "/accounts/" + id;
         $http({method: 'GET',url: getAccountsByIdUrl }).
         success(function(data, status, headers, config) {
-          done(null,data);
+          done(status,data);
         }).
         error(function(data, status, headers, config) {
           var data1="You entered a wrong id!";
-          done(data1);
+          done(status,data);
         });
       }
      };
