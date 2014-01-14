@@ -1,6 +1,6 @@
 describe('accountController',function() {
 	var ctrlScope;
-	var getAccountService;
+	var accountsService;
 	var ctrl;
 	var _location;
 	var routeParams;
@@ -8,25 +8,24 @@ describe('accountController',function() {
 	beforeEach(function() {
 		module('angSpa');
 		
-		inject(function($rootScope,$location,$httpBackend,$routeParams,$controller,getAccountById) {
+		inject(function($rootScope,$location,$httpBackend,$routeParams,$controller,AccountsService) {
 			
 			ctrlScope = $rootScope.$new();
-			getAccountService = getAccountById;			
+			accountsService = AccountsService;			
 			httpBackend = $httpBackend;
 			routeParams = $routeParams;
 			_location = $location;
 
 			routeParams.accountId = testData.accountIdGETParam;
 			
-			spyOn(getAccountService,'getAccount').andCallThrough();
-						
+			spyOn(accountsService,'getAccountById').andCallThrough();			
 			
 			ctrl = $controller('accountController',
 				{
 					$scope: ctrlScope, 
 					$location: _location,
 					$routeParams : routeParams,
-					getAccountById : getAccountService,
+					AccountsService: accountsService,
 					}
 			 );
 					
@@ -34,12 +33,10 @@ describe('accountController',function() {
 	});
 	
 	it('should get account when the controller is created',function() {
-		
 		httpBackend.expectGET(config.MW_URL+'/accounts/'+testData.accountIdGETParam)
 		.respond(200,testData.accountGET);
-
 		httpBackend.flush();
-		expect(getAccountService.getAccount).toHaveBeenCalled();
+		expect(accountsService.getAccountById).toHaveBeenCalled();
 		expect(ctrlScope.accountModel.id).toBe('1234567890qwertyuiopasdf');
 	});
 });

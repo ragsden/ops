@@ -1,8 +1,41 @@
-angSpa.factory('getAccountById',function($http){
+angSpa.factory('AccountsService',function($http){
  var middlewareUrl = config.MW_URL;
-  var GetAccountById = function(){
+  var AccountsService = function(){
         };
-     GetAccountById.prototype.getAccount = function(id,done){
+
+    AccountsService.prototype.searchAccountsByUsername = function(githubId,done){
+      if(config.runMode=="TEST")
+       {
+        var exp= [{
+            id: "123456", // The Shippable account id
+            identities: [{
+                provider: "github", // `github` or `bitbucket`
+                userName: "swati730", // The user name supplied by the identity provider
+               },{
+                 provider: "bitbucket",
+                 userName: "swati730",
+               }]
+          },{
+            id: "78910", 
+            identities: [{
+                provider: "github", 
+                userName: "swatigoyal", 
+               }]
+          }]
+        done(null,exp);
+       }
+      else
+       {
+        var searchAccountsUrl = middlewareUrl + "/accounts/search/" + githubId;
+        $http({method: 'GET', url: searchAccountsUrl}).
+        success(function(data,status,header,config) {
+            done(status,data);
+        }).error(function(data,status,headers,config) {
+          done(status,data);
+        }); 
+       };
+     };
+     AccountsService.prototype.getAccountById = function(id,done){
      if(config.runMode=="TEST")
        {
          var data= {
@@ -44,6 +77,7 @@ angSpa.factory('getAccountById',function($http){
         });
       }
      };
-   return new GetAccountById();
+
+   return new AccountsService();
 
 });

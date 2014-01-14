@@ -1,6 +1,6 @@
 'use strict';
 
-var AccountsSearchController = function($scope,$location,searchAccountsByUsername) {
+var AccountsSearchController = function($scope,$location,AccountsService) {
   $scope.accountsSearchModel={
              accounts:[{  id:"",
                           identities:[{
@@ -13,7 +13,7 @@ var AccountsSearchController = function($scope,$location,searchAccountsByUsernam
             };
   $scope.getAccount = function()
   {
-    searchAccountsByUsername.searchAccounts($scope.accountsSearchModel.loginId,function(err,data){
+    AccountsService.searchAccountsByUsername($scope.accountsSearchModel.loginId,function(err,data){
       if(err === 401) {
                 $scope.accountsSearchModel.err = 'You are not allowed to use this feature.';
       }
@@ -35,6 +35,6 @@ var AccountsSearchController = function($scope,$location,searchAccountsByUsernam
   $location.path("/accounts/"+accountId+"/subscriptions");
   }
 };
-AccountsSearchController.$inject = ["$scope","$location","searchAccountsByUsername"];
+AccountsSearchController.$inject = ["$scope","$location","AccountsService"];
 angSpa.controller("accountsSearchController",AccountsSearchController);
 

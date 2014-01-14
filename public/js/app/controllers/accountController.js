@@ -1,5 +1,5 @@
 
-var AccountController = function($scope,$location,getAccountById,$routeParams) {
+var AccountController = function($scope,$location,AccountsService,$routeParams) {
   $scope.accountModel={
                  id: "",
                  avatarId: "",
@@ -18,7 +18,7 @@ var AccountController = function($scope,$location,getAccountById,$routeParams) {
                 err : "",
               };
   
-     getAccountById.getAccount($routeParams.accountId,function(err,data){
+     AccountsService.getAccountById($routeParams.accountId,function(err,data){
       if(err === 401)
        {
          $scope.accountModel.err = 'You are not allowed to use this feature.';
@@ -36,5 +36,5 @@ var AccountController = function($scope,$location,getAccountById,$routeParams) {
   
    
 };
-AccountController.$inject = ["$scope","$location","getAccountById","$routeParams"];
+AccountController.$inject = ["$scope","$location","AccountsService","$routeParams"];
 angSpa.controller("accountController",AccountController);
