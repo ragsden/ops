@@ -26,7 +26,7 @@ var AccountController = function($scope,$location,getAccountById,$routeParams) {
      else
      {
        $scope.accountModel = data;
-       if(data.length==0)
+       if(!Object.keys(data).length)
        {
         $scope.accountModel.err = 'This Account Id does not exist'
        }
