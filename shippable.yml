@@ -1,6 +1,5 @@
 node_js:
   - "0.10"
 before_install: "rm -Rf node_modules"
-before_script: "cp settings.js config.js" 
 language: node_js
 script:	make coverage
