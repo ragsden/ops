@@ -4,50 +4,7 @@
  */
 
  
-var fs = require('fs');
-var path = require('path');
-function copyFile(source, target, cb) {
-  var cbCalled = false;
-
-  var rd = fs.createReadStream(source);
-  rd.on("error", function(err) {
-    done(err);
-  });
-  var wr = fs.createWriteStream(target);
-  wr.on("error", function(err) {
-    done(err);
-  });
-  wr.on("close", function(ex) {
-    done();
-  });
-  rd.pipe(wr);
-
-  function done(err) {
-    if (!cbCalled) {
-      cb(err);
-      cbCalled = true;
-    }
-  }
-}
-if (!fs.existsSync("./config.js")) { 
-    copyFile("./settings.js","./config.js",function(err) {
-      if(err) {
-        console.log('error creating configuration. ' +err);
-        console.log('Bailing out..');
-        //TODO: Safely exit a node app.
-      }
-      else {
-
-             
-        runapp();
-
-
-      }
-    });
-}
-else {
-  runapp();
-} 
+runapp();
 
 
 function runapp() {
@@ -61,7 +18,7 @@ function runapp() {
             , auth = require('./auth');
           var app =exports.app =  express();
           auth.init();
-          app.set('port', config.middleware.port || 3000);
+          app.set('port', config.port || 3000);
           app.set('views', path.join(__dirname, 'views'));
           app.set('view engine', 'ejs');
           app.use(express.favicon());
