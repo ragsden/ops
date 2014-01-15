@@ -1,10 +1,11 @@
 
 'use strict';
 
+<<<<<<< HEAD
+var SubscriptionsController = function($scope, $location, getSubscriptions, getPlans, $cookieStore,$routeParams){
+=======
 var SubscriptionsController = function($scope, $location, AccountsService, getSubscriptionsByAccountId, getSubscriptionPlanByPlanId, $cookieStore,$routeParams){
-  $scope.subscriptionsModel = {
-    userId : "",
-    userName : "",
+>>>>>>> 236ba9dbc00cbc1acd780b61f3754f796905ed58
   $scope.subscriptionsModel = {
     subscriptions:[],
     errors: []
@@ -25,6 +26,8 @@ var SubscriptionsController = function($scope, $location, AccountsService, getSu
   }
   
   var token = $cookieStore.get(config.shippableTokenIdentifier);
+<<<<<<< HEAD
+=======
   $scope.init = function(){
     AccountsService.getAccountById($routeParams.accountId,function(err,data){
      if(!err)
@@ -38,8 +41,10 @@ var SubscriptionsController = function($scope, $location, AccountsService, getSu
         $scope.subscriptionsModel.errors.push('error in getting account details using account id');
       }
     });
+>>>>>>> 236ba9dbc00cbc1acd780b61f3754f796905ed58
 
-    getSubscriptionsByAccountId.getSubscriptions($routeParams.accountId, token, function(err, subsData){
+  $scope.init = function(){
+    getSubscriptions.getSubscriptionsByAccountId($routeParams.accountId, function(err, subsData){
     if(!err){
       for(var i=0; i < subsData.length; i++) {
          var j = i;
@@ -81,7 +86,11 @@ var SubscriptionsController = function($scope, $location, AccountsService, getSu
 $scope.init();
 };
 
+<<<<<<< HEAD
+SubscriptionsController.$inject = ["$scope", "$location", "getSubscriptions", "getPlans", "$cookieStore","$routeParams"];
+=======
 SubscriptionsController.$inject = ["$scope", "$location", "AccountsService", "getSubscriptionsByAccountId", "getSubscriptionPlanByPlanId", "$cookieStore","$routeParams"];
+>>>>>>> 236ba9dbc00cbc1acd780b61f3754f796905ed58
 angSpa.controller("subscriptionsController", SubscriptionsController);
 
 

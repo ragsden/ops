@@ -7,12 +7,12 @@ exports.index = function(req, res){
   res.render('index', { title: 'Shippable: Ops-Dashboard' });
 }; 
 exports.home = function(req,res) {
-  	/*
+  	console.log('home');
     if(req.user) 
     {
     	res.render('home', { config : config  });
     }
-    else */
+    else 
      {
      res.render('index', { title: 'Shippable: Ops-Dashboard' });
     }
