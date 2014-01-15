@@ -1,11 +1,10 @@
-describe('Testing getPlans service module', function(){
-  // planId, dependencies
+describe('Testing plans-service module', function(){
   var httpBackend;
-  var getPlansService;
+  var plansServ;
   var bootstrapped = false;
   beforeEach(function(){
     module('angSpa');
-    inject(function($httpBackend, getPlans){
+    inject(function($httpBackend, plansService){
         if(!bootstrapped){
             httpBackend = $httpBackend;
             httpBackend.when('GET', config.MW_URL + '/plans/' + testData.planIdGETParam)
@@ -13,17 +12,16 @@ describe('Testing getPlans service module', function(){
             httpBackend.when('GET', config.MW_URL + '/plans/' + testData.negPlanIdGETParam)
             .respond(404, testData.negPlanGET);
 
-            getPlansService = getPlans;
+            plansServ = plansService;
             bootstrapped = true;
         }
     });
   });
  
 
-  // tests
   it('testing- get plan using valid planId', function(){
     var planObj;
-    getPlansService.getPlanByPlanId(testData.planIdGETParam, function(err, data){
+    plansServ.getPlanByPlanId(testData.planIdGETParam, function(err, data){
         planObj = data;
     });
 
@@ -35,6 +33,15 @@ describe('Testing getPlans service module', function(){
     expect(planObj.storageGigaBytesQuota).toBe(1);
   });   
 
-  it('testing- get plan using invalid planId');
+  it('testing- get plan using invalid planId', function(err, data){
+    var negPlanObj;
+    plansServ.getPlanByPlanId(testData.negPlanIdGETParam, function(err, data){
+        negPlanObj = data;
+    });
+
+    httpBackend.flush();
+    expect(negPlanObj).toBe(null);
+  
+  });
   
 });

@@ -63,7 +63,34 @@ var config = {
                     provider: 'github'  
               }]
             },
-          'negAccountGET' : {}
+          'negAccountGET' : {},
           
+          //subscriptionsPage > subscriptions:test-data
+          'accountIdGETParam': '1234567890qwertyuiopasdf',
+          'negAccountIdGETParam': '1234512345qwertyuiopasdf',
+          'subscriptionsGET': [{
+                  id: '123f1f77bcf86cd799439011',
+                  name: 'Free Plan',
+                  plan: '0000000000000000000000000000000X',
+                  projects: ['testProject'],
+                  containers: ['507f1f77bcf86cd799439011'],
+                  owners: ['testOwner'],
+                  created: '2013-Dec-01 13:54 PM (PST)',
+                  updated: '2014-Jan-03 22:54 PM (PST)'
+              }],
+          'negSubscriptionsGET': [ ],
+          
+          //subscriptionsPage >  plan:test-data
+          'planIdGETParam': '0000000000000000000000000000000X',
+          'negPlanIdGETParam': '0000000000000000000000000000000Y',
+          'planGET': 
+              {
+                id: '0000000000000000000000000000000X',
+                name: 'Free',
+                nodesQuota: 1,
+                privateProjectsQuota: 1,
+                storageGigaBytesQuota: 1
+              },
+           'negPlanGET': {}
       }
 

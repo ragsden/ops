@@ -1,29 +1,27 @@
 describe('Testing subscriptionsController',function() {
 	var ctrlScope;
-    var getAccountByIdService;
-	var getSubsService;
-	var getPlansService;
+	var subsServ;
+	var plansServ;
 	var ctrl;
 	var routeParams;
 	var httpBackend;
 	beforeEach(function() {
 		module('angSpa');
-		inject(function($rootScope,$httpBackend,$routeParams,$controller, getSubscriptions, getPlans) {
+		inject(function($rootScope, $httpBackend, $routeParams, $controller, subscriptionsService, plansService) {
 			ctrlScope = $rootScope.$new();
-            getSubsService = getSubscriptions;
-            getPlansService = getPlans;
+            subsServ = subscriptionsService;
+            plansServ = plansService;
 			routeParams = $routeParams;
 			httpBackend = $httpBackend;
 
-            spyOn(getSubsService, 'getSubscriptionsByAccountId').andCallThrough();
-            spyOn(getPlansService, 'getPlanByPlanId').andCallThrough();
+            spyOn(subsServ, 'getSubscriptionsByAccountId').andCallThrough();
+            spyOn(plansServ, 'getPlanByPlanId').andCallThrough();
 
             routeParams.accountId = testData.accountIdGETParam;
             routeParams.planId = testData.planIdGETParam;
 			
             httpBackend.expect('GET', config.MW_URL + '/accounts/' + testData.accountIdGETParam + '/subscriptions')
 					.respond(200, testData.subscriptionsGET);
-                    console.log(typeof testData.subscriptionsGET);
 			httpBackend.expect('GET', config.MW_URL + '/plans/' + testData.subscriptionsGET[0].plan)
 					.respond(200, testData.planGET);
 
@@ -31,21 +29,26 @@ describe('Testing subscriptionsController',function() {
 				{
 					$scope : ctrlScope, 
 					$routeParams : routeParams,
-                    getSubscriptions : getSubsService,
-                    getPlans : getPlansService
+                    subscriptionsService : subsServ,
+                    plansService : plansServ,
 			     });
 			
 			});
 	});
 	
-	it('should call getSubscriptionsByAccountId when the controller is created', function() {
+	it('should call getSubscriptionsByAccountId, getPlanByPlanId when the controller is created', function() {
         
-        expect(getSubsService.getSubscriptionsByAccountId).toHaveBeenCalled();
-        httpBackend.flush();
-        expect(getPlansService.getPlanByPlanId).toHaveBeenCalled();
+        expect(subsServ.getSubscriptionsByAccountId).toHaveBeenCalled();
 
-	 //   expect(ctrlScope.subscriptionsModel.subscriptions.length).toBe(1);
+        httpBackend.flush();
+
+        expect(plansServ.getPlanByPlanId).toHaveBeenCalled();
+        expect(ctrlScope.subscriptionsModel.subscriptions.length).toBe(1);
+
+        expect(ctrlScope.subscriptionsModel.subscriptions[0].planName).toBe('Free');
 		//Can add more checks here to validate if test data is assigned in the controller's scope
 	});
+
+
 
 });

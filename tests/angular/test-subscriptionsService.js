@@ -1,11 +1,10 @@
-describe('Testing getSubscriptions service module', function(){
-  // accountId, dependencies
+describe('Testing - subscriptions service module', function(){
   var httpBackend;
-  var getSubs;
+  var subsServ;
   var bootstrapped = false;
   beforeEach(function(){
     module('angSpa');
-    inject(function($httpBackend, getSubscriptions){
+    inject(function($httpBackend, subscriptionsService){
         if(!bootstrapped){
             httpBackend = $httpBackend;
             httpBackend.when('GET', config.MW_URL + '/accounts/' + testData.accountIdGETParam + '/subscriptions')
@@ -13,17 +12,16 @@ describe('Testing getSubscriptions service module', function(){
             httpBackend.when('GET', config.MW_URL + '/accounts/' + testData.negAccountIdGETParam + '/subscriptions')
             .respond(404, testData.negSubscriptionsGET);
 
-            getSubs = getSubscriptions;
+            subsServ = subscriptionsService;
             bootstrapped = true;
         }
     });
   });
  
 
-  // tests
-  it('testing - getSubs service using valid accountId', function(){
+  it('testing - getSubs using valid accountId', function(){
     var subsArray;
-    getSubs.getSubscriptionsByAccountId(testData.accountIdGETParam, function(err, data){
+    subsServ.getSubscriptionsByAccountId(testData.accountIdGETParam, function(err, data){
         subsArray = data;
     });
 
@@ -40,14 +38,18 @@ describe('Testing getSubscriptions service module', function(){
 
   });   
 
-  it('testing - getSubs service using Invalid accountId', function(){
+  it('testing - getSubs using Invalid accountId', function(){
     var subsNegArray;
-    getSubs.getSubscriptionsByAccountId(testData.negAccountIdGETParam, function(err, data){
+    subsServ.getSubscriptionsByAccountId(testData.negAccountIdGETParam, function(err, data){
         subsNegArray = data;
     });
 
     httpBackend.flush();
     expect(subsNegArray).toBe(null);
   });
-  
+ 
+  afterEach(function(){
+    httpBackend.verifyNoOutstandingExpectation();
+    httpBackend.verifyNoOutstandingRequest();
+  }); 
 });

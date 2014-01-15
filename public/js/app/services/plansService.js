@@ -1,7 +1,7 @@
-angSpa.factory('getPlans',function($http){
+angSpa.factory('plansService',function($http){
  var middlewareUrl = config.MW_URL;
-  var getPlans = function(){
-     getPlans.prototype.getPlanByPlanId = function(planId, done){
+  var plansService = function(){
+     plansService.prototype.getPlanByPlanId = function(planId, done){
         var planUrl = middlewareUrl + "/plans/" + planId ;
         $http({ method: 'GET', url: planUrl}).
         success(function(data, status, headers, config) {
@@ -13,6 +13,6 @@ angSpa.factory('getPlans',function($http){
      };
  };
    
- return new getPlans();
+ return new plansService();
 
 });

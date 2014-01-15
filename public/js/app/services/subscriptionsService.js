@@ -1,7 +1,7 @@
-angSpa.factory('getSubscriptions',function($http){
+angSpa.factory('subscriptionsService',function($http){
  var middlewareUrl = config.MW_URL;
- var getSubscriptions = function(){
-     getSubscriptions.prototype.getSubscriptionsByAccountId = function(accountId, done){
+ var subscriptionsService = function(){
+     subscriptionsService.prototype.getSubscriptionsByAccountId = function(accountId, done){
         var subsUrl = middlewareUrl + "/accounts/" + accountId + "/subscriptions";
         $http({ method: 'GET', url: subsUrl}).
         success(function(data, status, headers, config) {
@@ -13,6 +13,6 @@ angSpa.factory('getSubscriptions',function($http){
         });
      };
    };
-   return new getSubscriptions();
+   return new subscriptionsService();
 
 });
