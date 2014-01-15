@@ -1,5 +1,5 @@
 
-var AccountController = function($scope,$location,getAccountById,$cookieStore,$routeParams) {
+var AccountController = function($scope,$location,AccountsService,$routeParams) {
   $scope.accountModel={
                  id: "",
                  avatarId: "",
@@ -17,21 +17,24 @@ var AccountController = function($scope,$location,getAccountById,$cookieStore,$r
                    }],
                 err : "",
               };
-  var token = $cookieStore.get(config.shippableTokenIdentifier);
-  $scope.getAccount = function()
-  {
-    getAccountById.getAccount($routeParams.accountId,token,function(err,data){
-     if(!err)
+  
+     AccountsService.getAccountById($routeParams.accountId,function(err,data){
+      if(err === 401)
+       {
+         $scope.accountModel.err = 'You are not allowed to use this feature.';
+      }
+     else
      {
        $scope.accountModel = data;
+       if(!Object.keys(data).length)
+       {
+        $scope.accountModel.err = 'This Account Id does not exist'
+       }
      }
-     else
-      {
-        $scope.accountModel.err = err;
-      }
+     
      });
-   }
-  $scope.getAccount();  // call getAccount() as the page loads 
+  
+   
 };
-AccountController.$inject = ["$scope","$location","getAccountById","$cookieStore","$routeParams"];
+AccountController.$inject = ["$scope","$location","AccountsService","$routeParams"];
 angSpa.controller("accountController",AccountController);

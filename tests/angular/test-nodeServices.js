@@ -12,7 +12,7 @@ describe('Nodes Page',function() {
 				httpBackend.when('GET',config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes')
 				.respond(200,testData.subscriptionNodesGET);
 				httpBackend.when('GET',config.MW_URL+'/subscriptions/'+testData.negativesubscriptionNodesGETParameter+'/nodes')
-				.respond(404,testData.negativesubscriptionNodesGET);
+				.respond(404,null);
 
 				httpBackend.when('POST',config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes')
 				.respond(202,testData.createNodePOST);
@@ -63,7 +63,7 @@ describe('Nodes Page',function() {
 			});
 
 			httpBackend.flush();
-			expect(result).toBe(undefined);
+			expect(result).toBe(null);
 			expect(status).toBe(404);
 		});
 
