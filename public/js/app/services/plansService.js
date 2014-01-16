@@ -8,7 +8,8 @@ angSpa.factory('plansService',function($http){
           done(null,data);
         }).
         error(function(data, status, headers, config) {
-          done(data, null);
+          var message = "error getting plan information using planId";
+          done(message, null);
         });
      };
  };

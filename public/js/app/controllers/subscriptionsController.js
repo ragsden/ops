@@ -11,6 +11,7 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
     this.id = id;
     this.name = name;
     this.plan = plan;
+    this.projects = projects;
     this.containers = containers;
     this.owners = owners;
     this.created = created;
@@ -22,12 +23,12 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   }
   
   $scope.init = function(){
-    subscriptionsService.getSubscriptionsByAccountId($routeParams.accountId, function(err, subsData){
-    if(!err){
+    subscriptionsService.getSubscriptionsByAccountId($routeParams.accountId, function(errS, subsData){
+    if(!errS){
       for(var i=0; i < subsData.length; i++) {
          var j = i;
-         plansService.getPlanByPlanId(subsData[j].plan, function(err, planData){
-         if(!err){
+         plansService.getPlanByPlanId(subsData[j].plan, function(errP, planData){
+         if(!errP){
              var subscriptionData = new subscriptionDataObject(subsData[j].id, 
                                                                subsData[j].name, 
                                                                subsData[j].plan, 
@@ -44,14 +45,14 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
 
             $scope.subscriptionsModel.subscriptions.push(subscriptionData);
          }else{
-            $scope.subscriptionsModel.errors.push('error in getting subscription plan using plan id') ;
+            $scope.subscriptionsModel.errors.push(errP);
          }
          
          });
       }
     }
     else{
-        $scope.subscriptionsModel.errors.push('error in getting subscriptions using account id') ;     
+        $scope.subscriptionsModel.errors.push(errS) ;     
     }
     
    });
