@@ -19,6 +19,7 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
   when('/accounts/:accountId',{templateUrl: '/partials/account.html', controller: 'accountController'}).  
   when('/accounts/:accountId/subscriptions', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController'}).
     when('/subscriptions/:subscriptionId/nodes', { controller: 'nodesController', templateUrl: '/partials/nodes.html'}).
+    when('/', { redirectTo: '/'}).
     otherwise({ redirectTo: '/accounts' });
 
   $locationProvider.html5Mode(true);
@@ -33,8 +34,16 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
         }
       }])
 
-  .run(['Auth','$http',function(Auth,$http) {
-      $http.defaults.headers.common['Authorization']='token ' + Auth.get();
+  .run(['Auth','$http','$rootScope','$location',function(Auth,$http,$rootScope,$location) {
+      var token = Auth.get();
+      $rootScope.$on("$routeChangeStart", function (event, next, current) {
+        if(!token) {
+          $location.url('/');
+          window.location.reload();
+        }
+      });
+
+      $http.defaults.headers.common['Authorization']='token ' + token;
       $http.defaults.headers.common['Content-Type']='application/json;charset=utf8';
     }]);
   
