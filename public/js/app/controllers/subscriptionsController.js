@@ -1,11 +1,8 @@
 
 'use strict';
 
-var SubscriptionsController = function($scope, $location, AccountsService, getSubscriptionsByAccountId, getSubscriptionPlanByPlanId, $cookieStore,$routeParams){
+var SubscriptionsController = function($scope, $location, subscriptionsService, plansService, $routeParams){
   $scope.subscriptionsModel = {
-    userId : "",
-    userName : "",
-    provider : "",
     subscriptions:[],
     errors: []
   };
@@ -14,6 +11,7 @@ var SubscriptionsController = function($scope, $location, AccountsService, getSu
     this.id = id;
     this.name = name;
     this.plan = plan;
+    this.projects = projects;
     this.containers = containers;
     this.owners = owners;
     this.created = created;
@@ -24,35 +22,21 @@ var SubscriptionsController = function($scope, $location, AccountsService, getSu
     this.storageQuota = storageQuota;
   }
   
-  var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.init = function(){
-    AccountsService.getAccountById($routeParams.accountId,function(err,data){
-     if(!err)
-     {
-       $scope.subscriptionsModel.userId = data.id;
-       $scope.subscriptionsModel.userName = data.identities[0].userName;
-       $scope.subscriptionsModel.provider = data.identities[0].provider;
-     }
-     else
-      {
-        $scope.subscriptionsModel.errors.push('error in getting account details using account id');
-      }
-    });
-
-    getSubscriptionsByAccountId.getSubscriptions($routeParams.accountId, token, function(err, subsData){
-    if(!err){
+    subscriptionsService.getSubscriptionsByAccountId($routeParams.accountId, function(errS, subsData){
+    if(!errS){
       for(var i=0; i < subsData.length; i++) {
-       
-         getSubscriptionPlanByPlanId.getSubscriptionPlan(subsData[i].plan, token, function(err, planData){
-         if(!err){
-             var subscriptionData = new subscriptionDataObject(subsData[i].id, 
-                                                               subsData[i].name, 
-                                                               subsData[i].plan, 
-                                                               subsData[i].projects, 
-                                                               subsData[i].containers, 
-                                                               subsData[i].owners, 
-                                                               subsData[i].created, 
-                                                               subsData[i].updated,
+         var j = i;
+         plansService.getPlanByPlanId(subsData[j].plan, function(errP, planData){
+         if(!errP){
+             var subscriptionData = new subscriptionDataObject(subsData[j].id, 
+                                                               subsData[j].name, 
+                                                               subsData[j].plan, 
+                                                               subsData[j].projects, 
+                                                               subsData[j].containers, 
+                                                               subsData[j].owners, 
+                                                               subsData[j].created, 
+                                                               subsData[j].updated,
                                                                planData.name,
                                                                planData.nodesQuota,
                                                                planData.privateProjectsQuota,
@@ -61,15 +45,14 @@ var SubscriptionsController = function($scope, $location, AccountsService, getSu
 
             $scope.subscriptionsModel.subscriptions.push(subscriptionData);
          }else{
-            $scope.subscriptionsModel.errors.push('error in getting subscription plan using plan id') ;
+            $scope.subscriptionsModel.errors.push(errP);
          }
          
          });
-
-    }
+      }
     }
     else{
-        $scope.subscriptionsModel.errors.push('error in getting subscriptions using account id') ;     
+        $scope.subscriptionsModel.errors.push(errS) ;     
     }
     
    });
@@ -82,7 +65,7 @@ var SubscriptionsController = function($scope, $location, AccountsService, getSu
 $scope.init();
 };
 
-SubscriptionsController.$inject = ["$scope", "$location", "AccountsService", "getSubscriptionsByAccountId", "getSubscriptionPlanByPlanId", "$cookieStore","$routeParams"];
+SubscriptionsController.$inject = ["$scope", "$location", "subscriptionsService", "plansService", "$routeParams"];
 angSpa.controller("subscriptionsController", SubscriptionsController);
 
 
