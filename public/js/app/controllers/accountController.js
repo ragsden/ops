@@ -2,10 +2,10 @@
 var AccountController = function($scope,$location,AccountsService,$routeParams) {
   $scope.accountModel={
                  id: "",
-                 avatarId: "",
-                 avatarUrl: "",
+                 lastUsedIdentityId: "",
                  systemRole: [""], 
                  identities: [{
+                      id: "",
                       providerId: "", 
                       firstName: "" ,
                       lastName: "",
@@ -23,17 +23,16 @@ var AccountController = function($scope,$location,AccountsService,$routeParams) 
        {
          $scope.accountModel.err = 'You are not allowed to use this feature.';
       }
+      else if(err === 400)
+      {
+        $scope.accountModel.err = data;
+      }
      else
      {
        $scope.accountModel = data;
-       if(!Object.keys(data).length)
-       {
-        $scope.accountModel.err = 'This Account Id does not exist'
-       }
-     }
+      }
      
      });
-  
    
 };
 AccountController.$inject = ["$scope","$location","AccountsService","$routeParams"];

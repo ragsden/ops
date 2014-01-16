@@ -11,7 +11,7 @@ describe('Accounts Service',function() {
 				httpBackend.when('GET',config.MW_URL+'/accounts/'+testData.accountIdGETParam)
 				.respond(200,testData.accountGET);
 				httpBackend.when('GET',config.MW_URL+'/accounts/'+testData.negAccountIdGETParam)
-				.respond(200,testData.negAccountGET);
+				.respond(400,null);
 				accountsService = AccountsService;
 
 				httpBackend.when('GET',config.MW_URL+'/accounts/search/'+testData.accountsSearchByUsernameGETParam)
@@ -65,7 +65,7 @@ describe('Accounts Service',function() {
 		});
 
 		//Negative test
-		it('gets a null object for invalid id',function() {
+		it('gets a 404 for invalid id',function() {
 			var result ;
 			var status ;
 					
@@ -75,7 +75,7 @@ describe('Accounts Service',function() {
 			});
 
 			httpBackend.flush();
-			expect(result.id).toBe(undefined);
+			expect(result).toBe(null);
 		   });
 	});
 	afterEach(function() {

@@ -49,11 +49,11 @@ var config = {
           'accountGET' :
             {
               'id': '1234567890qwertyuiopasdf',
-              avatarId: '0123728ec9578b1c8b9312d0793fcc5c',
-              avatarUrl: 'https://gravatar.com/avatar/0123728ec9578b1c8b9312d0793fcc5c?d=https%3A%2F%2Fidenticons.github.com%2Fd5ba1029dd185f7281e29374bc3c928e.png&r=x',
+              'lastUsedIdentityId' : '000000000000000000000001',
               systemRole: ['superuser'], 
               identities: [{
-                  providerId: '000000000000000000000001', 
+                  id: '000000000000000000000001',
+                  providerId: '1234567', 
                     firstName: 'test',
                     lastName: 'User',
                     userName: 'testUser',
