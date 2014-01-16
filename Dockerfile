@@ -1,11 +1,12 @@
 FROM shippable/base
 MAINTAINER Sharath "sharath@shippable.com"
 
+RUN apt-get install -y git-core
 RUN mkdir -p /opt/shippable/opsDashboard
 ADD . /opt/shippable/opsDashboard
 
 
-RUN cd /opt/shippable/opsDashboard git pull origin master && git checkout master && git rebase origin/master;\
+RUN cd /opt/shippable/opsDashboard && git pull origin master && git checkout master && git rebase origin/master;\
     cd /opt/shippable/opsDashboard && /usr/local/bin/npm install;
 
 
