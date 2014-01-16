@@ -2,7 +2,8 @@
 
 var AccountsSearchController = function($scope,$location) {
   $scope.accountsSearchModel={            
-             loginId:"",             
+             loginId:"", 
+             err:"",            
             };
   $scope.searchAccounts = function()
   {

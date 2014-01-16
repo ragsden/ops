@@ -2,13 +2,14 @@
   <table > 
     <tbody ng-if="accountModel.id">
       <tr><td>AccountId: {{accountModel.id}}</td></tr>
-      <tr> <td>LastLogin AvatarId: {{accountModel.avatarId}}</td> </tr>
-      <tr> <td>LastLogin AvatarUrl: {{accountModel.avatarUrl}}  </td></tr>
+      <tr> <td>LastUsedIdentityId : {{accountModel.lastUsedIdentityId}}</td> </tr>
       <tr> <td>Identities:</td></tr>
       <tr><td>
         <table>
            <tbody ng-repeat="a in accountModel.identities" >
-             <tr><td>Provider: {{a.provider}}</td><td>Name: </td><td>{{a.firstName}}{{a.lastName}}</td></tr>
+             <tr><td>Provider: {{a.provider}}</td><td>Id</td><td>{{a.id}}</td></tr>
+             <tr><td></td><td>ProviderId:</td><td> {{a.providerId}}</td></tr> 
+             <tr><td></td><td>Name:</td><td> {{a.firstName}}{{a.lastName}}</td></tr> 
              <tr><td></td><td>UserName:</td><td> {{a.userName}}</td></tr> 
              <tr><td></td><td>DisplayName:</td><td> {{a.displayName}}</td></tr> 
              <tr><td></td><td>AvatarUrl:</td><td> {{a.avatarUrl}}</td></tr> 

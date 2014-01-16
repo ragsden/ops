@@ -17,7 +17,8 @@ var AccountsController = function($scope,$routeParams,$location,AccountsService)
       }
       else {
        $scope.accountsModel.accounts = data;
-       if(data.length==0) 
+       console.log(data);
+       if(data.length === 0) 
        {
         $scope.accountsModel.err = 'This user does not exist'
        }

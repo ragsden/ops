@@ -40,10 +40,10 @@ angSpa.factory('AccountsService',function($http){
        {
          var data= {
               id: "123456",
-              avatarId: "XXX",
-              avatarUrl: "YYY",
+              lastUsedIdentityId : '1',
               identities: [{
-                 providerId: "1",
+                id: "1",
+                 providerId: "1234567",
                  firstName: "A",
                  lastName: "B",
                  userName: "ABCD",
@@ -52,6 +52,7 @@ angSpa.factory('AccountsService',function($http){
                  avatarId: "XXX",
                  provider: "github"  // `github` or `bitbucket`
               },{ 
+                id:"2",
                  providerId: "2",
                  firstName: "A",
                  lastName: "B",
