@@ -1,4 +1,5 @@
 exports.testData = {
+	tokenObject : { token : '1234-5678-9012-3456' },
  	accountProfile : {
                               id: '123f1f77bcf86cd799439011',
                               lastUsedIdentityId: '123f1f77bcf86cd799439777', // The id of an element in the `identities` collection

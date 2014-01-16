@@ -38,7 +38,23 @@ it('should use passport for authentication',function() {
       
     });
 
-    it('should use middleware API to get the shippable token');
+    it('should use middleware API to get the shippable token',function() {
+        //Use nock to mockout the API call to GET /account.
+        //Let it return a account Object that has super user set..
+        var nockObj = nock(config.middleware.endPoint)
+                        .post("/accounts/tokens")
+                        .reply(200,mock.testData.tokenObject);
+
+        // Call the function that will invoke the API. 
+        // assert if the data recieved has got the correct privelages
+        auth.getShippableToken('github_access_token',function(err,data) {
+            should(err).equal(null);
+            should(data.token).equal('1234-5678-9012-3456');
+            //IMPORTANT: This ensures nock was in the picture when the 
+            //test ran.
+            nockObj.done();
+        });
+    });
 
     it('positive test for a super user account',function() {
         //Use nock to mockout the API call to GET /account.
