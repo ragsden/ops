@@ -36,7 +36,6 @@ function runapp() {
           app.use(express.static(path.join(__dirname, 'public')));
           app.use(function(err, req, res, next){
             res.status(err.status || 500);
-            console.log('here');
             res.render('500', { error: err });
           });
           function ensureAuthenticated(req, res, next) {
@@ -67,7 +66,7 @@ function runapp() {
           app.get('/auth/github/callback',
                   passport.authenticate('github',{ failureRedirect: '/' }),
                   function(req,res) {
-                      res.cookie(config.shippableTokenIdentifier,JSON.stringify(req.user.token));
+                      res.cookie(config.shippableTokenIdentifier,JSON.stringify(req.user));
                       res.redirect('/accounts');
                   }
                   );
