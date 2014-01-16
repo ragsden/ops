@@ -15,6 +15,7 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
   }]); 
    
   $routeProvider.when('/accounts', { templateUrl: '/partials/accountsSearch.html', controller: 'accountsSearchController'}).
+  when('/accounts/search/:loginId', { templateUrl: '/partials/accounts.html', controller: 'accountsController'}).
   when('/accounts/:accountId',{templateUrl: '/partials/account.html', controller: 'accountController'}).  
   when('/accounts/:accountId/subscriptions', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController'}).
     when('/subscriptions/:subscriptionId/nodes', { controller: 'nodesController', templateUrl: '/partials/nodes.html'}).
