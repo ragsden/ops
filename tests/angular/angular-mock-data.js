@@ -66,8 +66,6 @@ var config = {
           'negAccountGET' : {},
           
           //subscriptionsPage > subscriptions:test-data
-          'accountIdGETParam': '1234567890qwertyuiopasdf',
-          'negAccountIdGETParam': '1234512345qwertyuiopasdf',
           'subscriptionsGET': [{
                   id: '123f1f77bcf86cd799439011',
                   name: 'Free Plan',
