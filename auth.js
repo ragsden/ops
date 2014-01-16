@@ -3,6 +3,7 @@ var GitHubStrategy = require('passport-github').Strategy;
 var config = require('./config');
 var request = require('request');
 var qs = require('qs');
+var underscore = require('underscore');
 passport.serializeUser(function(Id,done) {
   done(null,Id);
 });
@@ -46,15 +47,51 @@ function getGithubStrategy() {
         callbackURL:config.passport.github.callbackUrl
     }, function(accessToken,refreshToken,profile,done) {
     	console.log('Authenticated ' + profile.username);
-    	getShippableToken(accessToken,done);
+    	getShippableToken(accessToken,function(err,data) {
+        if(err) { done(err); }
+        else {
+            console.log('checking if account is superuser');
+            getAccountForToken(data.token,function(err,account) {
+              if(err) { done(err); }
+              else { 
+                  if(underscore.contains(account.systemRoles,"superUser")) {
+                    console.log(data.token);
+                    done(null,data.token);
+                  }
+                  else {
+                    done(new Error('Not authorized'),null);
+                  }
+               }
+            });
+        }
+      });
     	
     });
 
     return g;
 }
-
+function getAccountForToken(token,done) {
+   request({
+      method: "GET",
+      url: config.middleware.endPoint + "/account",
+      headers: { Authorization: 'token ' + token },
+    }, function(err, res, data){
+      if (err) {
+        console.log(err);
+        done(err);
+      } else if (res.statusCode > 200) {
+        done(new Error("Status code: "+ res.statusCode),null);
+      } else if (data === "Not found.") {
+        console.log('err');
+        done(new Error("Undefined."),null);
+      } else {
+        return done(null,JSON.parse(data));
+      }
+    });  
+}
 exports.init = function() {
 
     passport.use(getGithubStrategy());
 };
 exports.getShippableToken = getShippableToken;
+exports.getAccountForToken = getAccountForToken;
