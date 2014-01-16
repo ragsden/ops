@@ -32,10 +32,6 @@ var AccountsController = function($scope,$routeParams,$location,AccountsService)
   {
   $location.path("/accounts/"+accountId+"/subscriptions");
   }
-  $scope.goBack = function()
-  {
-    window.history.back();
-  }
   };
 AccountsController.$inject = ["$scope","$routeParams","$location","AccountsService"];
 angSpa.controller("accountsController",AccountsController);

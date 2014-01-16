@@ -33,10 +33,6 @@ var AccountController = function($scope,$location,AccountsService,$routeParams) 
      }
      
      });
-  $scope.goBack = function()
-  {
-    window.history.back();
-  }
    
 };
 AccountController.$inject = ["$scope","$location","AccountsService","$routeParams"];
