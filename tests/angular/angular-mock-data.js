@@ -50,7 +50,7 @@ var config = {
             {
               'id': '1234567890qwertyuiopasdf',
               'lastUsedIdentityId' : '000000000000000000000001',
-              systemRole: ['superuser'], 
+              systemRoles: ['superuser'], 
               identities: [{
                   id: '000000000000000000000001',
                   providerId: '1234567', 
