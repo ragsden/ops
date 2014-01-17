@@ -3,7 +3,7 @@ var AccountController = function($scope,$location,AccountsService,$routeParams) 
   $scope.accountModel={
                  id: "",
                  lastUsedIdentityId: "",
-                 systemRole: [""], 
+                 systemRoles: [""], 
                  identities: [{
                       id: "",
                       providerId: "", 
