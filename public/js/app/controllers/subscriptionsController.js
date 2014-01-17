@@ -61,7 +61,18 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
 
   $scope.getToNodesOnSubId = function(subId){
     $location.path("/subscriptions/"+subId+"/nodes");
-  }
+  };
+
+  $scope.delSubBySubId = function(subId){
+    subscriptionsService.deleteSubscriptionBySubId(subId, function(err, status){
+      if(!err){
+        console.log(status + "subscription deleted");
+      }else{
+        console.log(err);
+      }
+    });
+  };
+
 $scope.init();
 };
 
