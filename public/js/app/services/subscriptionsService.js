@@ -18,11 +18,10 @@ angSpa.factory('subscriptionsService',function($http){
         var subsUrl = middlewareUrl + "/subscriptions/" + subId;
         $http({ method: 'DELETE', url: subsUrl}).
         success(function(data, status, headers, config) {
-          done(null, status);
+          done(status, data);
         }).
         error(function(data, status, headers, config) {
-          var message = "Error in deleting subscription using Subscription Id";
-          done(message, null);
+          done(status, data);
         });
      };
 
