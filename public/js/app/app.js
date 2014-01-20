@@ -41,6 +41,11 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
           $location.url('/');
           window.location.reload();
         }
+        else {
+          if(next.originalPath === '/' && next.redirectTo === '/') {
+            next.redirectTo = '/accounts';
+          }
+        }
       });
 
       $http.defaults.headers.common['Authorization']='token ' + token;
