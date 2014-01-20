@@ -1,27 +1,25 @@
 
-<p>Subscriptions information overview </p>
-<table border="1">
-  <tr>
+<h4>Subscriptions overview </h4>
+<table class="table table-bordered table-condensed table-hover table-striped">
+    <tr>
     <th>Subscription Name</th>
     <th>Options</th>
-  </tr>
- 
-  <tr ng-repeat="s in subscriptionsModel.subscriptions">
-    <td>{{s.name}}</td>
+</tr>
+
+    <tr ng-repeat="s in subscriptionsModel.subscriptions">
+        <td>{{s.name}}</td>
     <td>
-      <button ng-click="getToNodesOnSubId(s.id)">Manage Nodes</button>
-      <button>Jobs</button>
-      <button ng-click="delSubBySubId(s.id)">Delete</button>
+        <a class="btn btn-xs btn-info" ng-click="getToNodesOnSubId(s.id)">Manage Nodes</a>
+        <a class="btn btn-xs btn-info">Jobs</a>
+        <a class="btn btn-xs btn-danger" ng-click="delSubBySubId(s.id)">Delete</a>
     </td>
-  </tr>
+    </tr>
 </table>
 
-<p>Errors </p>
+<p>Errors: </p>
 <ul>
-  <li ng-repeat="error in errors">{{error}}</li>
-  
+    <li ng-repeat="error in errors">{{error}}</li>
 </ul>
-
 
 
 
