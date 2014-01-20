@@ -65,7 +65,7 @@ var config = {
             },
           'negAccountGET' : {},
           
-          //subscriptionsPage > subscriptions:test-data
+          //list of subscriptions
           'subscriptionsGET': [{
                   id: '123f1f77bcf86cd799439011',
                   name: 'Free Plan',
@@ -78,7 +78,7 @@ var config = {
               }],
           'negSubscriptionsGET': [ ],
           
-          //subscriptionsPage >  plan:test-data
+          //plan details 
           'planIdGETParam': '0000000000000000000000000000000X',
           'negPlanIdGETParam': '0000000000000000000000000000000Y',
           'planGET': 
@@ -90,6 +90,12 @@ var config = {
                 storageGigaBytesQuota: 1
               },
            'negPlanGET': {},
+
+           //delete subscription
+           'subIdDELParam': '123f1f77bcf86cd799439011',
+           'negSubIdDELParam':'12345677bcf86cd799439011',
+           'subIdDELDataReturned': 'OK',
+           'negSubIdDELDataReturned': 'Not OK',
 
 
            'subscriptionProjectsGETParam': '123f1f77bcf86cd799439011',
@@ -109,7 +115,7 @@ var config = {
                       account:"1234567890qwertyuiopasdf", 
                       roles:["projectOwner"]
                      }]         
-                 }],
-           'negsubscriptionProjectsGET': [],
+               }],
+            'negsubscriptionProjectsGET': [],
       }
 
