@@ -91,6 +91,12 @@ var config = {
               },
            'negPlanGET': {},
 
+           //subscriptionsPage > delete sub:test-data
+           'subIdDELParam': '123f1f77bcf86cd799439011',
+           'negSubIdDELParam':'12345677bcf86cd799439011',
+           'subIdDELDataReturned': 'OK',
+           'negSubIdDELDataReturned': 'Not OK',
+
 
            'subscriptionProjectsGETParam': '123f1f77bcf86cd799439011',
            'negsubscriptionProjectsGETParam':'12345677bcf86cd799439011',
@@ -104,5 +110,12 @@ var config = {
                     repositoryKey:"xyz/boto",
                     repositoryProvider:"github",
                     repositoryUrl:"git@github.com:xyz/boto.git",
+                    subscription:"123f1f77bcf86cd799439011",
+                    permissions:[{
+                      account:"1234567890qwertyuiopasdf", 
+                      roles:["projectOwner"]
+                     }]         
+               }],
+            'negsubscriptionProjectsGET': [],
       }
 
