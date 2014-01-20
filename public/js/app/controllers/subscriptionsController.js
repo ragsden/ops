@@ -23,6 +23,8 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   }
   
   $scope.init = function(){
+    $scope.subscriptionsModel.subscriptions = [];
+    $scope.subscriptionsModel.errors = [];
     subscriptionsService.getSubscriptionsByAccountId($routeParams.accountId, function(errS, subsData){
     if(!errS){
       for(var i=0; i < subsData.length; i++) {
@@ -61,10 +63,22 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
 
   $scope.getToNodesOnSubId = function(subId){
     $location.path("/subscriptions/"+subId+"/nodes");
+
   }
    $scope.getProjects = function(subId){
     $location.path("/subscriptions/"+subId+"/projects");
   }
+
+  $scope.delSubBySubId = function(subId){
+    subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
+      if(status === 200){
+        console.log(status + "subscription deleted, data=" + data);
+        $scope.init();
+      }else{
+        console.log('status returned= ' + status + ", data returned=" + data);
+      }
+    });
+  };
 $scope.init();
 };
 

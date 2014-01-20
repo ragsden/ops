@@ -12,7 +12,21 @@ angSpa.factory('subscriptionsService',function($http){
           done(message, null);
         });
      };
+
+
+     subscriptionsService.prototype.deleteSubscriptionBySubId = function(subId, done){
+        var subsUrl = middlewareUrl + "/subscriptions/" + subId;
+        $http({ method: 'DELETE', url: subsUrl}).
+        success(function(data, status, headers, config) {
+          done(status, data);
+        }).
+        error(function(data, status, headers, config) {
+          done(status, data);
+        });
+     };
+
    };
+
    return new subscriptionsService();
 
 });
