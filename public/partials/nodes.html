@@ -16,7 +16,6 @@
             <thead>
                 <th>Node Id</th>
                 <th>Node Status</th>
-                <th>Node Type</th>
                 <th>Created</th>
                 <th>Updated</th>
                 <th>Options</th>
@@ -25,8 +24,7 @@
                                 <tbody>
                                    <tr ng-repeat="node in nodes">
                     <td>{{node.Id}}</td>
-                    <td>{{node.status}}</td>
-                    <td>{{node.type}}</td>
+                    <td>{{nodeStatuses[node.status]}}</td>
                     <td>{{node.created}}</td>
                     <td>{{node.updated}}</td>
                     <td align="right"><a class="btn btn-danger" ng-click="deleteNode(node.Id)">Delete</a></td>

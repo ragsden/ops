@@ -12,7 +12,7 @@ var config = {
       			'subscriptionNodesGET' :  
       				[{
       					'id':'507f1f77bcf86cd799439011',
-      					'status':'queued',
+      					'status':0,
       					'type':'707f1f77bcf86cd799439012',
       					'created': '',
       					'updated': ''

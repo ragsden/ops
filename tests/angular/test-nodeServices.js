@@ -48,6 +48,7 @@ describe('Nodes Page',function() {
 			expect(result.length).toBe(1);
 			//Check if the result of the service call matches the data expected.
 			expect(result[0].id).toBe(testData.subscriptionNodesGET[0].id);
+			expect(result[0].status).toBe(0);
 
 		});
 

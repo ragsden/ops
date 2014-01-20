@@ -13,27 +13,56 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 		$scope.nodeTypes = [];
 		$scope.nodes = [];
 		$scope.errorsAndMessages = [];
+		$scope.nodeStatuses = ['Queued','Node Ready','Admin Ready','Worker Ready','User setup','Node Stopped','Build in progress'];
 
 		if(config.runMode.toLowerCase() === "test") {
 		$scope.nodes = [
 			{ 
 				'Id': '2340-3433-5874-6873',
-				'status': 'queued', 
-				'type': 'Node-Type-1', 
+				'status': 0, 
+				'type': '1234-4567-35256', 
 				'created': '2013-Dec-01 13:54 PM (PST)', 
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			},
 			{ 
 				'Id': '2340-3433-5874-6873',
-				'status': 'adminProviisioning', 
-				'type': 'Node-Type-2', 
+				'status': 1, 
+				'type': '1234-4567-35216', 
 				'created': '2013-Dec-01 13:54 PM (PST)', 
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			},
 			{ 
 				'Id': '2340-3433-5874-6873',
-				'status': 'buildInProgress', 
-				'type': 'Node-Type-1', 
+				'status': 2, 
+				'type': '1234-4567-35256', 
+				'created': '2013-Dec-01 13:54 PM (PST)', 
+				'updated' : '2014-Jan-03 22:54 PM (PST)'
+			},
+			{ 
+				'Id': '2340-3433-5874-6873',
+				'status': 3, 
+				'type': '1234-4567-35256', 
+				'created': '2013-Dec-01 13:54 PM (PST)', 
+				'updated' : '2014-Jan-03 22:54 PM (PST)'
+			},
+			{ 
+				'Id': '2340-3433-5874-6873',
+				'status': 4, 
+				'type': '1234-4567-35256', 
+				'created': '2013-Dec-01 13:54 PM (PST)', 
+				'updated' : '2014-Jan-03 22:54 PM (PST)'
+			},
+			{ 
+				'Id': '2340-3433-5874-6873',
+				'status': 5, 
+				'type': '1234-4567-35256', 
+				'created': '2013-Dec-01 13:54 PM (PST)', 
+				'updated' : '2014-Jan-03 22:54 PM (PST)'
+			},
+			{ 
+				'Id': '2340-3433-5874-6873',
+				'status': 6, 
+				'type': '1234-4567-35256', 
 				'created': '2013-Dec-01 13:54 PM (PST)', 
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			}
