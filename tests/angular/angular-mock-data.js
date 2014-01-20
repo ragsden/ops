@@ -89,6 +89,11 @@ var config = {
                 privateProjectsQuota: 1,
                 storageGigaBytesQuota: 1
               },
-           'negPlanGET': {}
+           'negPlanGET': {},
+
+           'subIdDELParam': '123f1f77bcf86cd799439011',
+ 		   'negSubIdDELParam':'12345677bcf86cd799439011',
+           'subIdDELDataReturned': 'OK',
+           'negSubIdDELDataReturned': 'Not OK'
       }
 

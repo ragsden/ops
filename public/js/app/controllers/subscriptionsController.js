@@ -68,7 +68,7 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   $scope.delSubBySubId = function(subId){
     subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
       if(status === 200){
-        console.log(status + "subscription deleted, data=" + data);
+        console.log("Status returned= " + status + ",subscription deleted, data=" + data);
         $scope.init();
       }else{
         console.log('status returned= ' + status + ", data returned=" + data);
