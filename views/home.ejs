@@ -42,7 +42,7 @@
     <div id="wrapper" class="preload">
         <div id="top-nav" style="margin-left: 0px" >
             <ul style="float:left;color: #ffffff">
-                <li><h4>Shippable Ops Dashboard</h4></li>
+                <li><a href="/accounts" style="color: #ffffff"><h4>Shippable Ops Dashboard</h4></a></li>
             </ul>
             <ul class="nav-notification clearfix">
                 <li class="profile dropdown">
@@ -100,6 +100,8 @@
     <script src= "/js/app/services/plansService.js"></script>
     <script src= "/js/app/controllers/subscriptionsController.js"></script>
     <script src= "/js/app/controllers/nodesController.js"></script>
+    <script src= "/js/app/controllers/projectsController.js"></script>
+    <script src= "/js/app/services/projectsService.js"></script>
     <script>
       var config = {
         MW_URL: "<%= config.middleware.endPoint %>",

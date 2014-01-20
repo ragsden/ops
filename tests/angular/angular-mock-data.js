@@ -91,9 +91,18 @@ var config = {
               },
            'negPlanGET': {},
 
-           'subIdDELParam': '123f1f77bcf86cd799439011',
- 		   'negSubIdDELParam':'12345677bcf86cd799439011',
-           'subIdDELDataReturned': 'OK',
-           'negSubIdDELDataReturned': 'Not OK'
+
+           'subscriptionProjectsGETParam': '123f1f77bcf86cd799439011',
+           'negsubscriptionProjectsGETParam':'12345677bcf86cd799439011',
+           'subscriptionProjectsGET':
+               [{
+                    created:"2014-01-20T07:53:56.491Z",
+                    id:"52d7c18af0412511007af7f7",
+                    language:"Python",
+                    name:"boto:2.0_stable",
+                    nodeType:"ubuntu1204",
+                    repositoryKey:"xyz/boto",
+                    repositoryProvider:"github",
+                    repositoryUrl:"git@github.com:xyz/boto.git",
       }
 
