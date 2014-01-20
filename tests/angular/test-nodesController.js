@@ -62,7 +62,9 @@ describe('NodesController',function() {
 
 	it('should call createNodeForSubscriptionId of nodeService',function() {
 		//Positive Test: If this POST gets called, we expect a 200 response.
-		httpBackend.expectPOST(config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes', { type : ''})
+		ctrlScope.selectedNodeId = testData.nodeTypesGET[0].id;
+		httpBackend.expectPOST(config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes', 
+			{ nodeType : testData.nodeTypesGET[0].id, subscriptionId: testData.subscriptionNodesGETParameter})
 			.respond(202);
 		ctrlScope.addNode();
 		httpBackend.flush();

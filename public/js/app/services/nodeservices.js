@@ -17,7 +17,7 @@ angular.module('angSpa').factory('NodeService',function($http) {
 
 		NodeService.prototype.createNodeForSubscriptionId = function(subscriptionId,nodeType,done) {
 			var nodeCreationUrl = middlewareUrl+"/subscriptions/"+subscriptionId+"/nodes";
-			var postData = { type: nodeType };
+			var postData = { nodeType: nodeType, subscriptionId : subscriptionId };
 			$http(
 	  			{
 	  				method: 'POST', 
