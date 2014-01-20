@@ -19,6 +19,7 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
   when('/accounts/:accountId',{templateUrl: '/partials/account.html', controller: 'accountController'}).  
   when('/accounts/:accountId/subscriptions', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController'}).
     when('/subscriptions/:subscriptionId/nodes', { controller: 'nodesController', templateUrl: '/partials/nodes.html'}).
+    when('/subscriptions/:subscriptionId/projects', { controller: 'projectsController', templateUrl: '/partials/projects.html'}).
     when('/', { redirectTo: '/'}).
     otherwise({ redirectTo: '/accounts' });
 

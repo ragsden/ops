@@ -63,7 +63,11 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
 
   $scope.getToNodesOnSubId = function(subId){
     $location.path("/subscriptions/"+subId+"/nodes");
-  };
+
+  }
+   $scope.getProjects = function(subId){
+    $location.path("/subscriptions/"+subId+"/projects");
+  }
 
   $scope.delSubBySubId = function(subId){
     subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
@@ -75,7 +79,6 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
       }
     });
   };
-
 $scope.init();
 };
 

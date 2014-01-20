@@ -1,0 +1,38 @@
+    {{projectsModel.err}} 
+    <div ng-if="projectsModel.projects[0].id">
+    Projects List:    
+    <table class="table table-bordered table-condensed table-hover table-striped" >
+            <thead>
+                <th>Created On</th>
+                <th>Project Id</th>
+                <th>Language</th>
+                <th>Name</th>
+                <th>Node Type</th>
+                <th>Repository Url</th>
+                <th>Permissions (Account: Roles)</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="project in projectsModel.projects">
+                    <td>{{project.created}}</td>
+                    <td>{{project.id}}</td>
+                    <td>{{project.language}}</td>
+                    <td>{{project.name}}</td>
+                    <td>{{project.nodeType}}</td>
+                    <td>{{project.repositoryUrl}}</td>
+                    <td><table>
+                             <tbody>
+                             <tr ng-repeat="p in project.permissions">
+                                <td>  {{p.account}}:{{p.roles}}</td>
+                             </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                   
+                </tr>
+            </tbody>            
+   </table>
+</div>
+       
+   
+ 
+
