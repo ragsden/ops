@@ -4,7 +4,8 @@
 var SubscriptionsController = function($scope, $location, subscriptionsService, plansService, $routeParams){
   $scope.subscriptionsModel = {
     subscriptions:[],
-    errors: []
+    errors: [],
+    zeroSubscriptionsMessage: ""
   };
   
   function subscriptionDataObject(id, name, plan, projects, containers, owners, created, updated, planName, nodesQuota, privateProjectsQuota, storageQuota){ 
@@ -26,6 +27,9 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
     $scope.subscriptionsModel.subscriptions = [];
     $scope.subscriptionsModel.errors = [];
     subscriptionsService.getSubscriptionsByAccountId($routeParams.accountId, function(errS, subsData){
+    if(subsData.length === 0){
+        $scope.subscriptionsModel.zeroSubscriptionsMessage = 'There are no subscriptions on this account';
+      }
     if(!errS){
       for(var i=0; i < subsData.length; i++) {
          var j = i;
@@ -52,6 +56,7 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
          
          });
       }
+        
     }
     else{
         $scope.subscriptionsModel.errors.push(errS) ;     
