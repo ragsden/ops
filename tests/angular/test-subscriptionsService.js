@@ -12,6 +12,11 @@ describe('Testing - subscriptions service module', function(){
             httpBackend.when('GET', config.MW_URL + '/accounts/' + testData.negAccountIdGETParam + '/subscriptions')
             .respond(404, testData.negSubscriptionsGET);
 
+            httpBackend.when('DELETE', config.MW_URL + '/subscriptions/'+ testData.subIdDELParam)
+            .respond(200, testData.subIdDELDataReturned);
+            httpBackend.when('DELETE', config.MW_URL + '/subscriptions/'+ testData.negSubIdDELParam)
+            .respond(403, testData.negSubIdDELDataReturned);
+
             subsServ = subscriptionsService;
             bootstrapped = true;
         }
@@ -47,7 +52,25 @@ describe('Testing - subscriptions service module', function(){
     httpBackend.flush();
     expect(subsNegArray).toBe(null);
   });
+
+  it('testing - deleting a subscription using a valid subId', function(){
+    var statusReceived;
+    subsServ.deleteSubscriptionBySubId(testData.subIdDELParam, function(status, data){
+        statusReceived = status;
+    });
+    httpBackend.flush();
+    expect(statusReceived).toBe(200);
+  });
  
+  it('testing - deleting a subscription by invalid subId', function(){
+    var statusReceived;
+    subsServ.deleteSubscriptionBySubId(testData.negSubIdDELParam, function(status, data){
+        statusReceived = status;
+    });
+    httpBackend.flush();
+    expect(statusReceived).not.toBe(200);
+  });
+
   afterEach(function(){
     httpBackend.verifyNoOutstandingExpectation();
     httpBackend.verifyNoOutstandingRequest();

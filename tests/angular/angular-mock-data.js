@@ -65,7 +65,7 @@ var config = {
             },
           'negAccountGET' : {},
           
-          //subscriptionsPage > subscriptions:test-data
+          //list of subscriptions
           'subscriptionsGET': [{
                   id: '123f1f77bcf86cd799439011',
                   name: 'Free Plan',
@@ -78,7 +78,7 @@ var config = {
               }],
           'negSubscriptionsGET': [ ],
           
-          //subscriptionsPage >  plan:test-data
+          //plan details 
           'planIdGETParam': '0000000000000000000000000000000X',
           'negPlanIdGETParam': '0000000000000000000000000000000Y',
           'planGET': 
@@ -89,6 +89,33 @@ var config = {
                 privateProjectsQuota: 1,
                 storageGigaBytesQuota: 1
               },
-           'negPlanGET': {}
+           'negPlanGET': {},
+
+           //delete subscription
+           'subIdDELParam': '123f1f77bcf86cd799439011',
+           'negSubIdDELParam':'12345677bcf86cd799439011',
+           'subIdDELDataReturned': 'OK',
+           'negSubIdDELDataReturned': 'Not OK',
+
+
+           'subscriptionProjectsGETParam': '123f1f77bcf86cd799439011',
+           'negsubscriptionProjectsGETParam':'12345677bcf86cd799439011',
+           'subscriptionProjectsGET':
+               [{
+                    created:"2014-01-20T07:53:56.491Z",
+                    id:"52d7c18af0412511007af7f7",
+                    language:"Python",
+                    name:"boto:2.0_stable",
+                    nodeType:"ubuntu1204",
+                    repositoryKey:"xyz/boto",
+                    repositoryProvider:"github",
+                    repositoryUrl:"git@github.com:xyz/boto.git",
+                    subscription:"123f1f77bcf86cd799439011",
+                    permissions:[{
+                      account:"1234567890qwertyuiopasdf", 
+                      roles:["projectOwner"]
+                     }]         
+               }],
+            'negsubscriptionProjectsGET': [],
       }
 
