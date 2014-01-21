@@ -12,10 +12,10 @@ var config = {
       			'subscriptionNodesGET' :  
       				[{
       					'id':'507f1f77bcf86cd799439011',
-      					'status':0,
-      					'type':'707f1f77bcf86cd799439012',
-      					'created': '',
-      					'updated': ''
+      					'state':0,
+      					'nodeType':'707f1f77bcf86cd799439012',
+      					'created': '2014-01-20T13:46:52.104Z',
+      					'updated': '2014-01-20T13:46:52.104Z'
       				 }
       				 ],
       			'negativesubscriptionNodesGETParameter': [ ],

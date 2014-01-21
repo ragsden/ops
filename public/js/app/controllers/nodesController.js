@@ -133,10 +133,9 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 			else {
 				if(data) {
 					for(var i=0;i<data.length;i++) {
-		  				$scope.nodes.push({ 
+						$scope.nodes.push({ 
 		  					'id' : data[i].id,
-		  					'status' : data[i].status,
-		  					'type' : data[i].type,
+		  					'status' : data[i].state,
 		  					'created': data[i].created,
 		  					'updated' : data[i].updated  
 		  				});
