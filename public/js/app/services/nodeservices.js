@@ -16,7 +16,7 @@ angular.module('angSpa').factory('NodeService',function($http) {
 		};
 
 		NodeService.prototype.createNodeForSubscriptionId = function(subscriptionId,nodeType,done) {
-			var nodeCreationUrl = middlewareUrl+"/subscriptions/"+subscriptionId+"/nodes";
+			var nodeCreationUrl = middlewareUrl+"/nodes";
 			var postData = { nodeType: nodeType, subscriptionId : subscriptionId };
 			$http(
 	  			{
@@ -32,7 +32,7 @@ angular.module('angSpa').factory('NodeService',function($http) {
 		};
 
 		NodeService.prototype.deleteNodeById = function(subscriptionId,nodeId,done) {
-			var nodeDeleteUrl = middlewareUrl+"/subscriptions/"+subscriptionId+"/nodes/"+nodeId;
+			var nodeDeleteUrl = middlewareUrl+"/nodes/"+nodeId;
 			$http(
 	  			{
 	  				method: 'DELETE', 

@@ -1,33 +1,25 @@
 describe('Nodes Page',function() {
 	var httpBackend;
 	var NodeService;
-	var bootstrapped = false;
 	beforeEach(function() {
 		module('angSpa');
 		inject(function($httpBackend,NodeService) {
 			//Jasmine doesnt not work with a global 'describe' call that runs once
 			//so we make sure our test setup is initialized once for a series of tests
- 			if(!bootstrapped) {
-				httpBackend = $httpBackend;
-				httpBackend.when('GET',config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes')
-				.respond(200,testData.subscriptionNodesGET);
-				httpBackend.when('GET',config.MW_URL+'/subscriptions/'+testData.negativesubscriptionNodesGETParameter+'/nodes')
-				.respond(404,null);
+			httpBackend = $httpBackend;
+			httpBackend.when('GET',config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes')
+			.respond(200,testData.subscriptionNodesGET);
+			httpBackend.when('GET',config.MW_URL+'/subscriptions/'+testData.negativesubscriptionNodesGETParameter+'/nodes')
+			.respond(404,null);
 
-				httpBackend.when('POST',config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes')
-				.respond(202,testData.createNodePOST);
-
-				httpBackend.when('POST',config.MW_URL+'/subscriptions/'+testData.negativesubscriptionNodesGETParameter+'/nodes')
-				.respond(403,{});
-
-				httpBackend.when('DELETE',
-					config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes/'+testData.subscriptionNodesGET[0].id)
-				.respond(202,{});
+			
+			httpBackend.when('DELETE',
+				config.MW_URL+'/nodes/'+testData.subscriptionNodesGET[0].id)
+			.respond(202,{});
 
 
-				nodeService = NodeService;
-				bootstrapped = true;
-			}
+			nodeService = NodeService;
+			
 		});
 
 		
@@ -70,6 +62,11 @@ describe('Nodes Page',function() {
 
 		it('creates a new node',function() {
 			var status;
+
+			httpBackend.when('POST',config.MW_URL+'/nodes')
+				.respond(202,testData.createNodePOST);
+
+
 			nodeService.createNodeForSubscriptionId(
 				testData.subscriptionNodesGETParameter,testData.subscriptionNodesGET[0].id,
 				function(err,data) {
@@ -84,13 +81,15 @@ describe('Nodes Page',function() {
 
 		it('returns 403 when node quota is expired',function() {
 			var status;
+			httpBackend.when('POST',config.MW_URL+'/nodes')
+				.respond(403,{});
+
 			nodeService.createNodeForSubscriptionId(
 				testData.negativesubscriptionNodesGETParameter,testData.subscriptionNodesGET[0].id,
 				function(err,data) {
-
-				status = err;
+					status = err;
 				
-			});
+				});
 
 			httpBackend.flush();
 			expect(status).toBe(403);
