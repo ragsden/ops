@@ -31,6 +31,7 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
       if(data.length===0)
       {
          $scope.projectsModel.err = 'There are no projects for this subscription';
+         $scope.projectsModel.projects = data;
       } 
       else{
          $scope.projectsModel.projects = data;       
