@@ -1,5 +1,6 @@
 
 <h4>Subscriptions overview </h4>
+<div ng-show="subscriptionsModel.subscriptions.length !==0">
 <table class="table table-bordered table-condensed table-hover table-striped">
     <tr>
     <th>Subscription Name</th>
@@ -14,19 +15,16 @@
         <a class="btn btn-xs btn-danger" ng-click="delSubBySubId(s.id)">Delete</a>
     </td>
     </tr>
-</table>
+  </table>
+</div>
 
+ <div>{{subscriptionsModel.zeroSubscriptionsMessage}} </div>
+
+<div ng-show="subscriptionsModel.errors.length !== 0" >
 <p>Errors: </p>
-<ul>
-    <li ng-repeat="error in errors">{{error}}</li>
-</ul>
-
-
-
-
-
-
-
-
+  <ul>
+    <li ng-repeat="error in subscriptionsModel.errors">{{error}}</li>
+  </ul>
+</div>
 
 
