@@ -82,7 +82,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 	}
   	else {
   		$scope.deleteNode = function(nodeId) {
-  			nodeService.deleteNodeById($routeParams.subscriptionId,nodeId,
+  			nodeService.deleteNodeById(nodeId,
   				function(err,data) {
   					if(err) {
   						if(err === 202) {
