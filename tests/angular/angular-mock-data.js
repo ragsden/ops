@@ -98,6 +98,7 @@ var config = {
            'negSubIdDELDataReturned': 'Not OK',
 
 
+          //getProjects By Subscription Id
            'subscriptionProjectsGETParam': '123f1f77bcf86cd799439011',
            'negsubscriptionProjectsGETParam':'12345677bcf86cd799439011',
            'subscriptionProjectsGET':
@@ -117,5 +118,12 @@ var config = {
                      }]         
                }],
             'negsubscriptionProjectsGET': [],
+
+          //delete Project By Id
+           'projectIdDELParam': '52d7c18af0412511007af7f7',
+           'negProjectIdDELParam':'52d7c18af0512411007af7f7',
+           'projectIdDELDataReturned': 'OK',
+           'negProjectIdDELDataReturned': 'Not OK',
+
       }
 
