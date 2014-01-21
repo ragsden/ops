@@ -45,7 +45,7 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
     console.log(projectId);
     ProjectsService.deleteProjectById(projectId, function(status, data){
       if(status === 200){
-        $scope.projectsModel.status = 'The project has been deleted. ' + data 
+        $scope.projectsModel.status = 'The project has been deleted. ';
         $scope.init();
       }
       else
