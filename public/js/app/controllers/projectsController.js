@@ -46,15 +46,28 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
    }
 
   $scope.deleteProject = function(projectId){
-    console.log(projectId);
+    $scope.projectsModel.status = "";
+    $scope.projectsModel.err = "";
     ProjectsService.deleteProjectById(projectId, function(status, data){
       if(status === 200){
-        $scope.projectsModel.status = 'The project has been deleted. ';
+        $scope.projectsModel.status = 'The project ' + projectId + ' has been deleted.';
         $scope.init();
       }
       else
       {
         $scope.projectsModel.err = 'There was an error while deleting this project :' + data;
+      }
+    });
+  };
+
+   $scope.deleteBuilds = function(projectId){
+    ProjectsService.deleteBuildsByProjectId(projectId, function(status, data){
+      if(status === 200){
+        $scope.projectsModel.status = 'The builds of project' + prjectId + "have been deleted.";
+      }
+      else
+      {
+        $scope.projectsModel.err = 'There was an error while deleting the builds :' + data;
       }
     });
   };
