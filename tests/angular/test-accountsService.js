@@ -65,7 +65,7 @@ describe('Accounts Service',function() {
 		});
 
 		//Negative test
-		it('gets a 404 for invalid id',function() {
+		it('gets a 400 for invalid id',function() {
 			var result ;
 			var status ;
 					
