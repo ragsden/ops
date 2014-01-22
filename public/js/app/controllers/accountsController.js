@@ -12,12 +12,11 @@ var AccountsController = function($scope,$routeParams,$location,AccountsService)
             };
   
     AccountsService.searchAccountsByUsername($routeParams.loginId,function(err,data){
-      if(err === 401) {
-                $scope.accountsModel.err = 'You are not allowed to use this feature.';
+      if(err) {
+                $scope.accountsModel.err = 'Error getting accounts with this loginId!!';
       }
       else {
        $scope.accountsModel.accounts = data;
-       console.log(data);
        if(data.length === 0) 
        {
         $scope.accountsModel.err = 'This user does not exist'
