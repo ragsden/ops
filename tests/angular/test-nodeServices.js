@@ -98,7 +98,6 @@ describe('Nodes Page',function() {
 		it('deletes a node',function() {
 			var status;
 			nodeService.deleteNodeById(
-				testData.subscriptionNodesGETParameter,
 				testData.subscriptionNodesGET[0].id,function(err,data) {
 					status = err;
 				});

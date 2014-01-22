@@ -19,14 +19,10 @@ var AccountController = function($scope,$location,AccountsService,$routeParams) 
               };
   
      AccountsService.getAccountById($routeParams.accountId,function(err,data){
-      if(err === 401)
+      if(err)
        {
-         $scope.accountModel.err = 'You are not allowed to use this feature.';
-      }
-      else if(err === 400)
-      {
-        $scope.accountModel.err = data;
-      }
+         $scope.accountModel.err = 'Error getting the Account Profile.';
+      }     
      else
      {
        $scope.accountModel = data;

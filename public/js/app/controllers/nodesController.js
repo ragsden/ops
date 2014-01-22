@@ -13,7 +13,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 		$scope.nodeTypes = [];
 		$scope.nodes = [];
 		$scope.errorsAndMessages = [];
-		$scope.nodeStatuses = ['Queued','Node Ready','Admin Ready','Worker Ready','User setup','Node Stopped','Build in progress'];
+		$scope.nodeStatuses = ['Queued','Node Ready','Admin Ready','Worker Ready','User setup','Node Stopped','Build in progress','Remove_Queued'];
 
 		if(config.runMode.toLowerCase() === "test") {
 		$scope.nodes = [
@@ -82,16 +82,17 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 	}
   	else {
   		$scope.deleteNode = function(nodeId) {
-  			nodeService.deleteNodeById($routeParams.subscriptionId,nodeId,
+  			nodeService.deleteNodeById(nodeId,
   				function(err,data) {
   					if(err) {
   						if(err === 202) {
-  							$scope.errorsAndMessages.push('The container has been queued for deprovisioning');
+  							$scope.errorsAndMessages.push("The container has been queued for deprovisioning");
   						}
   					}
   					else {
-  						$scope.errorsAndMessages.push('No status returned for deleting the node ');
+  						$scope.errorsAndMessages.push("No status returned for deleting the node");
   					}
+  					$scope.refresh();
   			});
   		}
 
@@ -100,20 +101,41 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
   				function(err,data) {
   					if(err) {
   						if(err === 403) {
-  							$scope.errorsAndMessages.push('Error creating subscription. ' + data);
+  							$scope.errorsAndMessages.push("Error creating subscription. " + data);
   						}
   						else if(err === 202) {
-  							$scope.errorsAndMessages.push('The container has been queued for provisioning');
+  							$scope.errorsAndMessages.push("The container has been queued for provisioning");
   						}
   					}
   					else {
-  						$scope.errorsAndMessages.push('No status returned for creating a node for this subscription');
+  						$scope.errorsAndMessages.push("No status returned for creating a node for this subscription");
   					}
+  					$scope.refresh();
   			});
+  		}
+  		$scope.refresh = function() {
+  			nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
+			if(err) {
+				$scope.errorsAndMessages.push("Error getting container information");
+			}
+			else {
+				if(data) {
+					$scope.nodes.length = 0;
+					for(var i=0;i<data.length;i++) {
+						$scope.nodes.push({ 
+		  					'id' : data[i].id,
+		  					'status' : data[i].state,
+		  					'created': data[i].created,
+		  					'updated' : data[i].updated  
+		  				});
+		  			}
+	  			}
+  			}
+		});	
   		}
   		nodeTypeService.getAllNodeTypes(function(err,data) {
   			if(err) {
-  				$scope.errorsAndMessages.push('Error getting node types');
+  				$scope.errorsAndMessages.push("Error getting node types");
   			}
   			else {
   				if(data) {
@@ -126,23 +148,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
   				}
   			}
   		});
-  		nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
-			if(err) {
-				$scope.errorsAndMessages.push('Error getting container information');
-			}
-			else {
-				if(data) {
-					for(var i=0;i<data.length;i++) {
-						$scope.nodes.push({ 
-		  					'id' : data[i].id,
-		  					'status' : data[i].state,
-		  					'created': data[i].created,
-		  					'updated' : data[i].updated  
-		  				});
-		  			}
-	  			}
-  			}
-		});
+  		$scope.refresh();
   	}
 
 }]);

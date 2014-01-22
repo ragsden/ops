@@ -26,7 +26,6 @@ function getShippableToken(_accessToken,done) {
       json: postData
     }, function(err, res, data){
       if (err) {
-        console.log(err);
         done(err);
       } else if (res.statusCode > 200) {
         done(new Error("Status code: "+ res.statusCode),null);
@@ -34,7 +33,6 @@ function getShippableToken(_accessToken,done) {
         console.log('err');
         done(new Error("Undefined."),null);
       } else {
-        console.log('Shippable Token auth succeeded.');
         return done(null,data);
       }
     });

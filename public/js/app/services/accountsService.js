@@ -29,7 +29,7 @@ angSpa.factory('AccountsService',function($http){
         var searchAccountsUrl = middlewareUrl + "/accounts/search/" + githubId;
         $http({method: 'GET', url: searchAccountsUrl}).
         success(function(data,status,header,config) {
-            done(status,data);
+            done(null,data);
         }).error(function(data,status,headers,config) {
           done(status,data);
         }); 
@@ -67,10 +67,10 @@ angSpa.factory('AccountsService',function($http){
        }
      else
       {
-        var getAccountsByIdUrl = middlewareUrl + "/accounts/" + id;
-        $http({method: 'GET',url: getAccountsByIdUrl }).
+        var getAccountByIdUrl = middlewareUrl + "/accounts/" + id;
+        $http({method: 'GET',url: getAccountByIdUrl }).
         success(function(data, status, headers, config) {
-          done(status,data);
+          done(null,data);
         }).
         error(function(data, status, headers, config) {
           var data1="You entered a wrong id!";

@@ -18,6 +18,11 @@ describe('Projects Service',function() {
             	httpBackend.when('DELETE', config.MW_URL + '/projects/'+ testData.negProjectIdDELParam)
             	.respond(404, testData.negProjectIdDELDataReturned);
 
+            	httpBackend.when('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam + '/builds')
+            	.respond(200, testData.projectIdDELDataReturned);
+            	httpBackend.when('DELETE', config.MW_URL + '/projects/'+ testData.negProjectIdDELParam + '/builds')
+            	.respond(404, testData.negProjectIdDELDataReturned);
+
 				projectsService = ProjectsService;
 
 				bootstrapped = true;
@@ -68,6 +73,25 @@ describe('Projects Service',function() {
   		it('testing - deleting a project by invalid projetId', function(){
     		var statusReceived;
     		projectsService.deleteProjectById(testData.negProjectIdDELParam, function(status, data){
+       		 statusReceived = status;
+    			});
+    		httpBackend.flush();
+    		expect(statusReceived).not.toBe(200);
+  		});
+
+
+		it('testing - deleting builds for a valid projectId', function(){
+    		var statusReceived;
+    		projectsService.deleteBuildsByProjectId(testData.projectIdDELParam, function(status, data){
+        		statusReceived = status;
+    			});
+    		httpBackend.flush();
+   			expect(statusReceived).toBe(200);
+  		});
+ 
+  		it('testing - deleting builds for an invalid projetId', function(){
+    		var statusReceived;
+    		projectsService.deleteBuildsByProjectId(testData.negProjectIdDELParam, function(status, data){
        		 statusReceived = status;
     			});
     		httpBackend.flush();
