@@ -17,9 +17,15 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
               roles:[""]
            }]         
          }],
-         err:"",        
+         err:"",
+         status:"",        
       };
+
+      $scope.showBuilds = function(id) {
+        $location.path('/projects/'+id+'/builds');
+      }
   
+    $scope.init = function(){
     ProjectsService.getProjectsBySubscriptionId($routeParams.subscriptionId,function(err,data){
       if(err) 
       {
@@ -29,13 +35,30 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
       if(data.length===0)
       {
          $scope.projectsModel.err = 'There are no projects for this subscription';
+         $scope.projectsModel.projects = data;
       } 
       else{
          $scope.projectsModel.projects = data;       
       }        
             
       }
-   });
+    });
+   }
+
+  $scope.deleteProject = function(projectId){
+    console.log(projectId);
+    ProjectsService.deleteProjectById(projectId, function(status, data){
+      if(status === 200){
+        $scope.projectsModel.status = 'The project has been deleted. ';
+        $scope.init();
+      }
+      else
+      {
+        $scope.projectsModel.err = 'There was an error while deleting this project :' + data;
+      }
+    });
+  };
+  $scope.init();
   };
 ProjectsController.$inject = ["$scope","$routeParams","$location","ProjectsService"];
 angSpa.controller("projectsController",ProjectsController);

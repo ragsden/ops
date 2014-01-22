@@ -98,6 +98,7 @@ var config = {
            'negSubIdDELDataReturned': 'Not OK',
 
 
+          //getProjects By Subscription Id
            'subscriptionProjectsGETParam': '123f1f77bcf86cd799439011',
            'negsubscriptionProjectsGETParam':'12345677bcf86cd799439011',
            'subscriptionProjectsGET':
@@ -115,7 +116,36 @@ var config = {
                       account:"1234567890qwertyuiopasdf", 
                       roles:["projectOwner"]
                      }]         
-               }],
+                 }],
+           'negsubscriptionProjectsGET': [],
+
+           'testProjectId' : '52d7c18af0412511007af7f7',
+            'testProjectData' : [
+                {
+                  buildNumber: 1,
+                  project: '123456789012345',
+                  phase: 'Queued',
+                  status: 'Finished',
+                  duration: 12345,
+                  size: 4567,
+                  commitUrl: 'http://commiturl.url',
+                  committerLogin: 'ofcourseme',
+                  commitSha: '12345678124',
+                  repositorySize: 3466,
+                  repositoryFileCount: 12,
+                  buildYml: 'hsaTml',
+                  lastAuthorEmail: 'hjd@afhj.com',
+                  lastCommitAuthorEmail: 'sjdf@asgf.com',
+                  lastCommitShortDescription: 'short',
+                  triggeredByAccount: 'thecccount'
+                }
+            ],
             'negsubscriptionProjectsGET': [],
+
+          //delete Project By Id
+           'projectIdDELParam': '52d7c18af0412511007af7f7',
+           'negProjectIdDELParam':'52d7c18af0512411007af7f7',
+           'projectIdDELDataReturned': 'OK',
+           'negProjectIdDELDataReturned': 'Not OK'
       }
 

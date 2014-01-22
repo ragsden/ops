@@ -16,7 +16,7 @@ describe('ProjectsController',function() {
 
 			routeParams.subscriptionId = testData.subscriptionProjectsGETParam;
 			spyOn(projectsService,'getProjectsBySubscriptionId').andCallThrough();
-						
+			spyOn(projectsService,'deleteProjectById').andCallThrough();			
 			
 			ctrl = $controller('projectsController',
 				{
@@ -37,4 +37,28 @@ describe('ProjectsController',function() {
 		expect(ctrlScope.projectsModel.projects[0].name).toBe('boto:2.0_stable');
 		expect(ctrlScope.projectsModel.projects[0].permissions[0].account).toBe('1234567890qwertyuiopasdf');
 	});
+
+
+	it('should call deleteProjectById when delete button clicked', function(){
+		httpBackend.expectGET(config.MW_URL+'/subscriptions/'+testData.subscriptionProjectsGETParam+'/projects')
+		.respond(200,testData.subscriptionProjectsGET);
+		httpBackend.flush();
+		expect(projectsService.getProjectsBySubscriptionId).toHaveBeenCalled();
+
+
+        httpBackend.expect('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam)
+        .respond(200, 'OK');
+        httpBackend.expect('GET', config.MW_URL + '/subscriptions/' + testData.subscriptionProjectsGETParam +'/projects')
+	    .respond(200, testData.subscriptionProjectsGET);
+		       
+        //Call the delete function in the controller
+        ctrlScope.deleteProject(testData.projectIdDELParam);
+
+        //flush the http requests
+        httpBackend.flush();
+
+        //expect them in this order
+        expect(projectsService.deleteProjectById).toHaveBeenCalled();
+        expect(projectsService.getProjectsBySubscriptionId).toHaveBeenCalled();        
+    });
 });
