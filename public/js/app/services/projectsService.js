@@ -22,6 +22,18 @@ angSpa.factory('ProjectsService',function($http){
           done(status, data);
         });
      };
+
+     ProjectsService.prototype.deleteBuildsByProjectId = function(projectId, done){
+        var deleteBuildsUrl = middlewareUrl + "/projects/" + projectId + "/builds";
+        $http({ method: 'DELETE', url: deleteBuildsUrl}).
+        success(function(data, status, headers, config) {
+          done(status, data);
+        }).
+        error(function(data, status, headers, config) {
+          done(status, data);
+        });
+     };
+
    };
    return new ProjectsService();
 
