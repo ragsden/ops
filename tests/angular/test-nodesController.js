@@ -63,9 +63,14 @@ describe('NodesController',function() {
 	it('should call createNodeForSubscriptionId of nodeService',function() {
 		//Positive Test: If this POST gets called, we expect a 200 response.
 		ctrlScope.selectedNodeId = testData.nodeTypesGET[0].id;
+
 		httpBackend.expectPOST(config.MW_URL+'/nodes', 
 			{ nodeType : testData.nodeTypesGET[0].id, subscriptionId: testData.subscriptionNodesGETParameter})
 			.respond(202);
+
+		httpBackend.expect('GET',config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes')
+					.respond(200,testData.subscriptionNodesGET);
+					
 		ctrlScope.addNode();
 		httpBackend.flush();
 		expect(nodeService.createNodeForSubscriptionId).toHaveBeenCalled();
@@ -79,6 +84,9 @@ describe('NodesController',function() {
 		httpBackend.expectDELETE(
 			config.MW_URL+'/nodes/'+testData.subscriptionNodesGET[0].id)
 		.respond(202);
+
+		httpBackend.expect('GET',config.MW_URL+'/subscriptions/'+testData.subscriptionNodesGETParameter+'/nodes')
+					.respond(200,testData.subscriptionNodesGET);
 
 		ctrlScope.deleteNode(testData.subscriptionNodesGET[0].id);
 		httpBackend.flush();

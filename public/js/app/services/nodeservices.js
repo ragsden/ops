@@ -31,7 +31,7 @@ angular.module('angSpa').factory('NodeService',function($http) {
 	  		});	
 		};
 
-		NodeService.prototype.deleteNodeById = function(subscriptionId,nodeId,done) {
+		NodeService.prototype.deleteNodeById = function(nodeId,done) {
 			var nodeDeleteUrl = middlewareUrl+"/nodes/"+nodeId;
 			$http(
 	  			{
