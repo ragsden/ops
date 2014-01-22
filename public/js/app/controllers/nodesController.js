@@ -13,27 +13,56 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 		$scope.nodeTypes = [];
 		$scope.nodes = [];
 		$scope.errorsAndMessages = [];
+		$scope.nodeStatuses = ['Queued','Node Ready','Admin Ready','Worker Ready','User setup','Node Stopped','Build in progress'];
 
 		if(config.runMode.toLowerCase() === "test") {
 		$scope.nodes = [
 			{ 
 				'Id': '2340-3433-5874-6873',
-				'status': 'queued', 
-				'type': 'Node-Type-1', 
+				'status': 0, 
+				'type': '1234-4567-35256', 
 				'created': '2013-Dec-01 13:54 PM (PST)', 
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			},
 			{ 
 				'Id': '2340-3433-5874-6873',
-				'status': 'adminProviisioning', 
-				'type': 'Node-Type-2', 
+				'status': 1, 
+				'type': '1234-4567-35216', 
 				'created': '2013-Dec-01 13:54 PM (PST)', 
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			},
 			{ 
 				'Id': '2340-3433-5874-6873',
-				'status': 'buildInProgress', 
-				'type': 'Node-Type-1', 
+				'status': 2, 
+				'type': '1234-4567-35256', 
+				'created': '2013-Dec-01 13:54 PM (PST)', 
+				'updated' : '2014-Jan-03 22:54 PM (PST)'
+			},
+			{ 
+				'Id': '2340-3433-5874-6873',
+				'status': 3, 
+				'type': '1234-4567-35256', 
+				'created': '2013-Dec-01 13:54 PM (PST)', 
+				'updated' : '2014-Jan-03 22:54 PM (PST)'
+			},
+			{ 
+				'Id': '2340-3433-5874-6873',
+				'status': 4, 
+				'type': '1234-4567-35256', 
+				'created': '2013-Dec-01 13:54 PM (PST)', 
+				'updated' : '2014-Jan-03 22:54 PM (PST)'
+			},
+			{ 
+				'Id': '2340-3433-5874-6873',
+				'status': 5, 
+				'type': '1234-4567-35256', 
+				'created': '2013-Dec-01 13:54 PM (PST)', 
+				'updated' : '2014-Jan-03 22:54 PM (PST)'
+			},
+			{ 
+				'Id': '2340-3433-5874-6873',
+				'status': 6, 
+				'type': '1234-4567-35256', 
 				'created': '2013-Dec-01 13:54 PM (PST)', 
 				'updated' : '2014-Jan-03 22:54 PM (PST)'
 			}
@@ -71,7 +100,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
   				function(err,data) {
   					if(err) {
   						if(err === 403) {
-  							$scope.errorsAndMessages.push('Error creating subscription. Node quota expired');
+  							$scope.errorsAndMessages.push('Error creating subscription. ' + data);
   						}
   						else if(err === 202) {
   							$scope.errorsAndMessages.push('The container has been queued for provisioning');
@@ -104,10 +133,9 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 			else {
 				if(data) {
 					for(var i=0;i<data.length;i++) {
-		  				$scope.nodes.push({ 
+						$scope.nodes.push({ 
 		  					'id' : data[i].id,
-		  					'status' : data[i].status,
-		  					'type' : data[i].type,
+		  					'status' : data[i].state,
 		  					'created': data[i].created,
 		  					'updated' : data[i].updated  
 		  				});

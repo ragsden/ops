@@ -12,10 +12,10 @@ var config = {
       			'subscriptionNodesGET' :  
       				[{
       					'id':'507f1f77bcf86cd799439011',
-      					'status':'queued',
-      					'type':'707f1f77bcf86cd799439012',
-      					'created': '',
-      					'updated': ''
+      					'state':0,
+      					'nodeType':'707f1f77bcf86cd799439012',
+      					'created': '2014-01-20T13:46:52.104Z',
+      					'updated': '2014-01-20T13:46:52.104Z'
       				 }
       				 ],
       			'negativesubscriptionNodesGETParameter': [ ],
@@ -65,7 +65,7 @@ var config = {
             },
           'negAccountGET' : {},
           
-          //subscriptionsPage > subscriptions:test-data
+          //list of subscriptions
           'subscriptionsGET': [{
                   id: '123f1f77bcf86cd799439011',
                   name: 'Free Plan',
@@ -78,7 +78,7 @@ var config = {
               }],
           'negSubscriptionsGET': [ ],
           
-          //subscriptionsPage >  plan:test-data
+          //plan details 
           'planIdGETParam': '0000000000000000000000000000000X',
           'negPlanIdGETParam': '0000000000000000000000000000000Y',
           'planGET': 
@@ -91,7 +91,14 @@ var config = {
               },
            'negPlanGET': {},
 
+           //delete subscription
+           'subIdDELParam': '123f1f77bcf86cd799439011',
+           'negSubIdDELParam':'12345677bcf86cd799439011',
+           'subIdDELDataReturned': 'OK',
+           'negSubIdDELDataReturned': 'Not OK',
 
+
+          //getProjects By Subscription Id
            'subscriptionProjectsGETParam': '123f1f77bcf86cd799439011',
            'negsubscriptionProjectsGETParam':'12345677bcf86cd799439011',
            'subscriptionProjectsGET':
@@ -132,6 +139,13 @@ var config = {
                   lastCommitShortDescription: 'short',
                   triggeredByAccount: 'thecccount'
                 }
-            ]
+            ],
+            'negsubscriptionProjectsGET': [],
+
+          //delete Project By Id
+           'projectIdDELParam': '52d7c18af0412511007af7f7',
+           'negProjectIdDELParam':'52d7c18af0512411007af7f7',
+           'projectIdDELDataReturned': 'OK',
+           'negProjectIdDELDataReturned': 'Not OK'
       }
 

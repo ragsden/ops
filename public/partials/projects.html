@@ -1,4 +1,4 @@
-    {{projectsModel.err}} 
+    
     <div ng-if="projectsModel.projects[0].id">
     Projects List:    
     <table class="table table-bordered table-condensed table-hover table-striped" >
@@ -10,6 +10,7 @@
                 <th>Node Type</th>
                 <th>Repository Url</th>
                 <th>Permissions (Account: Roles)</th>
+                <th>Options</th>
             </thead>
             <tbody>
                 <tr ng-repeat="project in projectsModel.projects">
@@ -27,13 +28,18 @@
                             </tbody>
                         </table>
                     </td>
-                    <td align="right"><a class="btn btn-xs btn-info" ng-click="showBuilds(project.id)">Show Builds</a></td>
-                   
-                </tr>
+                    <td>
+                        <a class="btn btn-xs btn-info" ng-click="showBuilds(project.id)">Show Builds</a>
+                        <a class="btn btn-xs btn-danger" ng-click="deleteProject(project.id)">Delete</a> 
+                    </td>
+                
+                   </tr>
             </tbody>            
    </table>
 </div>
-       
+    {{projectsModel.status}} <br/>
+  {{projectsModel.err}}  
+     
    
  
 

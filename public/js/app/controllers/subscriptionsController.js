@@ -1,12 +1,14 @@
 
 'use strict';
 
-var SubscriptionsController = function($scope, $location, subscriptionsService, plansService, $routeParams){
+var SubscriptionsController = function($scope, $location, subscriptionsService, plansService, $routeParams, AccountsService){
   $scope.subscriptionsModel = {
+    accountInfo: {},
     subscriptions:[],
-    errors: []
+    errors: [],
+    zeroSubscriptionsMessage: ""
   };
-  
+
   function subscriptionDataObject(id, name, plan, projects, containers, owners, created, updated, planName, nodesQuota, privateProjectsQuota, storageQuota){ 
     this.id = id;
     this.name = name;
@@ -25,7 +27,26 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   $scope.init = function(){
     $scope.subscriptionsModel.subscriptions = [];
     $scope.subscriptionsModel.errors = [];
+
+    AccountsService.getAccountById($routeParams.accountId, function(status, data){
+      if(status=== 401)
+       {
+         $scope.subscriptionsModel.errors = 'You are not allowed to use this feature.';
+      }
+      else if(status === 400)
+      {
+        $scope.subscriptionsModel.errors = data;
+      }
+     else
+     {
+       $scope.subscriptionsModel.accountInfo = data;
+      }
+    }); 
+
     subscriptionsService.getSubscriptionsByAccountId($routeParams.accountId, function(errS, subsData){
+    if(subsData.length === 0){
+        $scope.subscriptionsModel.zeroSubscriptionsMessage = 'There are no subscriptions on this account';
+      }
     if(!errS){
       for(var i=0; i < subsData.length; i++) {
          var j = i;
@@ -52,6 +73,7 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
          
          });
       }
+        
     }
     else{
         $scope.subscriptionsModel.errors.push(errS) ;     
@@ -72,17 +94,16 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   $scope.delSubBySubId = function(subId){
     subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
       if(status === 200){
-        console.log(status + "subscription deleted, data=" + data);
         $scope.init();
       }else{
-        console.log('status returned= ' + status + ", data returned=" + data);
+        $scope.subscriptionsModel.errors.push("Error in deleting subscription:" + data);
       }
     });
   };
 $scope.init();
 };
 
-SubscriptionsController.$inject = ["$scope", "$location", "subscriptionsService", "plansService", "$routeParams"];
+SubscriptionsController.$inject = ["$scope", "$location", "subscriptionsService", "plansService", "$routeParams", "AccountsService"];
 angSpa.controller("subscriptionsController", SubscriptionsController);
 
 
