@@ -34,7 +34,7 @@ function getShippableToken(_accessToken,done) {
         console.log('err');
         done(new Error("Undefined."),null);
       } else {
-        console.log('Shippable Token auth succeeded.');
+        console.log(data);
         return done(null,data);
       }
     });
@@ -48,7 +48,7 @@ function getGithubStrategy() {
     }, function(accessToken,refreshToken,profile,done) {
     	console.log('Authenticated ' + profile.username);
     	getShippableToken(accessToken,function(err,data) {
-        if(err) { done(err); }
+        if(err) { console.log('tokenget.. ' + err); done(err); }
         else {
             console.log('checking if account is superuser');
             getAccountForToken(data.token,function(err,account) {

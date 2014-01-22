@@ -27,14 +27,14 @@
                     <td>{{nodeStatuses[node.status]}}</td>
                     <td>{{node.created}}</td>
                     <td>{{node.updated}}</td>
-                    <td align="right"><a class="btn btn-xs btn-danger" ng-click="deleteNode(node.Id)">Delete</a></td>
+                    <td align="right"><a class="btn btn-xs btn-danger" ng-click="deleteNode(node.id)">Delete</a></td>
                 </tr>
             </tbody>
             
    </table>
 
    <div style="clear:both;">
-        <ul ng-repeat = "error in errorsAndMessages">
+        <ul ng-repeat = "error in errorsAndMessages track by $index">
             <li>{{error}}</li>
         </ul>
     </div>
