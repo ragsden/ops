@@ -24,7 +24,7 @@ describe('Builds Service',function() {
 				
 			httpBackend.flush();
 			expect(result[0].buildNumber).toBe(1);
-			expect(result[0].phase).toBe('Queued');
+			expect(result[0].phase).toBe(1);
 		});
 
 	});
