@@ -11,7 +11,7 @@
                 <th>Triggered By</th>
             </thead>
             <tbody>
-                <tr ng-repeat="build in builds">
+                <tr ng-repeat="build in builds|orderBy:sort.column:!sort.descending">
                     <td>{{build.buildNumber}}</td>
                     <td>{{build.phase}}</td>
                     <td>{{build.status}}</td>

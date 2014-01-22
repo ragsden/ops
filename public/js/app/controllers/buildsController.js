@@ -5,6 +5,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 	{
 		$scope.builds = [];
 		$scope.errors = [];
+		$scope.sort = { column : 'buildNumber', descending: false };
 			buildsService.getBuildsByProjectId($routeParams.projectId,function(err,data) {
 				if(err) {
 					$scope.errors.push('Error getting builds information..' + err + ',' + data);
