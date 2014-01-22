@@ -6,6 +6,9 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 		$scope.builds = [];
 		$scope.errors = [];
 		$scope.sort = { column : 'buildNumber', descending: false };
+        $scope.buildPhaseOptions = ['unknown', 'queued', 'started', 'synchronizing', 'building', 
+                                'archiving', 'archived', 'finished', 'all'];
+        $scope.selectedBuildPhase = $scope.buildPhaseOptions[9]; 
 			buildsService.getBuildsByProjectId($routeParams.projectId,function(err,data) {
 				if(err) {
 					$scope.errors.push('Error getting builds information..' + err + ',' + data);
@@ -19,7 +22,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 						for(var i=0;i<data.length;i++) {
 							$scope.builds.push({
 								buildNumber : data[i].buildNumber,
-								phase : data[i].phase,
+								phase : $scope.buildPhaseOptions[data[i].phase],
 								status : data[i].status,
 								duration : data[i].duration,
 								commitSha : data[i].commitSha,
