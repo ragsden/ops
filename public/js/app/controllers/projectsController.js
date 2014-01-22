@@ -63,7 +63,7 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
    $scope.deleteBuilds = function(projectId){
     ProjectsService.deleteBuildsByProjectId(projectId, function(status, data){
       if(status === 200){
-        $scope.projectsModel.status = 'The builds of project' + prjectId + "have been deleted.";
+        $scope.projectsModel.status = 'The builds of project ' + projectId + " have been deleted.";
       }
       else
       {

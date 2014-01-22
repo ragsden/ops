@@ -16,7 +16,8 @@ describe('ProjectsController',function() {
 
 			routeParams.subscriptionId = testData.subscriptionProjectsGETParam;
 			spyOn(projectsService,'getProjectsBySubscriptionId').andCallThrough();
-			spyOn(projectsService,'deleteProjectById').andCallThrough();			
+			spyOn(projectsService,'deleteProjectById').andCallThrough();
+			spyOn(projectsService,'deleteBuildsByProjectId').andCallThrough();			
 			
 			ctrl = $controller('projectsController',
 				{
@@ -60,5 +61,18 @@ describe('ProjectsController',function() {
         //expect them in this order
         expect(projectsService.deleteProjectById).toHaveBeenCalled();
         expect(projectsService.getProjectsBySubscriptionId).toHaveBeenCalled();        
+    });
+	
+	it('should call deleteBuildsByProjectId when delete all builds button is clicked', function(){
+		httpBackend.expectGET(config.MW_URL+'/subscriptions/'+testData.subscriptionProjectsGETParam+'/projects')
+		.respond(200,testData.subscriptionProjectsGET);
+		httpBackend.flush();
+		expect(projectsService.getProjectsBySubscriptionId).toHaveBeenCalled();
+
+        httpBackend.expect('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam + '/builds')
+        .respond(200, 'OK');
+        ctrlScope.deleteBuilds(testData.projectIdDELParam);
+        httpBackend.flush();
+        expect(projectsService.deleteBuildsByProjectId).toHaveBeenCalled();       
     });
 });
