@@ -20,6 +20,10 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
          err:"",
          status:"",        
       };
+
+      $scope.showBuilds = function(id) {
+        $location.path('/projects/'+id+'/builds');
+      }
   
     $scope.init = function(){
     ProjectsService.getProjectsBySubscriptionId($routeParams.subscriptionId,function(err,data){
