@@ -46,7 +46,7 @@ function getGithubStrategy() {
     }, function(accessToken,refreshToken,profile,done) {
     	console.log('Authenticated ' + profile.username);
     	getShippableToken(accessToken,function(err,data) {
-        if(err) { console.log('tokenget.. ' + err); done(err); }
+        if(err) { done(err); }
         else {
             console.log('checking if account is superuser');
             getAccountForToken(data.token,function(err,account) {
