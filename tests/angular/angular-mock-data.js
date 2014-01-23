@@ -146,6 +146,9 @@ var config = {
            'projectIdDELParam': '52d7c18af0412511007af7f7',
            'negProjectIdDELParam':'52d7c18af0512411007af7f7',
            'projectIdDELDataReturned': 'OK',
-           'negProjectIdDELDataReturned': 'Not OK'
+           'negProjectIdDELDataReturned': 'Not OK',
+
+           'testBuildNumber' : '1',
+           'buildnumberDELDataReturned' : 'OK'
       }
 

@@ -27,6 +27,17 @@ describe('Builds Service',function() {
 			expect(result[0].phase).toBe('Queued');
 		});
 
+		it('testing - deleting a build by projects/projectid/builds/buildNumber', function(){
+			httpBackend.when('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam + '/builds/' + testData.testBuildNumber)
+            	.respond(200, testData.buildnumberDELDataReturned);
+    		var statusReceived;
+    		buildService.deleteBuildByBuildNumber(testData.projectIdDELParam, testData.testBuildNumber, function(status, data){
+        		statusReceived = status;
+    			});
+    		httpBackend.flush();
+   			expect(statusReceived).toBe(200);
+  		});
+
 	});
 	
 	afterEach(function() {
