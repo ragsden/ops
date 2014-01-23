@@ -51,7 +51,7 @@ describe('BuildsController',function() {
 		expect(ctrlScope.builds.length).toBe(1);
 		
 		expect(ctrlScope.builds[0].buildNumber).toBe(1);
-		expect(ctrlScope.builds[0].phase).toBe('Queued');
+		expect(ctrlScope.builds[0].phase).toBe('queued');
 		expect(ctrlScope.builds[0].status).toBe('Finished');
 		expect(ctrlScope.builds[0].lastAuthorEmail).toBe('hjd@afhj.com');
 		expect(ctrlScope.builds[0].triggeredByAccount).toBe('thecccount');

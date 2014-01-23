@@ -1,4 +1,7 @@
 <h4>Builds Information</h4>
+<select ng-model="selectedBuildPhase" ng-options="v as k for (k,v) in buildPhasesObj ">
+    <option value=""> -- choose build phase -- </option>
+  </select>
 
 <table class="table table-bordered table-condensed table-hover table-striped" >
             <thead>
@@ -12,7 +15,8 @@
                 <th>Options</th>
             </thead>
             <tbody>
-                <tr ng-repeat="build in builds|orderBy:sort.column:!sort.descending" ng-if="build.buildNumber">
+              <tr ng-repeat="build in builds | filter: {phase: selectedBuildPhase} |orderBy:sort.column:!sort.descending" ng-if="build.buildNumber"> 
+
                     <td>{{build.buildNumber}}</td>
                     <td>{{build.phase}}</td>
                     <td>{{build.status}}</td>
