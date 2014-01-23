@@ -1,7 +1,7 @@
 
 'use strict';
 
-var SubscriptionsController = function($scope, $location, subscriptionsService, plansService, $routeParams, AccountsService){
+var SubscriptionsController = function($scope, $location, subscriptionsService, plansService, $routeParams, AccountsService, $window){
   $scope.subscriptionsModel = {
     accountInfo: {},
     subscriptions:[],
@@ -92,8 +92,8 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   }
 
   $scope.delSubBySubId = function(subId){
-    var confirmDelete = confirm("click OK to delete subscription");
-    if (confirmDelete === true)
+    var confirmDelete = $window.confirm("click OK to delete subscription");
+    if(confirmDelete)
      {
       subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
       if(status === 200){
@@ -107,7 +107,7 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
 $scope.init();
 };
 
-SubscriptionsController.$inject = ["$scope", "$location", "subscriptionsService", "plansService", "$routeParams", "AccountsService"];
+SubscriptionsController.$inject = ["$scope", "$location", "subscriptionsService", "plansService", "$routeParams", "AccountsService", "$window"];
 angSpa.controller("subscriptionsController", SubscriptionsController);
 
 
