@@ -124,7 +124,7 @@ var config = {
                 {
                   buildNumber: 1,
                   project: '123456789012345',
-                  phase: 'Queued',
+                  phase: 1,
                   status: 'Finished',
                   duration: 12345,
                   size: 4567,

@@ -6,6 +6,19 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 		$scope.builds = [];
 		$scope.errors = [];
 		$scope.sort = { column : 'buildNumber', descending: false };
+        $scope.buildPhasesObj = {
+                                    'unknown': 'unknown',
+                                    'queued' : 'queued',
+                                    'started' : 'started',
+                                    'synchronizing' : 'synchronizing',
+                                    'building' : 'building',
+                                    'archiving' : 'archiving',
+                                    'archived' : 'archived',
+                                    'finished' : 'finished',
+                                    'all' : ''        
+                                 };
+        $scope.selectedBuildPhase = '';          
+        $scope.buildPhases =  Object.keys($scope.buildPhasesObj).splice(0,8);
 			buildsService.getBuildsByProjectId($routeParams.projectId,function(err,data) {
 				if(err) {
 					$scope.errors.push('Error getting builds information..' + err + ',' + data);
@@ -19,7 +32,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 						for(var i=0;i<data.length;i++) {
 							$scope.builds.push({
 								buildNumber : data[i].buildNumber,
-								phase : data[i].phase,
+								phase : $scope.buildPhases[data[i].phase],
 								status : data[i].status,
 								duration : data[i].duration,
 								commitSha : data[i].commitSha,
