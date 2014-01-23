@@ -2,24 +2,22 @@
     <div ng-if="projectsModel.projects[0].id">
     Projects List:    
     <table class="table table-bordered table-condensed table-hover table-striped" >
-            <thead>
-                <th>Created On</th>
+            <thead>                
                 <th>Project Id</th>
-                <th>Language</th>
                 <th>Name</th>
+                <th>Language</th>                
                 <th>Node Type</th>
-                <th>Repository Url</th>
                 <th>Permissions (Account: Roles)</th>
-                <th>Options</th>
+                <th>Created On (PST)</th>
+                <th>Repository Url</th>                
+                <th>Actions</th>
             </thead>
             <tbody>
-                <tr ng-repeat="project in projectsModel.projects">
-                    <td>{{project.created}}</td>
+                <tr ng-repeat="project in projectsModel.projects">                    
                     <td>{{project.id}}</td>
-                    <td>{{project.language}}</td>
                     <td>{{project.name}}</td>
+                    <td>{{project.language}}</td>                    
                     <td>{{project.nodeType}}</td>
-                    <td>{{project.repositoryUrl}}</td>
                     <td><table>
                              <tbody>
                              <tr ng-repeat="p in project.permissions">
@@ -28,6 +26,8 @@
                             </tbody>
                         </table>
                     </td>
+                    <td>{{project.created | format_to_pst }}</td>
+                    <td>{{project.repositoryUrl}}</td>                    
                     <td>
                         <a class="btn btn-xs btn-info" ng-click="showBuilds(project.id)">Show Builds</a>
                         <a class="btn btn-xs btn-danger" ng-click="deleteBuilds(project.id)">Delete All Builds</a>
