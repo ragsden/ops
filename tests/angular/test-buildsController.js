@@ -67,7 +67,7 @@ describe('BuildsController',function() {
         .respond(200, 'OK');
         httpBackend.expect('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
 					.respond(200,testData.testProjectData);
-        ctrlScope.deleteBuild(testData.testBuildNumber);
+        ctrlScope.deleteBuild(testData.testBuildNumber,true);
         httpBackend.flush();
         expect(buildsService.deleteBuildByBuildNumber).toHaveBeenCalled(); 
         expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();      
