@@ -41,7 +41,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
           for(var i=0;i<$scope.selectedBuildNumbers.length;i++) {
             $scope.deleteBuild($scope.selectedBuildNumbers[i],false);
           }
-          $scope.deleteSelectedBuilds=[]; //reset 
+          $scope.selectedBuildNumbers.length = 0; 
           $scope.init();
         }
         $scope.init = function(){        	
