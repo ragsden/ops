@@ -13,74 +13,24 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
 		$scope.nodeTypes = [];
 		$scope.nodes = [];
 		$scope.errorsAndMessages = [];
-		$scope.nodeStatuses = ['Queued','Node Ready','Admin Ready','Worker Ready','User setup','Node Stopped','Build in progress','Remove_Queued'];
 
-		if(config.runMode.toLowerCase() === "test") {
-		$scope.nodes = [
-			{ 
-				'Id': '2340-3433-5874-6873',
-				'status': 0, 
-				'type': '1234-4567-35256', 
-				'created': '2013-Dec-01 13:54 PM (PST)', 
-				'updated' : '2014-Jan-03 22:54 PM (PST)'
-			},
-			{ 
-				'Id': '2340-3433-5874-6873',
-				'status': 1, 
-				'type': '1234-4567-35216', 
-				'created': '2013-Dec-01 13:54 PM (PST)', 
-				'updated' : '2014-Jan-03 22:54 PM (PST)'
-			},
-			{ 
-				'Id': '2340-3433-5874-6873',
-				'status': 2, 
-				'type': '1234-4567-35256', 
-				'created': '2013-Dec-01 13:54 PM (PST)', 
-				'updated' : '2014-Jan-03 22:54 PM (PST)'
-			},
-			{ 
-				'Id': '2340-3433-5874-6873',
-				'status': 3, 
-				'type': '1234-4567-35256', 
-				'created': '2013-Dec-01 13:54 PM (PST)', 
-				'updated' : '2014-Jan-03 22:54 PM (PST)'
-			},
-			{ 
-				'Id': '2340-3433-5874-6873',
-				'status': 4, 
-				'type': '1234-4567-35256', 
-				'created': '2013-Dec-01 13:54 PM (PST)', 
-				'updated' : '2014-Jan-03 22:54 PM (PST)'
-			},
-			{ 
-				'Id': '2340-3433-5874-6873',
-				'status': 5, 
-				'type': '1234-4567-35256', 
-				'created': '2013-Dec-01 13:54 PM (PST)', 
-				'updated' : '2014-Jan-03 22:54 PM (PST)'
-			},
-			{ 
-				'Id': '2340-3433-5874-6873',
-				'status': 6, 
-				'type': '1234-4567-35256', 
-				'created': '2013-Dec-01 13:54 PM (PST)', 
-				'updated' : '2014-Jan-03 22:54 PM (PST)'
-			}
-		];
-		$scope.errorsAndMessages = [];
-		$scope.nodeTypes = [
-			{ 'id' : '1234-4567-35256','name' : 'Test-1'},
-			{ 'id' : '1234-4567-35256','name' : 'Test-2'}
-		];
-		$scope.selectedNodeId = $scope.nodeTypes[0].id;
-		$scope.addNode = function() {
-			$scope.errorsAndMessages.push('Calling Add for in test mode. Nothing executed');
-		}
-		$scope.deleteNode = function(nodeId) {
-			$scope.errorsAndMessages.push('Called node delete in test mode. Nothing executed');
-		}
-	}
-  	else {
+        $scope.nodeStatuses = [
+          'QUEUED',
+          'NODE_READY',
+          'ADMIN_READY',
+          'ADMIN_STOPPED',
+          'WORKER_READY',
+          'WORKER_STOPPED',
+          'NODE_FAILURE', 
+          'NODE_STOPPED',
+          'USER_SETUP',
+          'USER_SETUP_FAILED',
+          'BUILD_IN_PROGRESS', 
+          'REMOVE_QUEUED', 
+          'REMOVE_FAILED', 
+          'REMOVED'
+           ];
+
   		$scope.deleteNode = function(nodeId) {
   			nodeService.deleteNodeById(nodeId,
   				function(err,data) {
@@ -151,5 +101,5 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
   		$scope.refresh();
   	}
 
-}]);
+]);
 
