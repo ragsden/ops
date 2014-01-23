@@ -92,13 +92,17 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   }
 
   $scope.delSubBySubId = function(subId){
-    subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
+    var confirmDelete = confirm("click OK to delete subscription");
+    if (confirmDelete === true)
+     {
+      subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
       if(status === 200){
         $scope.init();
       }else{
         $scope.subscriptionsModel.errors.push("Error in deleting subscription:" + data);
       }
-    });
+      });
+     };   
   };
 $scope.init();
 };
