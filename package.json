@@ -17,7 +17,8 @@
     "jshint": "~2.3.0",
     "requirejs": "~2.1.9",
     "karma-coverage": "~0.1.4",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "moment": "~2.5.1"
   },
   "scripts": {
     "start": "supervisor app.js",

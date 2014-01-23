@@ -14,6 +14,17 @@ angSpa.factory('BuildsService',function($http){
             done(status,data);
           });
      };
+
+     BuildsService.prototype.deleteBuildByBuildNumber = function(projectId,buildNumber, done){
+        var deleteBuildUrl = middlewareUrl + "/projects/" + projectId + "/builds/" + buildNumber;
+        $http({ method: 'DELETE', url: deleteBuildUrl}).
+        success(function(data, status, headers, config) {
+          done(status, data);
+        }).
+        error(function(data, status, headers, config) {
+          done(status, data);
+        });
+     };
    };
    return new BuildsService();
 

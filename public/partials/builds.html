@@ -2,19 +2,33 @@
 <select ng-model="selectedBuildPhase" ng-options="v as k for (k,v) in buildPhasesObj ">
     <option value=""> -- choose build phase -- </option>
   </select>
-
+  <button class="btn btn-xs btn-danger" ng-disabled="selectedBuildNumbers.length == 0" ng-click="deleteSelectedBuilds()">Delete Selected Builds</button>
 <table class="table table-bordered table-condensed table-hover table-striped" >
-            <thead>
+  <thead>
+    <th>
+      
+      <label class="label-checkbox">
+        <input type="checkbox" ng-model="masterToggle" ng-change="selectAllBuilds()" /></td>
+      <span class="custom-checkbox"></span>
+    </label>
+  </th>
                 <th>Build Number</th>
                 <th>Phase</th>
                 <th>Status</th>
-                <th>Duration</th>
+                <th>Duration</th> 
                 <th>Commit Sha</th>
                 <th>Last Author</th>
                 <th>Triggered By</th>
+                <th>Options</th>
             </thead>
             <tbody>
-              <tr ng-repeat="build in builds | filter: {phase: selectedBuildPhase} |orderBy:sort.column:!sort.descending"> 
+              <tr ng-repeat="build in builds | filter: {phase: selectedBuildPhase} |orderBy:sort.column:!sort.descending" ng-if="build.buildNumber"> 
+                <td>
+                  <label class="label-checkbox">
+                  <input type="checkbox"  ng-model="build.isSelected">
+                    <span class="custom-checkbox"></span>
+                </label>
+                </td>
                     <td>{{build.buildNumber}}</td>
                     <td>{{build.phase}}</td>
                     <td>{{build.status}}</td>
@@ -22,13 +36,14 @@
                     <td>{{build.commitSha}}</td>
                     <td>{{build.lastAuthorEmail}}</td>
                     <td>{{build.triggeredByAuthor}}</td>
-                    
+                    <td><a class="btn btn-xs btn-danger" ng-click="deleteBuild(build.buildNumber,true)">Delete</a> 
+                    </td>
                 </tr>
             </tbody>            
    </table>
 
    <div style="clear:both;">
-        <ul ng-repeat = "error in errors">
+        <ul ng-repeat = "error in errorsAndMessages track by $index ">
             <li>{{error}}</li>
         </ul>
     </div>

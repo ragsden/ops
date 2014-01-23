@@ -18,7 +18,7 @@ describe('BuildsController',function() {
 			//spy on the service API calls, and monitor them, but let them execute.
 			//We just want to check if they are used in the controller
 			spyOn(buildsService,'getBuildsByProjectId').andCallThrough();
-			
+			spyOn(buildsService,'deleteBuildByBuildNumber').andCallThrough();
 
 			routeParams.projectId = testData.testProjectId;
 
@@ -59,5 +59,18 @@ describe('BuildsController',function() {
 		//Can add more checks here to validate if test data is assigned in the controller's scope
 	});
 
+	it('should call deleteBuildByBuildNumber when delete button is clicked', function(){
+		httpBackend.flush();
+		expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();
+
+        httpBackend.expect('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam + '/builds/' + testData.testBuildNumber)
+        .respond(200, 'OK');
+        httpBackend.expect('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
+					.respond(200,testData.testProjectData);
+        ctrlScope.deleteBuild(testData.testBuildNumber,true);
+        httpBackend.flush();
+        expect(buildsService.deleteBuildByBuildNumber).toHaveBeenCalled(); 
+        expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();      
+    });
 	
 });
