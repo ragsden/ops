@@ -6,6 +6,8 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 		$scope.builds = [];
 		$scope.errors = [];
 		$scope.sort = { column : 'buildNumber', descending: false };
+
+		$scope.status = "";
         $scope.buildPhasesObj = {
                                     'unknown': 'unknown',
                                     'queued' : 'queued',
@@ -16,14 +18,16 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                     'archived' : 'archived',
                                     'finished' : 'finished',
                                     'all' : ''        
-                                 };
-        $scope.selectedBuildPhase = '';          
+                                 };          
         $scope.buildPhases =  Object.keys($scope.buildPhasesObj).splice(0,8);
+        $scope.init = function(){        	
+        $scope.selectedBuildPhase = '';
 			buildsService.getBuildsByProjectId($routeParams.projectId,function(err,data) {
 				if(err) {
 					$scope.errors.push('Error getting builds information..' + err + ',' + data);
 				}
 				else {
+					$scope.builds.length = 0;
 					if(data.length === 0)
 					{
 						$scope.errors.push('There are no builds in this project');
@@ -44,4 +48,21 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 					}
 				}
 			});
+		}
+			$scope.deleteBuild = function(buildNumber){
+				$scope.status = "";
+				buildsService.deleteBuildByBuildNumber($routeParams.projectId,buildNumber, function(status, data){
+      			if(status === 200){
+        			$scope.status = "Build " + buildNumber + " has been deleted" ;
+        			$scope.init();
+      			}
+     			 else
+      			{
+       				 $scope.errors.push('Error deleting the build..' + err + ',' + data);
+      			}
+   			 });
+
+			};
+			$scope.init();
+
 	}]);

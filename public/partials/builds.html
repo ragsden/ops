@@ -8,13 +8,15 @@
                 <th>Build Number</th>
                 <th>Phase</th>
                 <th>Status</th>
-                <th>Duration</th>
+                <th>Duration</th> 
                 <th>Commit Sha</th>
                 <th>Last Author</th>
                 <th>Triggered By</th>
+                <th>Options</th>
             </thead>
             <tbody>
-              <tr ng-repeat="build in builds | filter: {phase: selectedBuildPhase} |orderBy:sort.column:!sort.descending"> 
+              <tr ng-repeat="build in builds | filter: {phase: selectedBuildPhase} |orderBy:sort.column:!sort.descending" ng-if="build.buildNumber"> 
+
                     <td>{{build.buildNumber}}</td>
                     <td>{{build.phase}}</td>
                     <td>{{build.status}}</td>
@@ -22,12 +24,14 @@
                     <td>{{build.commitSha}}</td>
                     <td>{{build.lastAuthorEmail}}</td>
                     <td>{{build.triggeredByAuthor}}</td>
-                    
+                    <td><a class="btn btn-xs btn-danger" ng-click="deleteBuild(build.buildNumber)">Delete</a> 
+                    </td>
                 </tr>
             </tbody>            
    </table>
 
    <div style="clear:both;">
+   {{status}}
         <ul ng-repeat = "error in errors">
             <li>{{error}}</li>
         </ul>
