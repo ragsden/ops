@@ -18,8 +18,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                     'all' : ''        
                                  };
         $scope.selectedBuildPhase = '';          
-        $scope.buildPhases = ['unknown', 'queued', 'started', 'synchronizing', 'building', 
-                                'archiving', 'archived', 'finished'];
+        $scope.buildPhases =  Object.keys($scope.buildPhasesObj).splice(0,8);
 			buildsService.getBuildsByProjectId($routeParams.projectId,function(err,data) {
 				if(err) {
 					$scope.errors.push('Error getting builds information..' + err + ',' + data);
