@@ -8,7 +8,7 @@
                 <th><a href="" class="short-cut link" ng-click="changeSorting('language')">Language</a></th>
                 <th><a href="" class="short-cut link" ng-click="changeSorting('nodeType')">Node Type</a></th>
                 <th>Permissions (Account: Roles)</th>
-                <th><a href="" class="short-cut link" ng-click="changeSorting('createdOn')">Created On (PST)</a></th>
+                <th><a href="" class="short-cut link" ng-click="changeSorting('created')">Created On (PST)</a></th>
                 <th><a href="" class="short-cut link" ng-click="changeSorting('repositoryUrl')">Repository Url</a></th>
                 <th>Actions</th>
             </thead>
@@ -33,7 +33,6 @@
                         <a class="btn btn-xs btn-danger" ng-click="deleteBuilds(project.id)">Delete All Builds</a>
                         <a class="btn btn-xs btn-danger" ng-click="deleteProject(project.id)">Delete</a> 
                     </td>
-                
                    </tr>
             </tbody>            
    </table>
