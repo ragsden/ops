@@ -120,6 +120,7 @@ var config = {
            'negsubscriptionProjectsGET': [],
 
            'testProjectId' : '52d7c18af0412511007af7f7',
+           'negTestProjectId' : '52d7c19af0412511007af9f9',
             'testProjectData' : [
                 {
                   buildNumber: 1,
@@ -132,7 +133,7 @@ var config = {
                   committerLogin: 'ofcourseme',
                   commitSha: '12345678124',
                   repositorySize: 3466,
-                  repositoryFileCount: 12,
+                  repositoryFileCount: 12, 
                   buildYml: 'hsaTml',
                   lastAuthorEmail: 'hjd@afhj.com',
                   lastCommitAuthorEmail: 'sjdf@asgf.com',
@@ -149,6 +150,8 @@ var config = {
            'negProjectIdDELDataReturned': 'Not OK',
 
            'testBuildNumber' : '1',
-           'buildnumberDELDataReturned' : 'OK'
+           'buildnumberDELDataReturned' : 'OK',
+
+           'postBuildByProjectId' : { 'buildNumber' : 1 },
       }
 

@@ -25,6 +25,17 @@ angSpa.factory('BuildsService',function($http){
           done(status, data);
         });
      };
+
+    BuildsService.prototype.runBuildByProjectId = function(projectId, done){
+        var runBuildUrl = middlewareUrl + "/projects/" + projectId + "/build";
+        $http({ method: 'POST', url: runBuildUrl}).
+        success(function(data, status, headers, config) {
+          done(status, data);
+        }).
+        error(function(data, status, headers, config) {
+          done(status, data);
+        });
+     };
    };
    return new BuildsService();
 
