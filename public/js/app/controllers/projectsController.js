@@ -28,7 +28,7 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
       $scope.sort = {column:'name', descending: false};
 
       $scope.changeSorting = function(column){
-        if($scope.sort.column == column){
+        if($scope.sort.column === column){
           $scope.sort.descending = !$scope.sort.descending;
         }else{
           $scope.sort.column = column;
