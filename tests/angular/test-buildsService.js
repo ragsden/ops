@@ -40,6 +40,34 @@ describe('Builds Service',function() {
 
 	});
 	
+		it('trigger a new build',function() {
+			var statusReceived;
+			var result;
+			httpBackend.when('POST',config.MW_URL+'/projects/'+testData.testProjectId+'/build')
+				.respond(200,testData.postBuildByProjectId);
+
+			buildService.runBuildByProjectId(testData.testProjectId, function(status,data) {
+				statusReceived = status;
+				result = data;
+			});
+			httpBackend.flush();
+			expect(statusReceived).toBe(200);
+			expect(result.buildNumber).toBe(1);
+
+		});
+
+		it('returns error status when error while trigeering a new build',function() {
+			var statusReceived;
+			httpBackend.when('POST',config.MW_URL+'/projects/'+testData.negTestProjectId+'/build')
+				.respond(400,null);
+
+			buildService.runBuildByProjectId(testData.negTestProjectId, function(status,data) {
+				statusReceived = status;
+			});
+			httpBackend.flush();
+			expect(statusReceived).not.toBe(200);
+		});
+	
 	afterEach(function() {
 		httpBackend.verifyNoOutstandingExpectation();
      	httpBackend.verifyNoOutstandingRequest();

@@ -1,13 +1,11 @@
 
 'use strict';
-angular.module('angSpa').controller('buildsController',['$scope','$routeParams','BuildsService',
-	function($scope,$routeParams,buildsService) 
+angular.module('angSpa').controller('buildsController',['$scope','$routeParams','BuildsService','$filter',
+	function($scope,$routeParams,buildsService,$filter) 
 	{
 		$scope.builds = [];
 		$scope.errorsAndMessages = [];
 		$scope.sort = { column : 'buildNumber', descending: false };
-
-		$scope.status = "";
         $scope.buildPhasesObj = {
                                     'unknown': 'unknown',
                                     'queued' : 'queued',
@@ -54,8 +52,13 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 					$scope.builds.length = 0;
 					if(data.length === 0)
 					{
+
+            var found = $filter('find_msg')('There are no builds in this project',$scope.errorsAndMessages);
+            if(!found)
+            {
 						$scope.errorsAndMessages.push('There are no builds in this project');
-                        $scope.masterToggle = false;
+            }
+            $scope.masterToggle = false;
 					} 
 					else {
 						for(var i=0;i<data.length;i++) {
@@ -75,7 +78,6 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 			});
 		}
 			$scope.deleteBuild = function(buildNumber,shouldRefresh){
-              $scope.status = "";
               buildsService.deleteBuildByBuildNumber($routeParams.projectId,buildNumber, 
                                                      function(status, data){
                 if(status === 200){
@@ -83,7 +85,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                 }
                 else
                   {
-                    $scope.errorsAndMessages.push('Error deleting the build..' + err + ',' + data);
+                    $scope.errorsAndMessages.push('Error deleting the build..' + status + ',' + data);
                   }
                   if(shouldRefresh) {
                     $scope.init();
@@ -91,6 +93,27 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
               });
 
 			};
+      $scope.runBuild = function(shouldRefresh){
+              buildsService.runBuildByProjectId($routeParams.projectId,function(status, data){
+                if(status === 200){
+                  $scope.errorsAndMessages.push("Build " + data.buildNumber + " has been triggered!!") ;
+                }
+                else
+                  {
+                    var msg = 'Error running the build..' + status + ',' + data;
+                    var found = $filter('find_msg')(msg,$scope.errorsAndMessages);
+                    if(!found)
+                     {
+                      $scope.errorsAndMessages.push(msg);
+                     }
+                  }  
+                if(shouldRefresh)
+                   {
+                    $scope.init();
+                   }
+              });
+
+      };
 			$scope.init();
 
 	}]);

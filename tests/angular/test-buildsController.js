@@ -19,7 +19,7 @@ describe('BuildsController',function() {
 			//We just want to check if they are used in the controller
 			spyOn(buildsService,'getBuildsByProjectId').andCallThrough();
 			spyOn(buildsService,'deleteBuildByBuildNumber').andCallThrough();
-
+			spyOn(buildsService,'runBuildByProjectId').andCallThrough();
 			routeParams.projectId = testData.testProjectId;
 
 			//Since the controller calls these APIs we expect to get some data back
@@ -70,6 +70,20 @@ describe('BuildsController',function() {
         ctrlScope.deleteBuild(testData.testBuildNumber,true);
         httpBackend.flush();
         expect(buildsService.deleteBuildByBuildNumber).toHaveBeenCalled(); 
+        expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();      
+    });
+
+    it('should call runBuildByProjectId when Run a build button is clicked', function(){
+		httpBackend.flush();
+		expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();
+
+        httpBackend.when('POST',config.MW_URL+'/projects/'+testData.testProjectId+'/build')
+				.respond(200,testData.postBuildByProjectId);
+        httpBackend.expect('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
+					.respond(200,testData.testProjectData);
+        ctrlScope.runBuild(true);
+        httpBackend.flush();
+        expect(buildsService.runBuildByProjectId).toHaveBeenCalled(); 
         expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();      
     });
 	
