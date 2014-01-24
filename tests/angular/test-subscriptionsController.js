@@ -14,6 +14,8 @@ describe('Testing subscriptionsController',function() {
             accountsServ = AccountsService;
 			routeParams = $routeParams;
 			httpBackend = $httpBackend;
+            var windowMock = { confirm: function(msg){ return true;} };
+
 
             spyOn(accountsServ, 'getAccountById').andCallThrough();
             spyOn(subsServ, 'getSubscriptionsByAccountId').andCallThrough();
@@ -37,7 +39,8 @@ describe('Testing subscriptionsController',function() {
 					$routeParams : routeParams,
                     subscriptionsService : subsServ,
                     plansService : plansServ,
-                    AccountsService : accountsServ
+                    AccountsService : accountsServ,
+                    $window : windowMock
 			     });
 			
 			});
