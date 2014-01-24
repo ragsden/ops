@@ -1,6 +1,5 @@
 <h4>Builds Information</h4>
 <select ng-model="selectedBuildPhase" ng-options="v as k for (k,v) in buildPhasesObj ">
-    <option value=""> -- choose build phase -- </option>
   </select>
   <button class="btn btn-xs btn-danger" ng-disabled="selectedBuildNumbers.length == 0" ng-click="deleteSelectedBuilds()">Delete Selected Builds</button>
 <table class="table table-bordered table-condensed table-hover table-striped" >
