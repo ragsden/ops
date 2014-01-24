@@ -96,7 +96,6 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
       $scope.runBuild = function(shouldRefresh){
               buildsService.runBuildByProjectId($routeParams.projectId,function(status, data){
                 if(status === 200){
-                  console.log(data);
                   $scope.errorsAndMessages.push("Build " + data.buildNumber + " has been triggered!!") ;
                 }
                 else
