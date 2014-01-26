@@ -3,17 +3,17 @@ var AccountController = function($scope,$location,AccountsService,$routeParams) 
   $scope.accountModel={
                  id: "",
                  lastUsedIdentityId: "",
-                 systemRoles: [""], 
+                 systemRoles: [""],
                  identities: [{
                       id: "",
-                      providerId: "", 
+                      providerId: "",
                       firstName: "" ,
                       lastName: "",
                       userName: "",
                       displayName: "",
                       avatarUrl: "",
                       avatarId: "",
-                      provider: ""  
+                      provider: ""
                    }],
                 err : "",
               };
@@ -22,7 +22,7 @@ var AccountController = function($scope,$location,AccountsService,$routeParams) 
       if(err)
        {
          $scope.accountModel.err = 'Error getting the Account Profile.';
-      }     
+      }
      else
      {
        $scope.accountModel = data;

@@ -11,7 +11,8 @@
       "waitsFor": false,
       "runs": false,
       "angSpa":false,
-      "config":false
+      "config":false,
+      "angular":false
   },
     "browser" : true, 
     "devel" : true, 
