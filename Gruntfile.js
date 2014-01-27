@@ -17,9 +17,20 @@ module.exports = function(grunt) {
         singleRun: true,
         browsers: ['PhantomJS']
       }
+    },
+    exec : {
+        test: {
+          command: "mkdir -p shippable/testresults && XUNIT_FILE=shippable/testresults/result.xml ./node_modules/mocha/bin/_mocha --timeout 5000 --reporter=xunit-file tests/node/**/*.js"
+
+        },
+        coverage : {
+          command : "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --timeout 5000 tests/node/**/*.js && ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage"
+        },
+        clean : {
+          command : "rm -Rf coverage shippable"
+        }
     }
-    
 
   });
-  grunt.registerTask('default', ['karma','jshint']);
+  grunt.registerTask('default', ['exec:clean','karma','exec:test','exec:coverage','jshint']);
 };
