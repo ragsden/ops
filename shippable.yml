@@ -1,5 +1,5 @@
 node_js:
   - "0.10"
-before_install: "rm -Rf node_modules"
+before_install: npm install -g grunt-cli
 language: node_js
-script:	make coverage
+script: grunt
