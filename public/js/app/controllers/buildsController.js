@@ -5,7 +5,6 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                     {
                                       $scope.builds = [];
                                       $scope.errorsAndMessages = [];
-                                      $scope.sort = { column : 'buildNumber', descending: false };
 
                                       $scope.status = "";
                                       $scope.buildPhasesObj = {
@@ -43,6 +42,16 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                         $scope.selectedBuildNumbers.length = 0;
                                       };
                                       $scope.init = function(){
+      $scope.sort = {column:'buildNumber', descending: false};
+
+      $scope.changeSorting = function(column){
+        if($scope.sort.column === column){
+          $scope.sort.descending = !$scope.sort.descending;
+        }else{
+          $scope.sort.column = column;
+          $scope.sort.descending = false;
+        }
+      };
                                         $scope.selectedBuildPhase = '';
                                         buildsService.getBuildsByProjectId($routeParams.projectId,function(err,data) {
                                           if(err) {
