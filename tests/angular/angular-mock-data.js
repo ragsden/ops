@@ -152,6 +152,6 @@ var config = {
            'testBuildNumber' : '1',
            'buildnumberDELDataReturned' : 'OK',
 
-           'postBuildByProjectId' : { 'buildNumber' : 1 },
+           'postBuildByProjectId' : { 'buildNumbers' : 1 },
       }
 
