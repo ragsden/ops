@@ -1,7 +1,7 @@
 
 'use strict';
-angular.module('angSpa').controller('buildsController',['$scope','$routeParams','BuildsService',
-                                    function($scope,$routeParams,buildsService)
+angular.module('angSpa').controller('buildsController',['$scope','$routeParams','BuildsService','$filter',
+                                    function($scope,$routeParams,buildsService,$filter)
                                     {
                                       $scope.builds = [];
                                       $scope.errorsAndMessages = [];
@@ -35,7 +35,6 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                           $scope.builds[i].isSelected = $scope.masterToggle;
                                         }
                                       };
-
                                       $scope.deleteSelectedBuilds = function() {
                                         console.log($scope.selectedBuildNumbers);
                                         for(var i=0;i<$scope.selectedBuildNumbers.length;i++) {
@@ -91,6 +90,31 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                                                                });
 
                                       };
+
+                                      $scope.runBuild = function(shouldRefresh){
+                                        buildsService.runBuildByProjectId($routeParams.projectId,function(status, data){
+                                          if(status === 200){
+                                            $scope.errorsAndMessages.push("Build " + data.buildNumber + " has been triggered!!") ;
+                                          }
+                                          else
+                                            {
+                                              var msg = 'Error running the build..' + status + ',' + data;
+                                              var found = $filter('find_msg')(msg,$scope.errorsAndMessages);
+                                              if(!found)
+                                                {
+                                                  $scope.errorsAndMessages.push(msg);
+                                                }
+                                            }
+                                            if(shouldRefresh)
+                                              {
+                                                $scope.init();
+                                              }
+                                        });
+
+                                      };
+
+
+
                                       $scope.init();
 
                                     }]);

@@ -3,17 +3,17 @@
     Projects List:    
     <table class="table table-bordered table-condensed table-hover table-striped" >
             <thead>                
-                <th>Project Id</th>
-                <th>Name</th>
-                <th>Language</th>                
-                <th>Node Type</th>
+                <th><a href="" class="short-cut link" ng-click="changeSorting('id')">Project Id</a></th>
+                <th><a href="" class="short-cut link" ng-click="changeSorting('name')">Name</a></th>
+                <th><a href="" class="short-cut link" ng-click="changeSorting('language')">Language</a></th>
+                <th><a href="" class="short-cut link" ng-click="changeSorting('nodeType')">Node Type</a></th>
                 <th>Permissions (Account: Roles)</th>
-                <th>Created On (PST)</th>
-                <th>Repository Url</th>                
+                <th><a href="" class="short-cut link" ng-click="changeSorting('created')">Created On (PST)</a></th>
+                <th><a href="" class="short-cut link" ng-click="changeSorting('repositoryUrl')">Repository Url</a></th>
                 <th>Actions</th>
             </thead>
             <tbody>
-                <tr ng-repeat="project in projectsModel.projects">                    
+                <tr ng-repeat="project in projectsModel.projects | orderBy:sort.column:sort.descending">                    
                     <td>{{project.id}}</td>
                     <td>{{project.name}}</td>
                     <td>{{project.language}}</td>                    
@@ -33,7 +33,6 @@
                         <a class="btn btn-xs btn-danger" ng-click="deleteBuilds(project.id)">Delete All Builds</a>
                         <a class="btn btn-xs btn-danger" ng-click="deleteProject(project.id)">Delete</a> 
                     </td>
-                
                    </tr>
             </tbody>            
    </table>

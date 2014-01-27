@@ -26,6 +26,21 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
   };
 
   $scope.init = function(){
+      $scope.showBuilds = function(id) {
+        $location.path('/projects/'+id+'/builds');
+      };
+
+      $scope.sort = {column:'name', descending: false};
+
+      $scope.changeSorting = function(column){
+        if($scope.sort.column === column){
+          $scope.sort.descending = !$scope.sort.descending;
+        }else{
+          $scope.sort.column = column;
+          $scope.sort.descending = false;
+        }
+      };
+  
     ProjectsService.getProjectsBySubscriptionId($routeParams.subscriptionId,function(err,data){
       if(err)
         {
