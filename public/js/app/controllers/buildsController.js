@@ -52,10 +52,16 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                             $scope.builds.length = 0;
                                             if(data.length === 0)
                                               {
-                                                $scope.errorsAndMessages.push('There are no builds in this project');
+
+                                              var found = $filter('find_msg')('There are no builds in this project',$scope.errorsAndMessages);
+                                              if(!found)
+                                                {
+                                                  $scope.errorsAndMessages.push('There are no builds in this project');
+                                              }
                                                 $scope.masterToggle = false;
                                               }
                                               else {
+                                                $filter('delete_msg')('There are no builds in this project',$scope.errorsAndMessages);
                                                 for(var i=0;i<data.length;i++) {
                                                   $scope.builds.push({
                                                     buildNumber : data[i].buildNumber,
@@ -93,7 +99,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                       $scope.runBuild = function(shouldRefresh){
                                         buildsService.runBuildByProjectId($routeParams.projectId,function(status, data){
                                           if(status === 200){
-                                            $scope.errorsAndMessages.push("Build " + data.buildNumber + " has been triggered!!") ;
+                                            $scope.errorsAndMessages.push("Build " + data.buildNumbers + " has been triggered!!") ;
                                           }
                                           else
                                             {
