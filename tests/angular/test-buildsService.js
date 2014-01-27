@@ -52,7 +52,7 @@ describe('Builds Service',function() {
 			});
 			httpBackend.flush();
 			expect(statusReceived).toBe(200);
-			expect(result.buildNumber).toBe(1);
+			expect(result.buildNumbers).toBe(1);
 
 		});
 
