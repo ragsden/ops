@@ -56,8 +56,8 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 
                                               var found = $filter('find_msg')('There are no builds in this project',$scope.errorsAndMessages);
                                               if(!found)
-                                                {                                                  
-                                                $scope.errorsAndMessages.push('There are no builds in this project');
+                                                {
+                                                  $scope.errorsAndMessages.push('There are no builds in this project');
                                               }
                                                 $scope.masterToggle = false;
                                               }
