@@ -1,6 +1,6 @@
 <h4>Builds Information</h4>
 <div style="float:right;">
-<a class="btn btn-xs btn-success" ng-click="runBuild(true)">Run a Build</a><br/>
+<a class="btn btn-xs btn-success" ng-click="runBuild(true)" ng-disabled="disable_runButton">Run a Build</a><br/>
 </div>
 <select ng-model="selectedBuildPhase" ng-options="v as k for (k,v) in buildPhasesObj ">
   </select>

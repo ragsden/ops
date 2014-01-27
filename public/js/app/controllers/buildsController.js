@@ -18,6 +18,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                         'finished' : 'finished',
                                         'all' : ''
                                       };
+                                      $scope.disable_runButton = false;
                                       $scope.buildPhases =  Object.keys($scope.buildPhasesObj).splice(0,8);
                                       $scope.selectedBuildPhase = '';
 
@@ -106,6 +107,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                       };
 
                                       $scope.runBuild = function(shouldRefresh){
+                                        $scope.disable_runButton = true;
                                         buildsService.runBuildByProjectId($routeParams.projectId,function(status, data){
                                           if(status === 200){
                                             $scope.errorsAndMessages.push("Build " + data.buildNumbers + " has been triggered!!") ;
@@ -123,6 +125,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                               {
                                                 $scope.init();
                                               }
+                                              $scope.disable_runButton = false;
                                         });
 
                                       };
