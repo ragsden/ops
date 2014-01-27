@@ -7,11 +7,11 @@
 <div ng-show="subscriptionsModel.subscriptions.length !==0">
 <table class="table table-bordered table-condensed table-hover table-striped">
     <tr>
-    <th>Subscription Name</th>
+    <th><a href="" class="short-cut link" ng-click="changeSorting('name')">Subscription Name</a></th>
     <th>Options</th>
 </tr>
 
-    <tr ng-repeat="s in subscriptionsModel.subscriptions">
+    <tr ng-repeat="s in subscriptionsModel.subscriptions | orderBy:sort.column:sort.descending">
         <td>{{s.name}}</td>
     <td>
         <a class="btn btn-xs btn-info" ng-click="getToNodesOnSubId(s.id)">Manage Nodes</a>
