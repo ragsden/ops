@@ -30,6 +30,17 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
     $scope.subscriptionsModel.subscriptions = [];
     $scope.subscriptionsModel.errors = [];
 
+      $scope.sort = {column:'name', descending: false};
+
+      $scope.changeSorting = function(column){
+        if($scope.sort.column === column){
+          $scope.sort.descending = !$scope.sort.descending;
+        }else{
+          $scope.sort.column = column;
+          $scope.sort.descending = false;
+        }
+     };
+
     AccountsService.getAccountById($routeParams.accountId, function(status, data){
       if(status=== 401)
         {
