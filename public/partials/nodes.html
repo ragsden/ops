@@ -16,17 +16,17 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
     <thead>
             <thead>
-                <th>Node Id</th>
-                <th>Node Status</th>
-                <th>Created</th>
-                <th>Updated</th>
+                <th><a href="" class="short-cut link" ng-click="changeSorting('id')">Node Id</a></th>
+                <th><a href="" class="short-cut link" ng-click="changeSorting('status')">Node Status</a></th>
+                <th><a href="" class="short-cut link" ng-click="changeSorting('created')">Created On</a></th>
+                <th><a href="" class="short-cut link" ng-click="changeSorting('updated')">Updated On</a></th>
                 <th>Options</th>
             </thead>
                                 </thead>
                                 <tbody>
-                                   <tr ng-repeat="node in nodes">
+                <tr ng-repeat="node in nodes | orderBy:sort.column:!sort.descending">                    
                     <td>{{node.id}}</td>
-                    <td>{{nodeStatuses[node.status]}}</td>
+                    <td>{{node.status}}</td>
                     <td>{{node.created}}</td>
                     <td>{{node.updated}}</td>
                     <td align="right"><a class="btn btn-xs btn-danger" ng-click="deleteNode(node.id)">Delete</a></td>

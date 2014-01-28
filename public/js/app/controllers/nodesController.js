@@ -70,6 +70,19 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                                                                 });
                                       };
                                       $scope.refresh = function() {
+
+      $scope.sort = {column:'created', descending: false};
+
+      $scope.changeSorting = function(column){
+        if($scope.sort.column === column){
+          $scope.sort.descending = !$scope.sort.descending;
+        }else{
+          $scope.sort.column = column;
+          $scope.sort.descending = false;
+        }
+      };
+
+
                                         nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
                                           if(err) {
                                             $scope.errorsAndMessages.push("Error getting container information");
@@ -80,7 +93,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                               for(var i=0;i<data.length;i++) {
                                                 $scope.nodes.push({
                                                   'id' : data[i].id,
-                                                  'status' : data[i].state,
+                                                  'status' : $scope.nodeStatuses[data[i].state],
                                                   'created': data[i].created,
                                                   'updated' : data[i].updated
                                                 });
