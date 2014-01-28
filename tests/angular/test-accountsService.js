@@ -18,6 +18,12 @@ describe('Accounts Service',function() {
 				.respond(200,testData.accountsGET);
 				httpBackend.when('GET',config.MW_URL+'/accounts/search/'+testData.negaccountsSearchByUsernameGETParam)
 				.respond(200,testData.negAccountsGET);
+
+				httpBackend.when('DELETE', config.MW_URL + '/accounts/'+ testData.accountIdGETParam)
+            	.respond(200, 'OK');
+            	httpBackend.when('DELETE', config.MW_URL + '/accounts/'+ testData.negAccountIdGETParam)
+            	.respond(404, 'Bad Request');
+
 				bootstrapped = true;
 			}
 		});
@@ -77,6 +83,24 @@ describe('Accounts Service',function() {
 			httpBackend.flush();
 			expect(result).toBe(null);
 		   });
+
+		it('testing - deleting user account using a valid accountId', function(){
+    		var statusReceived;
+    		accountsService.deleteAccountById(testData.accountIdGETParam, function(status, data){
+        		statusReceived = status;
+    			});
+    		httpBackend.flush();
+   			expect(statusReceived).toBe(200);
+  		});
+ 
+  		it('testing - error on deleting an account using invalid accountId', function(){
+    		var statusReceived;
+    		accountsService.deleteAccountById(testData.negAccountIdGETParam, function(status, data){
+       		 statusReceived = status;
+    			});
+    		httpBackend.flush();
+    		expect(statusReceived).not.toBe(200);
+  		});
 	});
 	afterEach(function() {
 		httpBackend.verifyNoOutstandingExpectation();
