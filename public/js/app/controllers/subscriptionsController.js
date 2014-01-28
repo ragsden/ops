@@ -117,6 +117,16 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
         });
       }
   };
+
+  $scope.goBack = function(){
+    window.history.back();
+  };
+
+  $scope.goForward = function(){
+    window.history.forward();
+  };
+
+
   $scope.init();
 };
 

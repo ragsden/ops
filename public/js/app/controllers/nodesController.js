@@ -31,6 +31,12 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                         'REMOVED'
                                       ];
 
+  
+                                      $scope.goBack = function(){
+                                        window.history.back();
+                                      };
+                                    
+
                                       $scope.deleteNode = function(nodeId) {
                                         nodeService.deleteNodeById(nodeId,
                                                                    function(err,data) {
