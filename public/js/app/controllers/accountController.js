@@ -18,6 +18,10 @@ var AccountController = function($scope,$location,AccountsService,$routeParams) 
     err : "",
   };
 
+  $scope.goBack = function(){
+    window.history.back();
+  };
+
   AccountsService.getAccountById($routeParams.accountId,function(err,data){
     if(err)
       {

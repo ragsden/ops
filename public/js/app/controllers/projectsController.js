@@ -25,6 +25,14 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
     $location.path('/projects/'+id+'/builds');
   };
 
+  $scope.goBack = function(){
+    window.history.back();
+  };
+
+  $scope.goForward = function(){
+    window.history.forward();
+  };
+
   $scope.init = function(){
       $scope.showBuilds = function(id) {
         $location.path('/projects/'+id+'/builds');
