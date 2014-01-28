@@ -1,18 +1,21 @@
-
+<div style="float:right;">
+<a class="btn btn-xs btn-danger" ng-click="deleteAccount(true)" ng-disabled="disable_deleteAccountButton">Delete Account</a><br/>
+</div>
 <a href="#" class="btn btn-primary" ng-click="goBack()"><i class="fa fa-chevron-left"></i> Back</a>
 <div>
   {{accountModel.err}}
-  <div ng-if="accountModel.id">
+  {{accountModel.status}}
+  <div ng-if="accountModel.account.id">
             <div class="row">
              
               <div class="col-xs-6 col-sm-12 col-md-6" style="width:500px">
-                <strong class="font-14">AccountId: {{accountModel.id}}</strong>
+                <strong class="font-14">AccountId: {{accountModel.account.id}}</strong>
                 <div class="seperator"></div>
                 <strong class="font-14">
-                 LastUsedIdentityId : {{accountModel.lastUsedIdentityId}}
+                 LastUsedIdentityId : {{accountModel.account.lastUsedIdentityId}}
                 </strong> 
                 <div class="seperator"></div>
-              <strong class="font-14">System Roles : {{accountModel.systemRoles}}</strong>
+              <strong class="font-14">System Roles : {{accountModel.account.systemRoles}}</strong>
                 <div class="seperator"></div>              
                 
                 <div class="seperator"></div>
@@ -26,7 +29,7 @@
       </div>
       </div>              
                 
- <div class="panel" style="width:800px" ng-repeat="a in accountModel.identities">
+ <div class="panel" style="width:800px" ng-repeat="a in accountModel.account.identities">
   <div class="panel-body">                  
       <div class="pull-left m-left-sm"  >  
       

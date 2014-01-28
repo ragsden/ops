@@ -37,7 +37,7 @@ describe('accountController',function() {
 		.respond(200,testData.accountGET);
 		httpBackend.flush();
 		expect(accountsService.getAccountById).toHaveBeenCalled();
-		expect(ctrlScope.accountModel.id).toBe('1234567890qwertyuiopasdf');
+		expect(ctrlScope.accountModel.account.id).toBe('1234567890qwertyuiopasdf');
 	});
 });
  
