@@ -79,7 +79,7 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
                                                                 subsData[j].name,
                                                                 subsData[j].plan,
                                                                 subsData[j].projects,
-                                                                subsData[j].containers,                                                                
+                                                                subsData[j].containers,
                                                                 subsData[j].owners,
                                                                 subsData[j].created,
                                                                 subsData[j].updated,
@@ -108,10 +108,6 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
     });
 
   };
-
-  $scope.CalculateResourceUsage = function(subsData,planData) {
-   
-  }
 
   $scope.getToNodesOnSubId = function(subId){
     $location.path("/subscriptions/"+subId+"/nodes");
