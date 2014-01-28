@@ -18,7 +18,8 @@ describe('accountController',function() {
 
 			routeParams.accountId = testData.accountIdGETParam;
 			
-			spyOn(accountsService,'getAccountById').andCallThrough();			
+			spyOn(accountsService,'getAccountById').andCallThrough();
+			spyOn(accountsService,'deleteAccountById').andCallThrough();			
 			
 			ctrl = $controller('accountController',
 				{
@@ -37,7 +38,20 @@ describe('accountController',function() {
 		.respond(200,testData.accountGET);
 		httpBackend.flush();
 		expect(accountsService.getAccountById).toHaveBeenCalled();
-		expect(ctrlScope.accountModel.id).toBe('1234567890qwertyuiopasdf');
+		expect(ctrlScope.accountModel.account.id).toBe('1234567890qwertyuiopasdf');
 	});
+
+	it('should call deleteAccountById when delete account button is clicked', function(){
+		httpBackend.expectGET(config.MW_URL+'/accounts/'+testData.accountIdGETParam)
+		.respond(200,testData.accountGET);
+		httpBackend.flush();
+		expect(accountsService.getAccountById).toHaveBeenCalled();
+
+        httpBackend.expect('DELETE', config.MW_URL + '/accounts/'+testData.accountIdGETParam)
+        .respond(200, 'OK');
+        ctrlScope.deleteAccount();
+        httpBackend.flush();
+        expect(accountsService.deleteAccountById).toHaveBeenCalled();
+    });
 });
  
