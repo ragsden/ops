@@ -11,7 +11,7 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
     zeroSubscriptionsMessage: ""
   };
 
-  function subscriptionDataObject(id, name, plan, projects, containers, owners, created, updated, planName, nodesQuota, privateProjectsQuota, storageQuota){
+  function subscriptionDataObject(id, name, plan, projects, containers, owners, created, updated, planName, nodesQuota, privateProjectsQuota, storageQuota,percent_storageBytesUsed,percent_privateProjectsUsed,percent_nodesUsed){
     this.id = id;
     this.name = name;
     this.plan = plan;
@@ -24,8 +24,13 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
     this.nodesQuota = nodesQuota;
     this.privateProjectsQuota = privateProjectsQuota;
     this.storageQuota = storageQuota;
+    this.percent_storageBytesUsed = percent_storageBytesUsed;
+    this.percent_privateProjectsUsed = percent_privateProjectsUsed;
+    this.percent_nodesUsed = percent_nodesUsed;
   }
-
+  function resourcesUsedObj () {
+    
+  }
   $scope.init = function(){
     $scope.subscriptionsModel.subscriptions = [];
     $scope.subscriptionsModel.errors = [];
@@ -65,6 +70,11 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
           var j = i;
           plansService.getPlanByPlanId(subsData[j].plan, function(errP, planData){
             if(!errP){
+              var percent_storageBytesUsed = (subsData[j].storageBytesUsed/planData.storageGigaBytesQuota)*100;
+              var percent_privateProjectsUsed = (subsData[j].privateProjectsCount/planData.privateProjectsQuota)*100;
+              var arr = ['1'];
+              var nodesUsed = arr.length; // TODO change it to subsData[j].nodes.length
+              var percent_nodesUsed = (nodesUsed/planData.nodesQuota)*100;
               var subscriptionData = new subscriptionDataObject(subsData[j].id,
                                                                 subsData[j].name,
                                                                 subsData[j].plan,
@@ -76,7 +86,10 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
                                                                 planData.name,
                                                                 planData.nodesQuota,
                                                                 planData.privateProjectsQuota,
-                                                                planData.storageGigaBytesQuota
+                                                                planData.storageGigaBytesQuota,
+                                                                percent_storageBytesUsed,
+                                                                percent_privateProjectsUsed,
+                                                                percent_nodesUsed
                                                                );
 
                                                                $scope.subscriptionsModel.subscriptions.push(subscriptionData);
