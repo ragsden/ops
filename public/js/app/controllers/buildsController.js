@@ -1,4 +1,3 @@
-
 'use strict';
 angular.module('angSpa').controller('buildsController',['$scope','$routeParams','BuildsService','$filter',
      function($scope,$routeParams,buildsService,$filter){
@@ -30,8 +29,8 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 
       $scope.masterToggle = false;
       
-      $scope.selectAllBuilds = function() {      
-          for(var i=0;i<$scope.builds.length;i++) {
+      $scope.selectAllBuilds = function(){
+        for(var i=0;i<$scope.builds.length;i++) {
           $scope.builds[i].isSelected = $scope.masterToggle;
           }
       };
