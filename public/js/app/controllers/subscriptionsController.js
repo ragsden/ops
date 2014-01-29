@@ -98,6 +98,9 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   $scope.getProjects = function(subId){
     $location.path("/subscriptions/"+subId+"/projects");
   };
+  $scope.getCardInfo = function(cardId){
+    $location.path("/cards/"+cardId);
+  };
 
   $scope.delSubBySubId = function(subId){
     var confirmDelete = $window.confirm("click OK to delete subscription");
