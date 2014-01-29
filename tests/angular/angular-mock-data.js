@@ -74,7 +74,8 @@ var config = {
                   containers: ['507f1f77bcf86cd799439011'],
                   owners: ['testOwner'],
                   created: '2013-Dec-01 13:54 PM (PST)',
-                  updated: '2014-Jan-03 22:54 PM (PST)'
+                  updated: '2014-Jan-03 22:54 PM (PST)',
+                  cardId: '312f1f77bcf86cd799439011',
               }],
           'negSubscriptionsGET': [ ],
           
@@ -153,5 +154,15 @@ var config = {
            'buildnumberDELDataReturned' : 'OK',
 
            'postBuildByProjectId' : { 'buildNumbers' : 1 },
+
+
+           'testCardId': '312f1f77bcf86cd799439011',
+           'negtestCardId': '312f1f77bcf86cd799439022',
+           'testCardData': {
+             id: "312f1f77bcf86cd799439011",
+             cardNumber: "4321",
+             expiry: "",
+             type: "xxx",
+           },
       }
 

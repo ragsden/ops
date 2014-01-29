@@ -64,4 +64,14 @@ describe('Testing routes',function() {
 			});
     	});
 
+    	it('should check if cardsController resolves correctly',function() {
+    		module('angSpa');
+    		inject(function($route) {
+				var controller = $route.routes['/cards/:cardId'].controller;
+				var templateUrl = $route.routes['/cards/:cardId'].templateUrl;
+				expect(controller).toEqual('cardsController');
+				expect(templateUrl).toEqual('/partials/card.html');
+			});
+    	});
+
 });

@@ -56,10 +56,7 @@ describe('Testing subscriptionsController',function() {
         expect(ctrlScope.subscriptionsModel.accountInfo.identities[0].userName).toBe('testUser');
         expect(ctrlScope.subscriptionsModel.subscriptions.length).toBe(1);
         expect(ctrlScope.subscriptionsModel.subscriptions[0].id).toBe('123f1f77bcf86cd799439011');
-        expect(ctrlScope.subscriptionsModel.subscriptions[0].plan).toBe('0000000000000000000000000000000X');
-        expect(ctrlScope.subscriptionsModel.subscriptions[0].projects.length).toBe(1);
-
-        expect(ctrlScope.subscriptionsModel.subscriptions[0].planName).toBe('Free');
+        expect(ctrlScope.subscriptionsModel.subscriptions[0].cardId).toBe('312f1f77bcf86cd799439011');
 		//Can add more checks here to validate if test data is assigned in the controller's scope
 	});
 
