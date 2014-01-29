@@ -1,12 +1,12 @@
 'use strict';
 
 var CardsController = function($scope,$location,$routeParams,CardsService) {
-  $scope.cardsModel={   
-    card :{
-         id: "",
-         cardNumber: "",
-         expiry: "",
-         type: "",
+  $scope.cardsModel={
+      card: {
+        id: "",
+        cardNumber: "",
+        expiry: "",
+        type: "",
     },
     err:";"
   };
@@ -23,7 +23,7 @@ var CardsController = function($scope,$location,$routeParams,CardsService) {
         }
 
     });
-  }
+  };
    $scope.goBack = function(){
     window.history.back();
   };
