@@ -75,7 +75,7 @@ var config = {
                   owners: ['testOwner'],
                   created: '2013-Dec-01 13:54 PM (PST)',
                   updated: '2014-Jan-03 22:54 PM (PST)',
-                  cardId: '312f1f77bcf86cd799439011',
+                  card: '312f1f77bcf86cd799439011',
               }],
           'negSubscriptionsGET': [ ],
           
@@ -160,7 +160,7 @@ var config = {
            'negtestCardId': '312f1f77bcf86cd799439022',
            'testCardData': {
              id: "312f1f77bcf86cd799439011",
-             cardNumber: "4321",
+             lastFourDigits: "4321",
              expiry: "",
              type: "xxx",
            },

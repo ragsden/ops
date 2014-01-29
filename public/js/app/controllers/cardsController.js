@@ -4,7 +4,7 @@ var CardsController = function($scope,$location,$routeParams,CardsService) {
   $scope.cardsModel={
       card: {
         id: "",
-        cardNumber: "",
+        lastFourDigits: "",
         expiry: "",
         type: "",
     },
