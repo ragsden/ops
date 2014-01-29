@@ -74,7 +74,8 @@ var config = {
                   containers: ['507f1f77bcf86cd799439011'],
                   owners: ['testOwner'],
                   created: '2013-Dec-01 13:54 PM (PST)',
-                  updated: '2014-Jan-03 22:54 PM (PST)'
+                  updated: '2014-Jan-03 22:54 PM (PST)',
+                  cardId: '312f1f77bcf86cd799439011',
               }],
           'negSubscriptionsGET': [ ],
           
