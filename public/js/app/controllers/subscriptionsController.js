@@ -71,7 +71,7 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
                                                                 percent_storageBytesUsed,
                                                                 percent_privateProjectsUsed,
                                                                 percent_nodesUsed,
-                                                                subsData[j].cardId
+                                                                subsData[j].card
                                                                );
 
                                                                $scope.subscriptionsModel.subscriptions.push(subscriptionData);
