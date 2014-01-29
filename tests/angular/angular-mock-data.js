@@ -154,5 +154,15 @@ var config = {
            'buildnumberDELDataReturned' : 'OK',
 
            'postBuildByProjectId' : { 'buildNumbers' : 1 },
+
+
+           'testCardId': '312f1f77bcf86cd799439011',
+           'negtestCardId': '312f1f77bcf86cd799439022',
+           'testCardData': {
+             id: "312f1f77bcf86cd799439011",
+             cardNumber: "4321",
+             expiry: "",
+             type: "xxx",
+           },
       }
 
