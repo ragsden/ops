@@ -42,16 +42,7 @@ describe('accountController',function() {
 	});
 
 	it('should call deleteAccountById when delete account button is clicked', function(){
-		httpBackend.expectGET(config.MW_URL+'/accounts/'+testData.accountIdGETParam)
-		.respond(200,testData.accountGET);
-		httpBackend.flush();
-		expect(accountsService.getAccountById).toHaveBeenCalled();
-
-        httpBackend.expect('DELETE', config.MW_URL + '/accounts/'+testData.accountIdGETParam)
-        .respond(200, 'OK');
-        ctrlScope.deleteAccount();
-        httpBackend.flush();
-        expect(accountsService.deleteAccountById).toHaveBeenCalled();
+		
     });
 });
  
