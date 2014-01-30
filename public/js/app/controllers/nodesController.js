@@ -36,6 +36,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                         window.history.back();
                                       };
                                     
+      $scope.sort = {column:'created', descending: false};
 
                                       $scope.deleteNode = function(nodeId) {
                                         nodeService.deleteNodeById(nodeId,
@@ -69,9 +70,10 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                                                                   $scope.refresh();
                                                                                 });
                                       };
+
+
                                       $scope.refresh = function() {
 
-      $scope.sort = {column:'created', descending: false};
 
       $scope.changeSorting = function(column){
         if($scope.sort.column === column){

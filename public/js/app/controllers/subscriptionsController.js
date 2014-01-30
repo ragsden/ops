@@ -11,31 +11,20 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
     zeroSubscriptionsMessage: ""
   };
 
-  function subscriptionDataObject(id, name, plan, projects, containers, owners, created, updated, planName, nodesQuota, privateProjectsQuota, storageQuota,percent_storageBytesUsed,percent_privateProjectsUsed,percent_nodesUsed){
+  function subscriptionDataObject(id, name, percent_storageBytesUsed, percent_privateProjectsUsed,percent_nodesUsed, cardId){
     this.id = id;
     this.name = name;
-    this.plan = plan;
-    this.projects = projects;
-    this.containers = containers;
-    this.owners = owners;
-    this.created = created;
-    this.updated = updated;
-    this.planName = planName;
-    this.nodesQuota = nodesQuota;
-    this.privateProjectsQuota = privateProjectsQuota;
-    this.storageQuota = storageQuota;
     this.percent_storageBytesUsed = percent_storageBytesUsed;
     this.percent_privateProjectsUsed = percent_privateProjectsUsed;
     this.percent_nodesUsed = percent_nodesUsed;
+    this.cardId = cardId;
   }
-  function resourcesUsedObj () {
-    
-  }
+  $scope.sort = {column:'name', descending: false};
+
   $scope.init = function(){
     $scope.subscriptionsModel.subscriptions = [];
     $scope.subscriptionsModel.errors = [];
 
-      $scope.sort = {column:'name', descending: false};
 
       $scope.changeSorting = function(column){
         if($scope.sort.column === column){
@@ -70,26 +59,17 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
           var j = i;
           plansService.getPlanByPlanId(subsData[j].plan, function(errP, planData){
             if(!errP){
-              var percent_storageBytesUsed = (subsData[j].storageBytesUsed/planData.storageGigaBytesQuota)*100;
+              var percent_storageBytesUsed = (subsData[j].storageBytesUsed/(planData.storageGigaBytesQuota * 1073741824))*100;
               var percent_privateProjectsUsed = (subsData[j].privateProjectsCount/planData.privateProjectsQuota)*100;
               var arr = ['1'];
               var nodesUsed = arr.length; // TODO change it to subsData[j].nodes.length
               var percent_nodesUsed = (nodesUsed/planData.nodesQuota)*100;
               var subscriptionData = new subscriptionDataObject(subsData[j].id,
                                                                 subsData[j].name,
-                                                                subsData[j].plan,
-                                                                subsData[j].projects,
-                                                                subsData[j].containers,
-                                                                subsData[j].owners,
-                                                                subsData[j].created,
-                                                                subsData[j].updated,
-                                                                planData.name,
-                                                                planData.nodesQuota,
-                                                                planData.privateProjectsQuota,
-                                                                planData.storageGigaBytesQuota,
                                                                 percent_storageBytesUsed,
                                                                 percent_privateProjectsUsed,
-                                                                percent_nodesUsed
+                                                                percent_nodesUsed,
+                                                                subsData[j].card
                                                                );
 
                                                                $scope.subscriptionsModel.subscriptions.push(subscriptionData);
@@ -115,6 +95,9 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   };
   $scope.getProjects = function(subId){
     $location.path("/subscriptions/"+subId+"/projects");
+  };
+  $scope.getCardInfo = function(cardId){
+    $location.path("/cards/"+cardId);
   };
 
   $scope.delSubBySubId = function(subId){
