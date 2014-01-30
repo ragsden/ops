@@ -19,14 +19,12 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
     this.percent_nodesUsed = percent_nodesUsed;
     this.cardId = cardId;
   }
-  function resourcesUsedObj () {
-    
-  }
+  $scope.sort = {column:'name', descending: false};
+
   $scope.init = function(){
     $scope.subscriptionsModel.subscriptions = [];
     $scope.subscriptionsModel.errors = [];
 
-      $scope.sort = {column:'name', descending: false};
 
       $scope.changeSorting = function(column){
         if($scope.sort.column === column){
