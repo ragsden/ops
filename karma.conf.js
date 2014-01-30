@@ -4,6 +4,7 @@ module.exports = function(config) {
 
         files: [
             'public/js/lib/angular/angular.js',
+            'public/js/bootstrap/js/ui-bootstrap-tpls-0.10.0.min.js',
             'public/js/lib/angular/angular-*.js',
             'public/js/lib/angular/angular-mocks.js',
             'public/js/app/**/*.js',
