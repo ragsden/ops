@@ -14,7 +14,6 @@
     <th>Storage Bytes Used</th>
     <th>Private Projects Used</th>
     <th>Nodes Used</th>
-    <th>Card Id</th>
     <th>Options</th>
 </tr>
 
@@ -23,8 +22,9 @@
         <td> {{s.percent_storageBytesUsed}} %</td>
         <td> {{s.percent_privateProjectsUsed}} %</td>        
         <td> {{s.percent_nodesUsed}} %</td>
-        <td> <a class="btn btn-xs" ng-click="getCardInfo(s.cardId)">{{s.cardId}}</a></td>
     <td>
+
+        <a class="btn btn-xs btn-info" ng-click="getCardInfo(s.cardId)">Card Details</a>
         <a class="btn btn-xs btn-info" ng-click="getToNodesOnSubId(s.id)">Manage Nodes</a>
         <a class="btn btn-xs btn-info" ng-click="getProjects(s.id)">Projects</a>
         <a class="btn btn-xs btn-danger" ng-click="delSubBySubId(s.id)">Delete</a>
