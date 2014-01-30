@@ -161,8 +161,8 @@ var config = {
            'testCardData': {
              id: "312f1f77bcf86cd799439011",
              lastFourDigits: "4321",
-             expiry: "",
-             type: "xxx",
+             expiry: "01/2023",
+             type: "Visa Gold",
            },
       }
 

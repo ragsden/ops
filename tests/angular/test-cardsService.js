@@ -28,7 +28,7 @@ describe('Cards Page',function() {
 			});
 			httpBackend.flush();
 			expect(result.id).toBe(testData.testCardData.id);
-			expect(result.cardNumber).toBe(testData.testCardData.cardNumber);
+			expect(result.lastFourDigits).toBe(testData.testCardData.lastFourDigits);
 		});
 
 		it('checks for null result for invalid cardId',function() {
