@@ -4,7 +4,7 @@
 
 // template for follow up with angular
 
-var angSpa = angular.module('angSpa', ['ngRoute','ngCookies']);
+var angSpa = angular.module('angSpa', ['ngRoute','ngCookies', 'ui.bootstrap']);
 angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
 
   $httpProvider.interceptors.push(['$q', function($q) {
