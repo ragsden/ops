@@ -32,13 +32,13 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
   $scope.goForward = function(){
     window.history.forward();
   };
+  $scope.sort = {column:'name', descending: false};
 
   $scope.init = function(){
       $scope.showBuilds = function(id) {
         $location.path('/projects/'+id+'/builds');
       };
 
-      $scope.sort = {column:'name', descending: false};
 
       $scope.changeSorting = function(column){
         if($scope.sort.column === column){

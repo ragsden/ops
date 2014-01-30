@@ -47,8 +47,9 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
         window.history.back();
       };
 
+      $scope.sort = {column:'buildNumber', descending: false};
+
       $scope.init = function(){
-          $scope.sort = {column:'buildNumber', descending: false};
 
           $scope.changeSorting = function(column){
             if($scope.sort.column === column){
