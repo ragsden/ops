@@ -63,7 +63,7 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
           }
           else
           {
-            $scope.accountModel.err = 'There was an error while deleting this account';
+            $scope.accountModel.err = 'There was an error while deleting this account' + err;
           }
         });
       }
@@ -106,7 +106,7 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
                ProjectsService.deleteBuildsByProjectId(projectsData[l].id, function(status, data){
                 if(status !== 200)
                   {
-                   done(err);
+                   done(data);
                   }
                 else
                 {
