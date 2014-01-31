@@ -22,8 +22,18 @@ angSpa.factory('AccountsService',function($http){
             done(status,data);
           });
   };
+   AccountsService.prototype.deleteSubsByAccId = function(accountId,done){
+          var deleteSubsByAccIdUrl = middlewareUrl + "/accounts/" + accountId + "/subscriptions";
+          $http({method: 'DELETE',url: deleteSubsByAccIdUrl }).
+            success(function(data, status, headers, config) {
+            done(status,data);
+          }).
+            error(function(data, status, headers, config) {
+            done(status,data);
+          });
+  };
   AccountsService.prototype.deleteAccountById = function(accountId,done){
-             var deleteAccountByIdUrl = middlewareUrl + "/accounts/" + accountId;
+          var deleteAccountByIdUrl = middlewareUrl + "/accounts/" + accountId;
           $http({method: 'DELETE',url: deleteAccountByIdUrl }).
             success(function(data, status, headers, config) {
             done(status,data);

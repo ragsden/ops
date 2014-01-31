@@ -66,6 +66,7 @@ var config = {
           'negAccountGET' : {},
           
           //list of subscriptions
+          'test_subsId' : '123f1f77bcf86cd799439011',
           'subscriptionsGET': [{
                   id: '123f1f77bcf86cd799439011',
                   name: 'Free Plan',
