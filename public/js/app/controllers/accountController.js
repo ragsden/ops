@@ -48,8 +48,8 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
       else
       {
         if(subsData.length === 0){
-              $scope.deleteAcc();  
-              }
+              $scope.deleteAcc();
+            }
         $scope.removeProjectsAndBuilds(subsData,function(err){
           if(!err)
           {
@@ -106,7 +106,7 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
             {
               if(projectsData.length === 0){
                 done(null);
-              }              
+              }
               for(var k=0; k < projectsData.length; k++) {
               var l = k;
               console.log("in projects");
