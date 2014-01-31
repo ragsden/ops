@@ -1,4 +1,6 @@
-
+/*jshint -W040 */
+/*jshint -W055 */
+/*jshint -W083 */
 var AccountController = function($scope,$location,AccountsService,subscriptionsService,ProjectsService,$routeParams) {
   $scope.accountModel={
     account : {
@@ -53,6 +55,10 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
                              {
                               $scope.deleteAcc();
                             }
+                            else
+                            {
+                             $scope.accountModel.err = 'There was an error while deleting this account' + err;
+                            }
             });
           }
           else
@@ -74,6 +80,10 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
                     {
                       callback(null);
                     }
+                    else
+                    {
+                      callback(err);
+                    }
                    });
               }
               else
@@ -81,7 +91,7 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
                 callback(err);
               }
           });
-        };
+        }
       };
 
   $scope.deleteBuilds = function(subsId,done){
@@ -99,21 +109,21 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
                    done(err);
                   }
                 else
-                {                  
+                {
                   done(null);
                 }
                 });
-              };
+              }
             }
-          }); 
-  };
-  $scope.deleteProjects = function(subsId,done){                
+          });
+ };
+  $scope.deleteProjects = function(subsId,done){
     subscriptionsService.deleteProjectsBySubId(subsId, function(status, data){
       if(status === 200){
         done(null);
       }
       else{
-        done(err);
+        done(data);
       }
     });
   };
@@ -123,7 +133,7 @@ $scope.deleteSubscriptions = function(done){
             done(null);
             }
           else{
-            done(err);
+            done(data);
            }
           });
       };
@@ -141,7 +151,7 @@ $scope.deleteSubscriptions = function(done){
                 $scope.accountModel.err = 'There was an error while deleting this account :' + data;
               }
               });
-    };        
+    };
 };
  
 AccountController.$inject = ["$scope","$location","AccountsService","subscriptionsService","ProjectsService","$routeParams"];
