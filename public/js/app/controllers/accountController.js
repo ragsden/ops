@@ -97,8 +97,8 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
         }
       };
 
-  $scope.deleteBuilds = function(subsId,done){
-   ProjectsService.getProjectsBySubscriptionId(subsId, function(err, projectsData){
+  $scope.deleteBuilds = function(subId,done){
+   ProjectsService.getProjectsBySubscriptionId(subId, function(err, projectsData){
             if(err){
               done(err);
             }
@@ -125,8 +125,8 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
             }
           });
  };
-  $scope.deleteProjects = function(subsId,done){
-    subscriptionsService.deleteProjectsBySubId(subsId, function(status, data){
+  $scope.deleteProjects = function(subId,done){
+    subscriptionsService.deleteProjectsBySubId(subId, function(status, data){
       if(status === 200){
         done(null);
       }

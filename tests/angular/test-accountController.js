@@ -64,13 +64,13 @@ describe('accountController',function() {
 		.respond(200, testData.subscriptionsGET);
 		httpBackend.expectGET(config.MW_URL+'/subscriptions/'+testData.subscriptionProjectsGETParam+'/projects')
 		.respond(200,testData.subscriptionProjectsGET);		
-		httpBackend.when('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam + '/builds')
+		httpBackend.expect('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam + '/builds')
         .respond(200, testData.projectIdDELDataReturned);
-        httpBackend.when('DELETE', config.MW_URL + '/subscriptions/'+ testData.subIdDELParam + '/projects')
+        httpBackend.expect('DELETE', config.MW_URL + '/subscriptions/'+ testData.subIdDELParam + '/projects')
         .respond(200, 'OK');
-        httpBackend.when('DELETE', config.MW_URL + '/accounts/'+ testData.accountIdGETParam + '/subscriptions')
+        httpBackend.expect('DELETE', config.MW_URL + '/accounts/'+ testData.accountIdGETParam + '/subscriptions')
         .respond(200, 'OK');
-        httpBackend.when('DELETE', config.MW_URL + '/accounts/'+ testData.accountIdGETParam)
+        httpBackend.expect('DELETE', config.MW_URL + '/accounts/'+ testData.accountIdGETParam)
         .respond(200, 'OK');       
 
 		ctrlScope.deleteAccount();
