@@ -47,6 +47,9 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
       }
       else
       {
+        if(subsData.length === 0){
+              $scope.deleteAcc();  
+              }
         $scope.removeProjectsAndBuilds(subsData,function(err){
           if(!err)
           {
@@ -101,15 +104,20 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
             }
             else
             {
+              if(projectsData.length === 0){
+                done(null);
+              }              
               for(var k=0; k < projectsData.length; k++) {
               var l = k;
+              console.log("in projects");
                ProjectsService.deleteBuildsByProjectId(projectsData[l].id, function(status, data){
                 if(status !== 200)
                   {
+                    console.log("error");
                    done(data);
                   }
                 else
-                {
+                {console.log("builds deleted");
                   done(null);
                 }
                 });
