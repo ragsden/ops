@@ -24,7 +24,7 @@
         <td> {{s.percent_nodesUsed}} %</td>
     <td>
 
-        <a class="btn btn-xs btn-info" ng-click="getCardInfo(s.cardId)">Card Details</a>
+        <a class="btn btn-xs btn-info" ng-click="getCardInfo(s.cardId)" ng-if="s.cardId">Card Details</a>
         <a class="btn btn-xs btn-info" ng-click="getToNodesOnSubId(s.id)">Manage Nodes</a>
         <a class="btn btn-xs btn-info" ng-click="getProjects(s.id)">Projects</a>
         <a class="btn btn-xs btn-danger" ng-click="delSubBySubId(s.id)">Delete</a>
