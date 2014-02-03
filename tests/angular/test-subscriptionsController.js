@@ -17,7 +17,6 @@ describe('Testing subscriptionsController',function() {
             accountsServ = AccountsService;
 			routeParams = $routeParams;
 			httpBackend = $httpBackend;
-            var windowMock = { confirm: function(msg){ return true;} };
             var fakeModal = {
                 result: {
                     then: function(confirmCallback, cancelCallback){
@@ -58,7 +57,6 @@ describe('Testing subscriptionsController',function() {
                     subscriptionsService : subsServ,
                     plansService : plansServ,
                     AccountsService : accountsServ,
-                    $window : windowMock,
                     $modal: modal
 			     });
 			
