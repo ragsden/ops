@@ -3,13 +3,15 @@
 /*jshint -W083 */
 'use strict';
 
-var SubscriptionsController = function($scope, $location, subscriptionsService, plansService, $routeParams, AccountsService, $window){
+var SubscriptionsController = function($scope, $modal, $log, $location, subscriptionsService, plansService, $routeParams, AccountsService, $window){
   $scope.subscriptionsModel = {
     accountInfo: {},
     subscriptions:[],
     errors: [],
     zeroSubscriptionsMessage: ""
   };
+
+  $scope.confirmDeleteSubscription = false;
 
   function subscriptionDataObject(id, name, percent_storageBytesUsed, percent_privateProjectsUsed,percent_nodesUsed, cardId){
     this.id = id;
@@ -24,7 +26,6 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   $scope.init = function(){
     $scope.subscriptionsModel.subscriptions = [];
     $scope.subscriptionsModel.errors = [];
-
 
       $scope.changeSorting = function(column){
         if($scope.sort.column === column){
@@ -99,11 +100,17 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   $scope.getCardInfo = function(cardId){
     $location.path("/cards/"+cardId);
   };
-
+  
   $scope.delSubBySubId = function(subId){
-    var confirmDelete = $window.confirm("click OK to delete subscription");
-    if(confirmDelete)
-      {
+    $scope.modalInstance = $modal.open({
+      //templateUrl should be the path assuming public as the root.
+      templateUrl: '/templates/deleteSubscriptionModal.html',
+      controller: 'simpleModalController',
+    });     
+
+  $scope.modalInstance.result.then(
+    function(okString){
+    $scope.confirmDeleteSubscription = true;
         subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
           if(status === 200){
             $scope.init();
@@ -111,7 +118,11 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
             $scope.subscriptionsModel.errors.push("Error in deleting subscription:" + data);
           }
         });
-      }
+   }, function(cancelString) {
+        $scope.confirmDeleteSubscription = false;
+        $log.info('Modal dismissed at: ' + new Date());
+   });
+
   };
 
   $scope.goBack = function(){
@@ -126,5 +137,5 @@ var SubscriptionsController = function($scope, $location, subscriptionsService, 
   $scope.init();
 };
 
-SubscriptionsController.$inject = ["$scope", "$location", "subscriptionsService", "plansService", "$routeParams", "AccountsService", "$window"];
+SubscriptionsController.$inject = ["$scope", "$modal", "$log", "$location", "subscriptionsService", "plansService", "$routeParams", "AccountsService", "$window"];
 angSpa.controller("subscriptionsController", SubscriptionsController);
