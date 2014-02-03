@@ -105,9 +105,9 @@ var SubscriptionsController = function($scope, $modal, $log, $location, subscrip
       //templateUrl should be the path assuming public as the root.
       templateUrl: '/templates/deleteSubscriptionModal.html',
       controller: 'simpleModalController',
-    });     
-
-  $scope.modalInstance.result.then(
+    });
+    
+    $scope.modalInstance.result.then(
     function(okString){
     $scope.confirmDeleteSubscription = true;
         subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
