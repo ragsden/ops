@@ -1,10 +1,8 @@
 (function(){
    var SimpleModalController = function($scope, $modalInstance){
-      $scope.confirmAnswer = false;
 
       $scope.ok = function(){
-        $scope.confirmAnswer = true;
-        $modalInstance.close($scope.confirmAnswer);
+        $modalInstance.close('ok');
       };
 
       $scope.cancel = function(){

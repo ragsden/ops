@@ -1,26 +1,44 @@
 describe('Testing subscriptionsController',function() {
 	var ctrlScope;
+    var modal;
 	var subsServ;
 	var plansServ;
+    var accountsServ;
 	var ctrl;
 	var routeParams;
 	var httpBackend;
 	beforeEach(function() {
 		module('angSpa');
-		inject(function($rootScope, $httpBackend, $routeParams, $controller, subscriptionsService, plansService, AccountsService) {
+		inject(function($rootScope, $modal, $log, $httpBackend, $routeParams, $controller, subscriptionsService, plansService, AccountsService) {
 			ctrlScope = $rootScope.$new();
+            modal = $modal;
             subsServ = subscriptionsService;
             plansServ = plansService;
             accountsServ = AccountsService;
 			routeParams = $routeParams;
 			httpBackend = $httpBackend;
             var windowMock = { confirm: function(msg){ return true;} };
+            var fakeModal = {
+                result: {
+                    then: function(confirmCallback, cancelCallback){
+                       this.confirmCallback = confirmCallback;
+                       this.cancelCallback = cancelCallback;
+                    }
+                },
+                close: function(okString){
+                  this.result.confirmCallback(okString);
+                },
+                dismiss: function(cancelString){
+                  this.result.cancelCallback(cancelString);
+                }
+            };
 
 
             spyOn(accountsServ, 'getAccountById').andCallThrough();
             spyOn(subsServ, 'getSubscriptionsByAccountId').andCallThrough();
             spyOn(plansServ, 'getPlanByPlanId').andCallThrough();
             spyOn(subsServ, 'deleteSubscriptionBySubId').andCallThrough();
+            spyOn(modal, 'open').andReturn(fakeModal);
 
             httpBackend.expect('GET', config.MW_URL + "/accounts/" + testData.accountIdGETParam)
             .respond(200, testData.accountGET);
@@ -40,7 +58,8 @@ describe('Testing subscriptionsController',function() {
                     subscriptionsService : subsServ,
                     plansService : plansServ,
                     AccountsService : accountsServ,
-                    $window : windowMock
+                    $window : windowMock,
+                    $modal: modal
 			     });
 			
 			});
@@ -60,10 +79,8 @@ describe('Testing subscriptionsController',function() {
 		//Can add more checks here to validate if test data is assigned in the controller's scope
 	});
 
-    
-    it('should call deleteSubscriptionBySubId when delete button clicked', function(){
-        //since controller is created again, there are calls to get subscriptions, plan
-        //requests in pending, which get flushed with .flush()
+    it('should take OK-confirmation from modal and deletes subscription', function(){
+
         httpBackend.flush();
 
         //now the two calls are expected.
@@ -71,6 +88,7 @@ describe('Testing subscriptionsController',function() {
         expect(subsServ.getSubscriptionsByAccountId).toHaveBeenCalled();
         expect(plansServ.getPlanByPlanId).toHaveBeenCalled();
 
+        expect(ctrlScope.confirmDeleteSubscription).toEqual(false);
         
         //now that controller and services are loaded, we explain the format of request
         //and ORDER of execution according to the controller
@@ -79,13 +97,15 @@ describe('Testing subscriptionsController',function() {
         .respond(200, 'OK');
 		httpBackend.expect('GET', config.MW_URL + '/accounts/' + testData.accountIdGETParam)
 		.respond(200, testData.accountGET);
-        httpBackend.expect('GET', config.MW_URL + '/accounts/' + testData.accountIdGETParam + '/subscriptions')
-	    .respond(200, testData.subscriptionsGET);
-		httpBackend.expect('GET', config.MW_URL + '/plans/' + testData.subscriptionsGET[0].plan)
+        httpBackend.expect('GET', config.MW_URL + '/accounts/' + testData.accountIdGETParam + '/subscriptions')        
+        .respond(200, testData.subscriptionsGET);
+        httpBackend.expect('GET', config.MW_URL + '/plans/' + testData.subscriptionsGET[0].plan)
 		.respond(200, testData.planGET);
         
         //Call the delete function in the controller
         ctrlScope.delSubBySubId(testData.subIdDELParam);
+        ctrlScope.modalInstance.close('ok');
+        expect(ctrlScope.confirmDeleteSubscription).toEqual(true);
 
         //flush the http requests
         httpBackend.flush();
@@ -96,8 +116,24 @@ describe('Testing subscriptionsController',function() {
         expect(subsServ.getSubscriptionsByAccountId).toHaveBeenCalled();
         expect(plansServ.getPlanByPlanId).toHaveBeenCalled();
         
-    }); 
+    });
 
+    it('should take cancel-confirmation from modal and dismiss action of deleting subscription', function(){
+
+        httpBackend.flush();
+
+        //now the two calls are expected.
+        expect(accountsServ.getAccountById).toHaveBeenCalled();
+        expect(subsServ.getSubscriptionsByAccountId).toHaveBeenCalled();
+        expect(plansServ.getPlanByPlanId).toHaveBeenCalled();
+
+        expect(ctrlScope.confirmDeleteSubscription).toEqual(false);
+
+        //Call the delete function in the controller
+        ctrlScope.delSubBySubId(testData.subIdDELParam);
+        ctrlScope.modalInstance.dismiss('cancel');
+        expect(ctrlScope.confirmDeleteSubscription).toEqual(false);
+   });
 
 
 });
