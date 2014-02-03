@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <h3>Job Permissions</h3>
+</div>
+
+<!-- when add is inactive, just display memebers and roles  -->
+<div class="modal-body">
+  <div>
+    <table class="table">
+            <thead>                
+                <th>Login</th>
+                <th>Owner</th>
+                <th>Build admin</th>
+                <th>Member</th>
+            </thead>
+            <tbody>
+                <tr>                    
+                    <td>name</td>
+                    <td>radioCheckButton1</td>
+                    <td>radioCheckButton1</td>
+                    <td>radioCheckButton1</td>
+                 </tr>
+               </tbody>
+    </table>
+  </div>
+
+
+  <!-- display when add is active; display names -->
+ <div>
+    <p>pick a collaborator </p>
+    <p>pick "identity provider" </p>
+    <select> 
+      <option>github</option>
+      <option>bitbucket</option>
+    </select>
+
+    <ul>
+      <li>user1</li>
+      <li>user2</li>
+      <li><input type="text" disabled placeholder="Add any other Github login"></input></li>
+    </ul>
+
+    <button>Add selected collaborator</button>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click=cancel()>cancel</button>
+  </div>
+
