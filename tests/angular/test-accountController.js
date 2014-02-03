@@ -1,5 +1,6 @@
 describe('accountController',function() {
 	var ctrlScope;
+	var modal;
 	var accountsService;
 	var projectsService;
 	var subsService;
@@ -10,9 +11,10 @@ describe('accountController',function() {
 	beforeEach(function() {
 		module('angSpa');
 		
-		inject(function($rootScope,$location,$httpBackend,$routeParams,$controller,AccountsService,subscriptionsService,ProjectsService) {
+		inject(function($rootScope,$modal,$log,$location,$httpBackend,$routeParams,$controller,AccountsService,subscriptionsService,ProjectsService) {
 			
 			ctrlScope = $rootScope.$new();
+			modal = $modal;
 			accountsService = AccountsService;
 			projectsService = ProjectsService;
 			subsService = subscriptionsService;			
@@ -21,6 +23,20 @@ describe('accountController',function() {
 			_location = $location;
 
 			routeParams.accountId = testData.accountIdGETParam;
+			var fakeModal = {
+                result: {
+                    then: function(confirmCallback, cancelCallback){
+                       this.confirmCallback = confirmCallback;
+                       this.cancelCallback = cancelCallback;
+                    }
+                },
+                close: function(okString){
+                  this.result.confirmCallback(okString);
+                },
+                dismiss: function(cancelString){
+                  this.result.cancelCallback(cancelString);
+                }
+            };
 			
 			spyOn(accountsService,'getAccountById').andCallThrough();
 			spyOn(projectsService,'getProjectsBySubscriptionId').andCallThrough();
@@ -28,7 +44,8 @@ describe('accountController',function() {
 			spyOn(subsService,'getSubscriptionsByAccountId').andCallThrough();
 			spyOn(subsService,'deleteProjectsBySubId').andCallThrough();			
 			spyOn(accountsService,'deleteSubsByAccId').andCallThrough();
-			spyOn(accountsService,'deleteAccountById').andCallThrough();			
+			spyOn(accountsService,'deleteAccountById').andCallThrough();
+			spyOn(modal, 'open').andReturn(fakeModal);			
 			
 			ctrl = $controller('accountController',
 				{
@@ -38,8 +55,10 @@ describe('accountController',function() {
 					AccountsService: accountsService,
 					ProjectsService: projectsService,
 					subscriptionsService: subsService,
+					$modal: modal
 					}
 			 );
+			
 					
 			});
 	});
@@ -58,7 +77,7 @@ describe('accountController',function() {
 		.respond(200,testData.accountGET);
 		httpBackend.flush();
 		expect(accountsService.getAccountById).toHaveBeenCalled();
-
+		expect(ctrlScope.accountModel.confirmDeleteAccount).toEqual("false");
 		// Service calls expected in this order once deleteAccount() is called
 		httpBackend.expect('GET', config.MW_URL + '/accounts/' + testData.accountIdGETParam + '/subscriptions')
 		.respond(200, testData.subscriptionsGET);
@@ -74,7 +93,8 @@ describe('accountController',function() {
         .respond(200, 'OK');       
 
 		ctrlScope.deleteAccount();
-
+		ctrlScope.modalInstance.close('ok');
+		expect(ctrlScope.accountModel.confirmDeleteAccount).toEqual(true);
 		httpBackend.flush();
 		
 		expect(subsService.getSubscriptionsByAccountId).toHaveBeenCalled();

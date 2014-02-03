@@ -1,7 +1,7 @@
 /*jshint -W040 */
 /*jshint -W055 */
 /*jshint -W083 */
-var AccountController = function($scope,$location,AccountsService,subscriptionsService,ProjectsService,$routeParams) {
+var AccountController = function($scope,$modal,$log,$location,AccountsService,subscriptionsService,ProjectsService,$routeParams) {
   $scope.accountModel={
     account : {
     id: "",
@@ -22,6 +22,7 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
     err : "",
     status : "",
     disable_deleteAccountButton : "false",
+    confirmDeleteAccount : "false",
   };
   $scope.goBack = function(){
     window.history.back();
@@ -40,7 +41,15 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
 
   });
   $scope.deleteAccount = function(){
-   subscriptionsService.getSubscriptionsByAccountId($routeParams.accountId, function(err, subsData){
+     $scope.modalInstance = $modal.open({
+      templateUrl: '/templates/deleteAccountModal.html',
+      controller: 'simpleModalController',
+    });
+
+   $scope.modalInstance.result.then(
+     function(okString){
+    $scope.accountModel.confirmDeleteAccount = true;
+    subscriptionsService.getSubscriptionsByAccountId($routeParams.accountId, function(err, subsData){
       if(err)
       {
         $scope.accountModel.err = 'There was an error while deleting this account';
@@ -71,7 +80,12 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
         });
       }
    });
-  };
+  }, function(cancelString) {
+        $scope.accountModel.confirmDeleteAccount = false;
+        $log.info('Modal dismissed at: ' + new Date());
+   }
+  );
+};
   $scope.removeProjectsAndBuilds = function(subsData,callback) {
         for(var i=0; i < subsData.length; i++) {
           var j = i;
@@ -162,5 +176,5 @@ $scope.deleteSubscriptions = function(done){
     };
 };
  
-AccountController.$inject = ["$scope","$location","AccountsService","subscriptionsService","ProjectsService","$routeParams"];
+AccountController.$inject = ["$scope","$modal","$log","$location","AccountsService","subscriptionsService","ProjectsService","$routeParams"];
 angSpa.controller("accountController",AccountController);
