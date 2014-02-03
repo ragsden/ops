@@ -24,6 +24,11 @@ describe('Accounts Service',function() {
             	httpBackend.when('DELETE', config.MW_URL + '/accounts/'+ testData.negAccountIdGETParam)
             	.respond(404, 'Bad Request');
 
+            	httpBackend.when('DELETE', config.MW_URL + '/accounts/'+ testData.accountIdGETParam + '/subscriptions')
+            	.respond(200, 'OK');
+            	httpBackend.when('DELETE', config.MW_URL + '/accounts/'+ testData.negAccountIdGETParam + '/subscriptions')
+            	.respond(404, 'Bad Request');
+
 				bootstrapped = true;
 			}
 		});
@@ -96,6 +101,25 @@ describe('Accounts Service',function() {
   		it('testing - error on deleting an account using invalid accountId', function(){
     		var statusReceived;
     		accountsService.deleteAccountById(testData.negAccountIdGETParam, function(status, data){
+       		 statusReceived = status;
+    			});
+    		httpBackend.flush();
+    		expect(statusReceived).not.toBe(200);
+  		});
+
+
+		it('testing - deleting subscriptions of user account using a valid accountId', function(){
+    		var statusReceived;
+    		accountsService.deleteSubsByAccId(testData.accountIdGETParam, function(status, data){
+        		statusReceived = status;
+    			});
+    		httpBackend.flush();
+   			expect(statusReceived).toBe(200);
+  		});
+ 
+  		it('testing - error on deleting subscriptions using invalid accountId', function(){
+    		var statusReceived;
+    		accountsService.deleteSubsByAccId(testData.negAccountIdGETParam, function(status, data){
        		 statusReceived = status;
     			});
     		httpBackend.flush();

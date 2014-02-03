@@ -60,10 +60,9 @@ var SubscriptionsController = function($scope, $modal, $log, $location, subscrip
           var j = i;
           plansService.getPlanByPlanId(subsData[j].plan, function(errP, planData){
             if(!errP){
-              var percent_storageBytesUsed = (subsData[j].storageBytesUsed/(planData.storageGigaBytesQuota * 1073741824))*100;
+              var percent_storageBytesUsed = ((subsData[j].storageBytesUsed/(planData.storageGigaBytesQuota * 1073741824))*100).toFixed(2);
               var percent_privateProjectsUsed = (subsData[j].privateProjectsCount/planData.privateProjectsQuota)*100;
-              var arr = ['1'];
-              var nodesUsed = arr.length; // TODO change it to subsData[j].nodes.length
+              var nodesUsed = subsData[j].nodes.length;
               var percent_nodesUsed = (nodesUsed/planData.nodesQuota)*100;
               var subscriptionData = new subscriptionDataObject(subsData[j].id,
                                                                 subsData[j].name,

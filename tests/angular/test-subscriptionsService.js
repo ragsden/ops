@@ -17,6 +17,11 @@ describe('Testing - subscriptions service module', function(){
             httpBackend.when('DELETE', config.MW_URL + '/subscriptions/'+ testData.negSubIdDELParam)
             .respond(403, testData.negSubIdDELDataReturned);
 
+            httpBackend.when('DELETE', config.MW_URL + '/subscriptions/'+ testData.subIdDELParam + '/projects')
+            .respond(200, 'OK');
+            httpBackend.when('DELETE', config.MW_URL + '/subscriptions/'+ testData.negSubIdDELParam + '/projects')
+            .respond(403, 'Bad Request');
+
             subsServ = subscriptionsService;
             bootstrapped = true;
         }
@@ -59,6 +64,24 @@ describe('Testing - subscriptions service module', function(){
   it('testing - deleting a subscription by invalid subId', function(){
     var statusReceived;
     subsServ.deleteSubscriptionBySubId(testData.negSubIdDELParam, function(status, data){
+        statusReceived = status;
+    });
+    httpBackend.flush();
+    expect(statusReceived).not.toBe(200);
+  });
+
+it('testing - deleting projects of subscription using a valid subId', function(){
+    var statusReceived;
+    subsServ.deleteProjectsBySubId(testData.subIdDELParam, function(status, data){
+        statusReceived = status;
+    });
+    httpBackend.flush();
+    expect(statusReceived).toBe(200);
+  });
+ 
+  it('testing - deleting projects of subscription by invalid subId', function(){
+    var statusReceived;
+    subsServ.deleteProjectsBySubId(testData.negSubIdDELParam, function(status, data){
         statusReceived = status;
     });
     httpBackend.flush();

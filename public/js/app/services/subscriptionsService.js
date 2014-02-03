@@ -25,6 +25,17 @@ angSpa.factory('subscriptionsService',function($http){
         });
      };
 
+     subscriptionsService.prototype.deleteProjectsBySubId = function(subId, done){
+        var delProjectsUrl = middlewareUrl + "/subscriptions/" + subId + "/projects";
+        $http({ method: 'DELETE', url: delProjectsUrl}).
+        success(function(data, status, headers, config) {
+          done(status, data);
+        }).
+        error(function(data, status, headers, config) {
+          done(status, data);
+        });
+     };
+
    };
 
    return new subscriptionsService();

@@ -66,6 +66,7 @@ var config = {
           'negAccountGET' : {},
           
           //list of subscriptions
+          'test_subsId' : '123f1f77bcf86cd799439011',
           'subscriptionsGET': [{
                   id: '123f1f77bcf86cd799439011',
                   name: 'Free Plan',
@@ -76,6 +77,9 @@ var config = {
                   created: '2013-Dec-01 13:54 PM (PST)',
                   updated: '2014-Jan-03 22:54 PM (PST)',
                   card: '312f1f77bcf86cd799439011',
+                  nodes: ["52eb38625ca8940f00f33483","52eb3956c163030f00afd2a2"],
+                  storageBytesUsed:'479430877',
+                  privateProjectsCount:0,
               }],
           'negSubscriptionsGET': [ ],
           
