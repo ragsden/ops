@@ -59,25 +59,28 @@ var AccountController = function($scope,$modal,$log,$location,AccountsService,su
         if(subsData.length === 0){
               $scope.deleteAcc();
             }
-        $scope.removeProjectsAndBuilds(subsData,function(err){
-          if(!err)
-          {
-            $scope.deleteSubscriptions(function(err){
-                           if(!err)
-                             {
-                              $scope.deleteAcc();
-                            }
-                            else
-                            {
-                             $scope.accountModel.err = 'There was an error while deleting this account' + err;
-                            }
-            });
-          }
-          else
-          {
-            $scope.accountModel.err = 'There was an error while deleting this account' + err;
-          }
-        });
+        else
+        {
+          $scope.removeProjectsAndBuilds(subsData,function(err){
+            if(!err)
+            {
+              $scope.deleteSubscriptions(function(err){
+                             if(!err)
+                               {
+                                $scope.deleteAcc();
+                              }
+                              else
+                              {
+                               $scope.accountModel.err = 'There was an error while deleting this account' + err;
+                              }
+              });
+            }
+            else
+            {
+              $scope.accountModel.err = 'There was an error while deleting this account' + err;
+            }
+          });
+        }
       }
    });
   }, function(cancelString) {
@@ -121,20 +124,21 @@ var AccountController = function($scope,$modal,$log,$location,AccountsService,su
               if(projectsData.length === 0){
                 done(null);
               }
-              for(var k=0; k < projectsData.length; k++) {
-              var l = k;
-              console.log("in projects");
-               ProjectsService.deleteBuildsByProjectId(projectsData[l].id, function(status, data){
-                if(status !== 200)
+              else
+              {
+                for(var k=0; k < projectsData.length; k++) {
+                var l = k;
+                 ProjectsService.deleteBuildsByProjectId(projectsData[l].id, function(status, data){
+                  if(status !== 200)
+                    {
+                     done(data);
+                    }
+                  else
                   {
-                    console.log("error");
-                   done(data);
+                    done(null);
                   }
-                else
-                {console.log("builds deleted");
-                  done(null);
+                  });
                 }
-                });
               }
             }
           });
