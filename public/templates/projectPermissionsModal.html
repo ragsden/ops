@@ -3,9 +3,10 @@
 </div>
 
 <!-- when add is inactive, just display memebers and roles  -->
+<div>
 <div class="modal-body">
   <div>
-    <table class="table">
+    <table class="table" >
             <thead>                
                 <th>Login</th>
                 <th>Owner</th>
@@ -13,37 +14,30 @@
                 <th>Member</th>
             </thead>
             <tbody>
-                <tr>                    
-                    <td>name</td>
-                    <td>radioCheckButton1</td>
-                    <td>radioCheckButton1</td>
-                    <td>radioCheckButton1</td>
-                 </tr>
-               </tbody>
-    </table>
+              <tr ng-repeat="c in collaborators">                    
+                    <tr ng-repeat="identity in c.identities">                    
+                      <td>{{identity.userName}}</td>
+                      <td><input type="radio" ng-model="c.roles[0]" value="projectOwner"></td>
+                      <td><input type="radio" ng-model="c.roles[0]" value="buildAdmin"></td>
+                      <td><input type="radio" ng-model="c.roles[0]" value="member"></td>
+                      <!--  <td><input type="radio" ng-click></td> -->
+                    </tr>
+                </tr>
+            </tbody>
+          </table>
+          <button ng-click="updateProject">update</button>
   </div>
 
 
   <!-- display when add is active; display names -->
+ <button ng-click="addCollaborator()">Add collaborator</button>
  <div>
-    <p>pick a collaborator </p>
-    <p>pick "identity provider" </p>
-    <select> 
-      <option>github</option>
-      <option>bitbucket</option>
-    </select>
-
-    <ul>
-      <li>user1</li>
-      <li>user2</li>
-      <li><input type="text" disabled placeholder="Add any other Github login"></input></li>
-    </ul>
-
-    <button>Add selected collaborator</button>
+   <input type="text" disabled placeholder="Add any other {{repositoryProvider}} login" ng-model="newCollaborator">
+    <button class="btn" ng-show="newCollaborator.length">Add selected collaborator</button>
   </div>
 </div>
 
 <div class="modal-footer">
-  <button class="btn btn-primary" ng-click=cancel()>cancel</button>
+  <button class="btn btn-primary" ng-click="cancel()">cancel</button>
   </div>
 
