@@ -4,17 +4,19 @@ describe('Testing subscriptionsController',function() {
 	var subsServ;
 	var plansServ;
     var accountsServ;
+    var projectsService;
 	var ctrl;
 	var routeParams;
 	var httpBackend;
 	beforeEach(function() {
 		module('angSpa');
-		inject(function($rootScope, $modal, $log, $httpBackend, $routeParams, $controller, subscriptionsService, plansService, AccountsService) {
+		inject(function($rootScope, $modal, $log, $httpBackend, $routeParams, $controller, subscriptionsService, plansService, ProjectsService, AccountsService) {
 			ctrlScope = $rootScope.$new();
             modal = $modal;
             subsServ = subscriptionsService;
             plansServ = plansService;
             accountsServ = AccountsService;
+            projectsService = ProjectsService;
 			routeParams = $routeParams;
 			httpBackend = $httpBackend;
             var fakeModal = {
@@ -37,6 +39,9 @@ describe('Testing subscriptionsController',function() {
             spyOn(subsServ, 'getSubscriptionsByAccountId').andCallThrough();
             spyOn(plansServ, 'getPlanByPlanId').andCallThrough();
             spyOn(subsServ, 'deleteSubscriptionBySubId').andCallThrough();
+            spyOn(subsServ,'deleteProjectsBySubId').andCallThrough();    
+            spyOn(projectsService, 'getProjectsBySubscriptionId').andCallThrough();
+            spyOn(projectsService,'deleteBuildsByProjectId').andCallThrough();
             spyOn(modal, 'open').andReturn(fakeModal);
 
             httpBackend.expect('GET', config.MW_URL + "/accounts/" + testData.accountIdGETParam)
@@ -57,6 +62,7 @@ describe('Testing subscriptionsController',function() {
                     subscriptionsService : subsServ,
                     plansService : plansServ,
                     AccountsService : accountsServ,
+                    ProjectsService : projectsService,
                     $modal: modal
 			     });
 			
@@ -78,7 +84,7 @@ describe('Testing subscriptionsController',function() {
 	});
 
     it('should take OK-confirmation from modal and deletes subscription', function(){
-        /*
+        
         httpBackend.flush();
 
         //now the two calls are expected.
@@ -91,6 +97,12 @@ describe('Testing subscriptionsController',function() {
         //now that controller and services are loaded, we explain the format of request
         //and ORDER of execution according to the controller
         //Since init() is being called again (get subs, plan are executed again)
+        httpBackend.expectGET(config.MW_URL+'/subscriptions/'+testData.subscriptionProjectsGETParam+'/projects')
+        .respond(200,testData.subscriptionProjectsGET);     
+        httpBackend.expect('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam + '/builds')
+        .respond(200, testData.projectIdDELDataReturned);
+        httpBackend.expect('DELETE', config.MW_URL + '/subscriptions/'+ testData.subIdDELParam + '/projects')
+        .respond(200, 'OK');
         httpBackend.expect('DELETE', config.MW_URL + '/subscriptions/'+ testData.subIdDELParam)
         .respond(200, 'OK');
 		httpBackend.expect('GET', config.MW_URL + '/accounts/' + testData.accountIdGETParam)
@@ -109,11 +121,14 @@ describe('Testing subscriptionsController',function() {
         httpBackend.flush();
 
         //expect them in this order
+        expect(projectsService.getProjectsBySubscriptionId).toHaveBeenCalled();     
+        expect(projectsService.deleteBuildsByProjectId).toHaveBeenCalled();
+        expect(subsServ.deleteProjectsBySubId).toHaveBeenCalled();
+        expect(subsServ.deleteSubscriptionBySubId).toHaveBeenCalled();        
         expect(accountsServ.getAccountById).toHaveBeenCalled();
-        expect(subsServ.deleteSubscriptionBySubId).toHaveBeenCalled();
         expect(subsServ.getSubscriptionsByAccountId).toHaveBeenCalled();
         expect(plansServ.getPlanByPlanId).toHaveBeenCalled();
-        */
+        
     });
 
     it('should take cancel-confirmation from modal and dismiss action of deleting subscription', function(){
