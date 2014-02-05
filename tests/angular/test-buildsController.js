@@ -5,15 +5,17 @@ describe('BuildsController',function() {
 	var ctrl;
 	var routeParams;
 	var httpBackend;
+	var location;
 	beforeEach(function() {
 		module('angSpa');
 		//Need to inject all required dependencies to setup the test
-		inject(function($rootScope,$httpBackend,$routeParams,$controller,BuildsService) {
+		inject(function($rootScope,$location,$httpBackend,$routeParams,$controller,BuildsService) {
 			//Create a new scope so that we can inspect the controller's $scope.
 			ctrlScope = $rootScope.$new();
 			buildsService = BuildsService;
 			routeParams = $routeParams;
 			httpBackend = $httpBackend;
+			location = $location;
 
 			//spy on the service API calls, and monitor them, but let them execute.
 			//We just want to check if they are used in the controller
@@ -34,7 +36,8 @@ describe('BuildsController',function() {
 				{
 					$scope: ctrlScope, 
 					$routeParams:routeParams,
-					BuildsService:buildsService
+					BuildsService:buildsService,
+					$location : location
 				}
 					);
 
@@ -87,4 +90,8 @@ describe('BuildsController',function() {
         expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();      
     });
 	
+	it('should change the path to /projects/projectId/builds/buildNumber',function() {
+		ctrlScope.getBuildDetails(testData.testBuildNumber);
+		expect(location.path()).toBe('/projects/'+testData.testProjectId + '/builds/' + testData.testBuildNumber);
+	});
 });
