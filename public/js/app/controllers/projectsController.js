@@ -34,14 +34,16 @@ var ProjectsController = function($scope, $modal, $log, $routeParams, $location,
   };
   $scope.sort = {column:'name', descending: false};
 
+  $scope.subscriptionId = $routeParams.subscriptionId;
+
   $scope.permissions = function(projId){
     console.log("projectId: "+ projId);
     $scope.modalInstance = $modal.open({
         templateUrl: '/templates/projectPermissionsModal.html',
         controller: 'projectPermissionsModalController',
         resolve: {
-          data: function(){
-            return {subId: $scope.subscriptionId, projectId: projId};
+          dataToPermissionsModal: function(){
+            return {subscriptionId: $scope.subscriptionId, projectId: projId};
             }
           }
       
