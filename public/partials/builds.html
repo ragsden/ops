@@ -42,7 +42,8 @@
                     <td>{{build.commitSha}}</td>
                     <td>{{build.lastAuthorEmail}}</td>
                     <td>{{build.triggeredByAuthor}}</td>
-                    <td><a class="btn btn-xs btn-danger" ng-click="deleteBuild(build.buildNumber,true)">Delete</a> 
+                     <td><a class="btn btn-xs btn-info" ng-click="getBuildDetails(build.buildNumber)">Show Details</a> 
+                    <a class="btn btn-xs btn-danger" ng-click="deleteBuild(build.buildNumber,true)">Delete</a> 
                     </td>
                 </tr>
             </tbody>            

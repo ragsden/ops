@@ -23,6 +23,7 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
     when('/subscriptions/:subscriptionId/nodes', { controller: 'nodesController', templateUrl: '/partials/nodes.html'}).
     when('/subscriptions/:subscriptionId/projects', { controller: 'projectsController', templateUrl: '/partials/projects.html'}).
     when('/projects/:projectId/builds',{ controller : 'buildsController', templateUrl : '/partials/builds.html' }).
+    when('/projects/:projectId/builds/:buildNumber',{ controller : 'buildController', templateUrl : '/partials/build.html' }).
     when('/cards/:cardId',{ controller : 'cardsController', templateUrl : '/partials/card.html' }).
     when('/', { redirectTo: '/'}).
     otherwise({ redirectTo: '/accounts' });
