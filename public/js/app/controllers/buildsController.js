@@ -1,6 +1,6 @@
 'use strict';
-angular.module('angSpa').controller('buildsController',['$scope','$routeParams','BuildsService','$filter',
-     function($scope,$routeParams,buildsService,$filter){
+angular.module('angSpa').controller('buildsController',['$scope','$routeParams','$location','BuildsService','$filter',
+     function($scope,$routeParams,$location,buildsService,$filter){
       $scope.builds = [];
       $scope.errorsAndMessages = [];
       
@@ -46,7 +46,9 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
       $scope.goBack = function(){
         window.history.back();
       };
-
+      $scope.getBuildDetails = function(buildNumber){
+         $location.path("/projects/"+$routeParams.projectId+"/builds/"+buildNumber);
+      };
       $scope.sort = {column:'buildNumber', descending: false};
 
       $scope.init = function(){

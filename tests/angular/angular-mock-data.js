@@ -156,6 +156,12 @@ var config = {
 
            'testBuildNumber' : '1',
            'buildnumberDELDataReturned' : 'OK',
+           'testBuildData' :
+            {
+             'console' : [{
+                'output' : 'The build finished successfully!'
+             }], 
+            },
 
            'postBuildByProjectId' : { 'buildNumbers' : 1 },
 

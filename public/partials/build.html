@@ -1,0 +1,13 @@
+Build Information<br/><br/>
+
+{{buildModel.err}}
+  <tabset>
+    <tab heading="Console">
+    <br/>
+    	<div ng-repeat="console in buildModel.console">
+  			{{console.output}}
+ 		</div>
+    </tab>
+    <tab heading="Tests">Tests</tab>
+    <tab heading="Coverage">Coverage</tab>      
+  </tabset>
