@@ -43,9 +43,6 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
           $scope.selectedBuildNumbers.length = 0;
       };
 
-      $scope.goBack = function(){
-        window.history.back();
-      };
       $scope.getBuildDetails = function(buildNumber){
          $location.path("/projects/"+$routeParams.projectId+"/builds/"+buildNumber);
       };

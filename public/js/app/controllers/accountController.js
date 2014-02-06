@@ -24,11 +24,7 @@ var AccountController = function($scope,$modal,$log,$location,AccountsService,su
     disable_deleteAccountButton : "false",
     confirmDeleteAccount : "false",
   };
-  $scope.goBack = function(){
-    window.history.back();
-  };
-
-  AccountsService.getAccountById($routeParams.accountId,function(err,data){
+   AccountsService.getAccountById($routeParams.accountId,function(err,data){
     if(err)
       {
         $scope.accountModel.err = 'Error getting the Account Profile.';
