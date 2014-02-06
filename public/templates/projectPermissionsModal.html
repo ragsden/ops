@@ -5,7 +5,7 @@
 <!-- when modal comes up, display memebers and roles  -->
 <div class="modal-body" ng-switch on="selection">
  <div ng-switch-when="default">
-    <table class="table" >
+    <table class="table">
             <thead>                
                 <th>Login</th>
                 <th>Owner</th>
@@ -40,11 +40,10 @@
     <br/>
     <br/></br>
   </form>
-  <p>new collaborator username: {{newCollaboratorUsername}} </p>
 </div>
 
 <div ng-switch-when="addingCollaboratorRoles"> <!--show when adding collaborator roles -->
-    <table class="table" >
+    <table class="table">
             <thead>                
                 <th>Login</th>
                 <th>Owner</th>

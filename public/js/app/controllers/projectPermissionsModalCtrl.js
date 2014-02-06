@@ -7,6 +7,8 @@
       $scope.cancel = function(){
         $modalInstance.dismiss('cancel');
       };
+      
+      $scope.projectId = dataToPermissionsModal.projectId;
 
       $scope.projectUpdate = {
         "name" : null,
@@ -14,10 +16,9 @@
         "subscription" : null,
         "permissions" : []
       };
+      
+      $scope.projectUpdate.subscription = dataToPermissionsModal.subscriptionId;
 
- //     console.log(dataToPermissionsModal.subscriptionId);
-
-      $scope.projectId = dataToPermissionsModal.projectId;
       $scope.permissionsModalErrors = [];
       $scope.newCollaboratorUsername = "";
 
@@ -28,12 +29,9 @@
       }
 
       $scope.refresh = function(){
-      
-        $scope.projectUpdate.subscription = dataToPermissionsModal.subscriptionId;
-        
+              
         $scope.selection = "default";
         $scope.collaborators = [];
-        //console.log('projId in modal: '+ $scope.projectId);
         
         ProjectsService.getProjectByProjectId($scope.projectId, function(projDataErr, projectData){
          if(!projDataErr){
@@ -42,46 +40,22 @@
           $scope.projectUpdate.nodeType = projectData.nodeType;
           $scope.repositoryProvider = projectData.repositoryProvider;
    
-          var i,  l = projectData.permissions.length;
-
           _.each(projectData.permissions, function(permission){
             AccountsService.getAccountById(permission.account, function(accDataErr, accountData){
                 if(!accDataErr){
                   var collaborator = new CollaboratorObj(permission.account, permission.roles, accountData.identities);
-                  console.log(collaborator);
+      //            console.log(collaborator);
                   $scope.collaborators.push(collaborator);
                 }else{
                   console.log("err in getting account: " + accDataErr);
                 }
             });
-           } 
+           }
           );
 
-
-
-/*
-          for (i=0; i < l; i++){
-            var j = i;
-            //get accounts using acc ids
-            AccountsService.getAccountById(projectData.permissions[j].account, function(accDataErr, accountData){
-              if(!accDataErr){
-                var collaborator = new CollaboratorObj(projectData.permissions[j].account, projectData.permissions[j].roles, accountData.identities);
-                console.log(collaborator);
-                $scope.collaborators.push(collaborator);
-              //  console.log(l);
-              //  console.log($scope.collaborators);
-              }else{
-                $scope.permissionsModalErrors.push(accDataErr);
-               //console.log("accDataErr: "+ accDataErr);
-              }
-
-            });
-          }  */
-          // console.log($scope.collaborators);
          }else
            {
-             $scope.permissionsModalErrors.push(projDataErr);
-             //console.log("projDataErr: " + projDataErr);
+             $scope.permissionsModalErrors.push("Error in getting the project data");
            }
         });
     };
@@ -97,7 +71,6 @@
 
       ProjectsService.updateProjectByProjectId($scope.projectId, $scope.projectUpdate, function(updateErr, data){
         if(!updateErr){
-//            $modalInstance.close("project updated");
          $scope.refresh();
         }      
       });
@@ -110,15 +83,10 @@
 
     $scope.searchForShippableAccount = function(newCollaboratorUsername){
         $scope.newCollaboratorUsername = newCollaboratorUsername;
-//        console.log($scope.newCollaboratorUsername);
         AccountsService.searchAccountsByUsername($scope.newCollaboratorUsername, function(err, searchAccsResults){
           if(!err){
-//            console.log(searchAccsResults);
-            //write service that filters the accounts and give a single account
             var account = $filter("filterAccountsByUsername")($scope.repositoryProvider, $scope.newCollaboratorUsername, searchAccsResults);
             console.log(account);
-            //$scope.newCollaboratorAccount = account;
-            //  setTimeout(function(){alert("Hello")},3000);
 
             account.identities = $filter('filter')(account.identities, function(){
                 return function(){
@@ -145,26 +113,10 @@
                 $scope.updateProject();
               };
               
-              
-
-
-
-              //check the repositry provider and make sure that you delete the other identity provider data
-              //let user decide the roles
-
-              //append the data
-             // $scope.refresh(); in the callback
             }else{
               console.log("search accounts error");
             }
         });
-
-      //githubId/ bitbucketId 
-      //get the account- make API call 
-      //if no account exists - redirect to INVITE api -create account
-      //push the account and the role into the permissions.
-
-      //make a http request by adding this info to permissions
 
     };
 

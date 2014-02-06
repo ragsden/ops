@@ -44,6 +44,7 @@ var ProjectsController = function($scope, $modal, $log, $routeParams, $location,
 
     $scope.modalInstance.result.then(null, function(cancelString){
         $log.info("Modal dismissed at: " + new Date());
+        $scope.init();
     });
   };
 
