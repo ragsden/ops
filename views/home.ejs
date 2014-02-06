@@ -3,7 +3,7 @@
 <html lang="en" ng-app="angSpa">
   <head>
     <meta charset="utf-8">
-    <title>Shippable Ops Dashboard</title>
+    <title ng-bind="'Shippable Ops Dashboard :' + title"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -55,6 +55,17 @@
             </ul>
         </div><!-- /top-nav-->
         <div id="main-container" style="margin-left: 10px; margin-right:10px;">
+        <div>
+        <ul class="breadcrumb">
+        <li ng-repeat="breadcrumb in breadcrumbs">
+        <ng-switch on="$last">
+        <span ng-switch-when="true">{{breadcrumb.name}}</span>
+        <span ng-switch-default><a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a></span>
+        </ng-switch>
+                </li>
+            </ul>
+        </div>
+
             <div ng-view>
       
                         </div>
@@ -87,6 +98,7 @@
     <script src= "/js/lib/angular/angular-cookies.js"></script>
     <script src= "/js/app/app.js"></script>
     <script src="/js/lib/moment/min/moment.min.js"></script>  
+    <script src= "/js/lib/underscore-min.js"></script>
     <script src="/js/app/filters/moment_filter.js"></script> 
     <script src="/js/app/filters/find_ifMsgExistsInArray.js"></script>
     <script src="/js/app/filters/deleteMsgFromArray.js"></script>

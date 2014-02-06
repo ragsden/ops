@@ -16,19 +16,19 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
     };
   }]);
 
-  $routeProvider.when('/accounts', { templateUrl: '/partials/accountsSearch.html', controller: 'accountsSearchController'}).
-    when('/accounts/search/:loginId', { templateUrl: '/partials/accounts.html', controller: 'accountsController'}).
-    when('/accounts/:accountId',{templateUrl: '/partials/account.html', controller: 'accountController'}).
-    when('/accounts/:accountId/subscriptions', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController'}).
-    when('/subscriptions/:subscriptionId/nodes', { controller: 'nodesController', templateUrl: '/partials/nodes.html'}).
-    when('/subscriptions/:subscriptionId/projects', { controller: 'projectsController', templateUrl: '/partials/projects.html'}).
-    when('/projects/:projectId/builds',{ controller : 'buildsController', templateUrl : '/partials/builds.html' }).
-    when('/projects/:projectId/builds/:buildNumber',{ controller : 'buildController', templateUrl : '/partials/build.html' }).
-    when('/cards/:cardId',{ controller : 'cardsController', templateUrl : '/partials/card.html' }).
+  $routeProvider.when('/accounts', { templateUrl: '/partials/accountsSearch.html', controller: 'accountsSearchController',title: 'Home'}).
+    when('/accounts/search/:loginId', { templateUrl: '/partials/accounts.html', controller: 'accountsController',title: 'Search Result'}).
+    when('/accounts/:accountId',{templateUrl: '/partials/account.html', controller: 'accountController',title: 'Account Profile'}).
+    when('/accounts/:accountId/subscriptions', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController',title :'Subscriptions'}).
+    when('/subscriptions/:subscriptionId/nodes', { controller: 'nodesController', templateUrl: '/partials/nodes.html',title : 'Nodes'}).
+    when('/subscriptions/:subscriptionId/projects', { controller: 'projectsController', templateUrl: '/partials/projects.html',title : 'Projects'}).
+    when('/projects/:projectId/builds',{ controller : 'buildsController', templateUrl : '/partials/builds.html',title: 'Builds'}).
+    when('/cards/:cardId',{ controller : 'cardsController', templateUrl : '/partials/card.html',title: 'Cards' }).
     when('/', { redirectTo: '/'}).
     otherwise({ redirectTo: '/accounts' });
 
-  $locationProvider.html5Mode(true);
+
+    $locationProvider.html5Mode(true);
 }).factory('Auth',['$cookieStore',function ($cookieStore) {
   var _shippableMiddwareAPIToken = { };
   return {
@@ -41,6 +41,8 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
 }])
 .run(['Auth','$http','$rootScope','$location',function(Auth,$http,$rootScope,$location) {
   var token = Auth.get();
+  $rootScope.breadcrumbs = [];
+
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
     if(!token) {
       $location.url('/');
@@ -52,6 +54,27 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
       }
     }
   });
+$rootScope.$on('$routeChangeSuccess', function(event, current){
+   $rootScope.title = current.$$route.title; 
+    //Whenever the route changes, check the existing breadcrumb array
+    //if the route is already present, then delete all items after that point to make this the leaf
+    //if the route is not present, then simply push it as the last item.
+     var pathElements = $rootScope.title.split(':');
+    //var index = $rootScope.breadcrumbs.indexOf($location.path());
+    var element = _.findWhere($rootScope.breadcrumbs,{ path : $location.path() });
+    if(element) {
+      $rootScope.breadcrumbs.splice(_.indexOf($rootScope.breadcrumbs,element)+1,$rootScope.breadcrumbs.length-1);
+      //$rootScope.breadcrumbs = _.reject($rootScope.breadcrumbs,function(x) { return x.path === $location.path(); });
+    }
+    else {
+      $rootScope.breadcrumbs.push({ name : pathElements[0], path : $location.path() });
+    }
+    console.log(pathElements);
+    console.log('i' + element );
+    console.log($rootScope.breadcrumbs);
+
+      });
+
 
   $http.defaults.headers.common['Authorization']='token ' + token;
   $http.defaults.headers.common['Content-Type']='application/json;charset=utf8';
