@@ -133,12 +133,9 @@ var AccountController = function($scope,$modal,$log,$location,AccountsService,su
                     {
                      done(data);
                     }
-                  else
-                  {
-                    done(null);
-                  }
                   });
                 }
+                done(null);
               }
             }
           });

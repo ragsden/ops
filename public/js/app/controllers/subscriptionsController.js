@@ -143,7 +143,7 @@ var SubscriptionsController = function($scope, $modal, $log, $location, subscrip
             else
             {
               if(projectsData.length === 0){
-                $scope.deleteSubscription(subId);
+                done(null);
               }
               else
               {
@@ -154,13 +154,9 @@ var SubscriptionsController = function($scope, $modal, $log, $location, subscrip
                     {
                       done(data);
                     }
-                  else
-                  {
-                    done(null);
-                  }
                   });
                 }
-
+                done(null);
               }
             }
           });
