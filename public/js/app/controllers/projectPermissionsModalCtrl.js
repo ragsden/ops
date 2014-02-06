@@ -31,7 +31,7 @@
       
         $scope.projectUpdate.subscription = dataToPermissionsModal.subscriptionId;
         
-        $scope.selection = "inactive";
+        $scope.selection = "default";
         $scope.collaborators = [];
         //console.log('projId in modal: '+ $scope.projectId);
         
@@ -42,14 +42,31 @@
           $scope.projectUpdate.nodeType = projectData.nodeType;
           $scope.repositoryProvider = projectData.repositoryProvider;
    
-          var i, j, l = projectData.permissions.length;
+          var i,  l = projectData.permissions.length;
+
+          _.each(projectData.permissions, function(permission){
+            AccountsService.getAccountById(permission.account, function(accDataErr, accountData){
+                if(!accDataErr){
+                  var collaborator = new CollaboratorObj(permission.account, permission.roles, accountData.identities);
+                  console.log(collaborator);
+                  $scope.collaborators.push(collaborator);
+                }else{
+                  console.log("err in getting account: " + accDataErr);
+                }
+            });
+           } 
+          );
+
+
+
+/*
           for (i=0; i < l; i++){
-            j = i;
+            var j = i;
             //get accounts using acc ids
             AccountsService.getAccountById(projectData.permissions[j].account, function(accDataErr, accountData){
               if(!accDataErr){
                 var collaborator = new CollaboratorObj(projectData.permissions[j].account, projectData.permissions[j].roles, accountData.identities);
-              //  console.log(collaborator);
+                console.log(collaborator);
                 $scope.collaborators.push(collaborator);
               //  console.log(l);
               //  console.log($scope.collaborators);
@@ -57,8 +74,9 @@
                 $scope.permissionsModalErrors.push(accDataErr);
                //console.log("accDataErr: "+ accDataErr);
               }
+
             });
-          }
+          }  */
           // console.log($scope.collaborators);
          }else
            {
@@ -87,7 +105,7 @@
 
     
     $scope.addNewCollaborator = function(){
-      $scope.selection = "active";
+      $scope.selection = "addingCollaborator";
     };
 
     $scope.searchForShippableAccount = function(newCollaboratorUsername){
@@ -119,6 +137,7 @@
               console.log("accountIdentities:");
               console.log(account.identities);
               $scope.newCollaborator = new CollaboratorObj(account.id, [], account.identities);
+              $scope.selection = "addingCollaboratorRoles";
 
               $scope.updateNewCollaborator = function(){
                 $scope.collaborators.push($scope.newCollaborator);
@@ -132,7 +151,6 @@
 
               //check the repositry provider and make sure that you delete the other identity provider data
               //let user decide the roles
-              $scope.selection = "activeRoles";
 
               //append the data
              // $scope.refresh(); in the callback

@@ -2,10 +2,9 @@
   <h3>Job Permissions</h3>
 </div>
 
-<!-- when add is inactive, just display memebers and roles  -->
-
-<div class="modal-body">
- <div>
+<!-- when modal comes up, display memebers and roles  -->
+<div class="modal-body" ng-switch on="selection">
+ <div ng-switch-when="default">
     <table class="table" >
             <thead>                
                 <th>Login</th>
@@ -16,16 +15,19 @@
             <tbody>
               <tr ng-repeat="c in collaborators">
                 <td>{{c.identities[0].userName}}</td>
-                <td><input type="radio" ng-model="c.roles[0]" value="projectOwner"></td>
-                <td><input type="radio" ng-model="c.roles[0]" value="buildAdmin"></td>
-                <td><input type="radio" ng-model="c.roles[0]" value="member"></td>
+                <td><input type="radio" ng-model="c.roles[0]" value="projectOwner" /></td>
+                <td><input type="radio" ng-model="c.roles[0]" value="buildAdmin" /></td>
+                <td><input type="radio" ng-model="c.roles[0]" value="member" /></td>
                 </tr>
             </tbody>
           </table>
           <button ng-click="updateProject()">update</button>
   </div>
-<!--  <button ng-click="addNewCollaborator()">Add collaborator</button>  -->
- <div>
+ <br />
+  
+  <button ng-click="addNewCollaborator()" class="btn btn-xs btn-primary">Add a new collaborator</button>
+  <div ng-switch-when="addingCollaborator">
+    <br />
   <form name="addNewCollaboratorForm"> 
     <div class="search-block">
 					<div class="input-group " style="width:170px">
@@ -41,7 +43,7 @@
   <p>new collaborator username: {{newCollaboratorUsername}} </p>
 </div>
 
-<div> <!--show when adding collaborator roles -->
+<div ng-switch-when="addingCollaboratorRoles"> <!--show when adding collaborator roles -->
     <table class="table" >
             <thead>                
                 <th>Login</th>

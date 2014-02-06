@@ -25,6 +25,7 @@ angSpa.factory('ProjectsService',function($http){
 
      ProjectsService.prototype.updateProjectByProjectId = function(projectId, projectUpdate, done){
         var putProjectUrl = middlewareUrl + "/projects/" + projectId;
+        console.log(projectUpdate);
         $http({method: 'PUT', url: putProjectUrl, data: projectUpdate})
         .success(function(data, status, headers, config){
           done(null, data);
