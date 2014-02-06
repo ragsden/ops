@@ -36,6 +36,16 @@ angSpa.factory('BuildsService',function($http){
           done(status, data);
         });
      };
+    BuildsService.prototype.getConsoleByBuildNo = function(projectId, buildNumber, done){
+        var getConsoleUrl = middlewareUrl + "/projects/" + projectId + "/builds/" + buildNumber + "/console";
+        $http({ method: 'GET', url: getConsoleUrl}).
+        success(function(data, status, headers, config) {
+          done(null, data);
+        }).
+        error(function(data, status, headers, config) {
+          done(status, data);
+        });
+     };
    };
    return new BuildsService();
 

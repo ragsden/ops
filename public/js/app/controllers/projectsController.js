@@ -25,13 +25,6 @@ var ProjectsController = function($scope, $modal, $log, $routeParams, $location,
     $location.path('/projects/'+id+'/builds');
   };
 
-  $scope.goBack = function(){
-    window.history.back();
-  };
-
-  $scope.goForward = function(){
-    window.history.forward();
-  };
   $scope.sort = {column:'name', descending: false};
 
   $scope.subscriptionId = $routeParams.subscriptionId;

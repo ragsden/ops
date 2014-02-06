@@ -67,6 +67,18 @@ describe('Builds Service',function() {
 			httpBackend.flush();
 			expect(statusReceived).not.toBe(200);
 		});
+
+		it('gets the console output of a build on a project',function() {
+			var result;
+			httpBackend.when('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds/' + testData.testBuildNumber + "/console")
+				.respond(200,testData.testBuildData.console);
+
+			buildService.getConsoleByBuildNo(testData.testProjectId,testData.testBuildNumber,function(err,data) {
+				result = data;
+			});				
+			httpBackend.flush();
+			expect(result[0].output).toBe('The build finished successfully!');
+		});
 	
 	afterEach(function() {
 		httpBackend.verifyNoOutstandingExpectation();

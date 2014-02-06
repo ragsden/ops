@@ -3,7 +3,7 @@
 /*jshint -W083 */
 'use strict';
 
-var SubscriptionsController = function($scope, $modal, $log, $location, subscriptionsService, plansService, $routeParams, AccountsService, $window){
+var SubscriptionsController = function($scope, $modal, $log, $location, subscriptionsService, plansService,ProjectsService, $routeParams, AccountsService, $window){
   $scope.subscriptionsModel = {
     accountInfo: {},
     subscriptions:[],
@@ -110,31 +110,80 @@ var SubscriptionsController = function($scope, $modal, $log, $location, subscrip
     $scope.modalInstance.result.then(
     function(okString){
     $scope.confirmDeleteSubscription = true;
-        subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
+    $scope.deleteBuilds(subId, function(err){
+      if(!err)
+      {
+        $scope.deleteProjects(subId, function(err){
+           if(!err)
+            {
+              $scope.deleteSubscription(subId);
+            }
+            else
+            {
+              $scope.subscriptionsModel.errors.push("Error in deleting subscription");
+            }
+        });
+      }
+      else
+      {
+        $scope.subscriptionsModel.errors.push("Error in deleting subscription");
+      }
+    });
+   }, function(cancelString) {
+        $scope.confirmDeleteSubscription = false;
+        $log.info('Modal dismissed at: ' + new Date());
+   });
+  };
+
+  $scope.deleteBuilds = function(subId, done){
+    ProjectsService.getProjectsBySubscriptionId(subId, function(err, projectsData){
+            if(err){
+              done(err);
+            }
+            else
+            {
+              if(projectsData.length === 0){
+                done(null);
+              }
+              else
+              {
+                for(var k=0; k < projectsData.length; k++) {
+                var l = k;
+                 ProjectsService.deleteBuildsByProjectId(projectsData[l].id, function(status, data){
+                  if(status !== 200)
+                    {
+                      done(data);
+                    }
+                  });
+                }
+                done(null);
+              }
+            }
+          });
+  };
+  $scope.deleteProjects = function(subId,done){
+    subscriptionsService.deleteProjectsBySubId(subId, function(status, data){
+      if(status === 200){
+        done(null);
+      }
+      else{
+        done(data);
+      }
+    });
+  };
+  $scope.deleteSubscription = function(subId){
+  subscriptionsService.deleteSubscriptionBySubId(subId, function(status, data){
           if(status === 200){
             $scope.init();
           }else{
             $scope.subscriptionsModel.errors.push("Error in deleting subscription:" + data);
           }
         });
-   }, function(cancelString) {
-        $scope.confirmDeleteSubscription = false;
-        $log.info('Modal dismissed at: ' + new Date());
-   });
-
-  };
-
-  $scope.goBack = function(){
-    window.history.back();
-  };
-
-  $scope.goForward = function(){
-    window.history.forward();
   };
 
 
   $scope.init();
 };
 
-SubscriptionsController.$inject = ["$scope", "$modal", "$log", "$location", "subscriptionsService", "plansService", "$routeParams", "AccountsService", "$window"];
+SubscriptionsController.$inject = ["$scope", "$modal", "$log", "$location", "subscriptionsService", "plansService", "ProjectsService", "$routeParams", "AccountsService", "$window"];
 angSpa.controller("subscriptionsController", SubscriptionsController);

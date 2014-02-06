@@ -24,9 +24,6 @@ var CardsController = function($scope,$location,$routeParams,CardsService) {
 
     });
   };
-   $scope.goBack = function(){
-    window.history.back();
-  };
   $scope.init();
 };
 CardsController.$inject = ["$scope","$location","$routeParams","CardsService"];

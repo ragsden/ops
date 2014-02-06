@@ -74,4 +74,13 @@ describe('Testing routes',function() {
 			});
     	});
 
+    	it('should check if buildController resolves correctly',function() {
+    		module('angSpa');
+    		inject(function($route) {
+				var controller = $route.routes['/projects/:projectId/builds/:buildNumber'].controller;
+				var templateUrl = $route.routes['/projects/:projectId/builds/:buildNumber'].templateUrl;
+				expect(controller).toEqual('buildController');
+				expect(templateUrl).toEqual('/partials/build.html');
+			});
+    	});
 });

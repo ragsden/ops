@@ -10,14 +10,6 @@ var AccountsSearchController = function($scope,$location) {
     $location.path("/accounts/search/"+$scope.accountsSearchModel.loginId);
   };
 
-  $scope.goBack = function(){
-    window.history.back();
-  };
-
-  $scope.goForward = function(){
-    window.history.forward();
-  };
-
 
 };
 AccountsSearchController.$inject = ["$scope","$location"];

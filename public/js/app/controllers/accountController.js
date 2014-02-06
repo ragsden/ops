@@ -1,7 +1,7 @@
 /*jshint -W040 */
 /*jshint -W055 */
 /*jshint -W083 */
-var AccountController = function($scope,$location,AccountsService,subscriptionsService,ProjectsService,$routeParams) {
+var AccountController = function($scope,$modal,$log,$location,AccountsService,subscriptionsService,ProjectsService,$routeParams) {
   $scope.accountModel={
     account : {
     id: "",
@@ -22,12 +22,9 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
     err : "",
     status : "",
     disable_deleteAccountButton : "false",
+    confirmDeleteAccount : "false",
   };
-  $scope.goBack = function(){
-    window.history.back();
-  };
-
-  AccountsService.getAccountById($routeParams.accountId,function(err,data){
+   AccountsService.getAccountById($routeParams.accountId,function(err,data){
     if(err)
       {
         $scope.accountModel.err = 'Error getting the Account Profile.';
@@ -40,7 +37,15 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
 
   });
   $scope.deleteAccount = function(){
-   subscriptionsService.getSubscriptionsByAccountId($routeParams.accountId, function(err, subsData){
+     $scope.modalInstance = $modal.open({
+      templateUrl: '/templates/deleteAccountModal.html',
+      controller: 'simpleModalController',
+    });
+
+   $scope.modalInstance.result.then(
+     function(okString){
+    $scope.accountModel.confirmDeleteAccount = true;
+    subscriptionsService.getSubscriptionsByAccountId($routeParams.accountId, function(err, subsData){
       if(err)
       {
         $scope.accountModel.err = 'There was an error while deleting this account';
@@ -50,28 +55,36 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
         if(subsData.length === 0){
               $scope.deleteAcc();
             }
-        $scope.removeProjectsAndBuilds(subsData,function(err){
-          if(!err)
-          {
-            $scope.deleteSubscriptions(function(err){
-                           if(!err)
-                             {
-                              $scope.deleteAcc();
-                            }
-                            else
-                            {
-                             $scope.accountModel.err = 'There was an error while deleting this account' + err;
-                            }
-            });
-          }
-          else
-          {
-            $scope.accountModel.err = 'There was an error while deleting this account' + err;
-          }
-        });
+        else
+        {
+          $scope.removeProjectsAndBuilds(subsData,function(err){
+            if(!err)
+            {
+              $scope.deleteSubscriptions(function(err){
+                             if(!err)
+                               {
+                                $scope.deleteAcc();
+                              }
+                              else
+                              {
+                               $scope.accountModel.err = 'There was an error while deleting this account' + err;
+                              }
+              });
+            }
+            else
+            {
+              $scope.accountModel.err = 'There was an error while deleting this account' + err;
+            }
+          });
+        }
       }
    });
-  };
+  }, function(cancelString) {
+        $scope.accountModel.confirmDeleteAccount = false;
+        $log.info('Modal dismissed at: ' + new Date());
+   }
+  );
+};
   $scope.removeProjectsAndBuilds = function(subsData,callback) {
         for(var i=0; i < subsData.length; i++) {
           var j = i;
@@ -107,20 +120,18 @@ var AccountController = function($scope,$location,AccountsService,subscriptionsS
               if(projectsData.length === 0){
                 done(null);
               }
-              for(var k=0; k < projectsData.length; k++) {
-              var l = k;
-              console.log("in projects");
-               ProjectsService.deleteBuildsByProjectId(projectsData[l].id, function(status, data){
-                if(status !== 200)
-                  {
-                    console.log("error");
-                   done(data);
-                  }
-                else
-                {console.log("builds deleted");
-                  done(null);
+              else
+              {
+                for(var k=0; k < projectsData.length; k++) {
+                var l = k;
+                 ProjectsService.deleteBuildsByProjectId(projectsData[l].id, function(status, data){
+                  if(status !== 200)
+                    {
+                     done(data);
+                    }
+                  });
                 }
-                });
+                done(null);
               }
             }
           });
@@ -162,5 +173,5 @@ $scope.deleteSubscriptions = function(done){
     };
 };
  
-AccountController.$inject = ["$scope","$location","AccountsService","subscriptionsService","ProjectsService","$routeParams"];
+AccountController.$inject = ["$scope","$modal","$log","$location","AccountsService","subscriptionsService","ProjectsService","$routeParams"];
 angSpa.controller("accountController",AccountController);
