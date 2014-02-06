@@ -31,12 +31,9 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                         'REMOVED'
                                       ];
 
-  
-                                      $scope.goBack = function(){
-                                        window.history.back();
-                                      };
-                                    
-      $scope.sort = {column:'created', descending: false};
+
+
+                                      $scope.sort = {column:'created', descending: false};
 
                                       $scope.deleteNode = function(nodeId) {
                                         nodeService.deleteNodeById(nodeId,
@@ -75,14 +72,14 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                       $scope.refresh = function() {
 
 
-      $scope.changeSorting = function(column){
-        if($scope.sort.column === column){
-          $scope.sort.descending = !$scope.sort.descending;
-        }else{
-          $scope.sort.column = column;
-          $scope.sort.descending = false;
-        }
-      };
+                                        $scope.changeSorting = function(column){
+                                          if($scope.sort.column === column){
+                                            $scope.sort.descending = !$scope.sort.descending;
+                                          }else{
+                                            $scope.sort.column = column;
+                                            $scope.sort.descending = false;
+                                          }
+                                        };
 
 
                                         nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {

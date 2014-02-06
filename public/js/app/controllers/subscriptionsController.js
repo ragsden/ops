@@ -181,14 +181,6 @@ var SubscriptionsController = function($scope, $modal, $log, $location, subscrip
         });
   };
 
-  $scope.goBack = function(){
-    window.history.back();
-  };
-
-  $scope.goForward = function(){
-    window.history.forward();
-  };
-
 
   $scope.init();
 };

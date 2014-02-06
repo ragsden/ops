@@ -33,14 +33,6 @@ var AccountsController = function($scope,$routeParams,$location,AccountsService)
     $location.path("/accounts/"+accountId+"/subscriptions");
   };
 
-  $scope.goBack = function(){
-    window.history.back();
-  };
-
-  $scope.goForward = function(){
-    window.history.forward();
-  };
-
 
 };
 AccountsController.$inject = ["$scope","$routeParams","$location","AccountsService"];

@@ -13,7 +13,8 @@
       "angSpa":false,
       "config":false,
       "angular":false,
-      "moment":false
+      "moment":false,
+      "_":false
   },
     "browser" : true, 
     "devel" : true, 
