@@ -30,8 +30,6 @@ var ProjectsController = function($scope, $modal, $log, $routeParams, $location,
   $scope.subscriptionId = $routeParams.subscriptionId;
 
   $scope.editPermissions = function(projId){
-    $scope.modalCloseClicked = false;
-    console.log("projectId: "+ projId);
     $scope.modalInstance = $modal.open({
         templateUrl: '/templates/projectPermissionsModal.html',
         controller: 'projectPermissionsModalController',
@@ -46,13 +44,11 @@ var ProjectsController = function($scope, $modal, $log, $routeParams, $location,
     $scope.modalInstance.result.then(function(){
         //empty 'OK' function
     }, function(closeString){
-        $log.info("Modal dismissed at: " + new Date());
         $scope.init();
     });
   };
 
   $scope.init = function(){
-      $scope.modalCloseClicked = true;
 
       $scope.showBuilds = function(id) {
         $location.path('/projects/'+id+'/builds');

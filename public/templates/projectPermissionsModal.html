@@ -4,6 +4,7 @@
 
 <!-- when modal comes up, display memebers and roles  -->
 <div class="modal-body" ng-switch on="selection">
+  <p ng-repeat="error in permissionsModalErrors">{{error}}</p>
  <div ng-switch-when="default">
     <table class="table">
             <thead>                
@@ -31,7 +32,7 @@
   <form name="addNewCollaboratorForm"> 
     <div class="search-block">
 					<div class="input-group " style="width:170px">
-                      <input type="text" class="form-control input-sm" placeholder="Enter any other {{repositoryProvider}} login" ng-model="newCollaboratorUsername" required ></input>
+                      <input type="text" class="form-control input-sm" placeholder="Enter {{repositoryProvider}} login" ng-model="newCollaboratorUsername" required ></input>
 						<span class="input-group-btn">
 							<button class="btn btn-default btn-sm" type="submit" ng-disabled="addNewCollaboratorForm.$invalid"  ng-click="searchForShippableAccount(newCollaboratorUsername)" ><i class="fa fa-search"></i></button>
 						</span>

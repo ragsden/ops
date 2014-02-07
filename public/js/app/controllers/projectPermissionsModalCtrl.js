@@ -1,6 +1,3 @@
-/*jshint -W040 */
-/*jshint -W055 */
-/*jshint -W083 */
 (function(){
    var ProjectPermissionsModalController = function($scope, $modalInstance, ProjectsService, AccountsService, dataToPermissionsModal, $filter){
 
@@ -44,7 +41,6 @@
             AccountsService.getAccountById(permission.account, function(accDataErr, accountData){
                 if(!accDataErr){
                   var collaborator = new CollaboratorObj(permission.account, permission.roles, accountData.identities);
-      //            console.log(collaborator);
                   $scope.collaborators.push(collaborator);
                 }else{
                   console.log("err in getting account: " + accDataErr);
@@ -90,7 +86,7 @@
           if(!err){
             var account = $filter("filterAccountsByUsername")($scope.repositoryProvider, $scope.newCollaboratorUsername, searchAccsResults);
             if(!account){
-              $scope.projectPermissionsModalErrors.push("Account not found for the entered username");
+              $scope.permissionsModalErrors.push("Account not found for the entered username");
             }else{
             account.identities = $filter('filter')(account.identities, function(){
                 return function(){
@@ -115,7 +111,7 @@
               };
             }
             }else{
-              $scope.projectPermissionsModalErrors.push("No account on Shippable for the entered username");
+              $scope.permissionsModalErrors.push("No account on Shippable for the entered username");
             }
           
          });

@@ -103,19 +103,14 @@ describe('ProjectsController',function() {
 		httpBackend.flush();
 		expect(projectsService.getProjectsBySubscriptionId).toHaveBeenCalled();
 		
-        expect(ctrlScope.modalCloseClicked).toEqual(true);
-
         ctrlScope.editPermissions(testData.projectId);
-        expect(ctrlScope.modalCloseClicked).toEqual(false);
         ctrlScope.modalInstance.dismiss('close');
-        expect(ctrlScope.modalCloseClicked).toEqual(true);
 
         httpBackend.expectGET(config.MW_URL+'/subscriptions/'+testData.subscriptionProjectsGETParam+'/projects')
 		.respond(200,testData.subscriptionProjectsGET);
 		httpBackend.flush();
 		expect(projectsService.getProjectsBySubscriptionId).toHaveBeenCalled();
 		
-        expect(ctrlScope.modalCloseClicked).toEqual(true);
     });
 
 

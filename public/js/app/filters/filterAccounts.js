@@ -9,12 +9,10 @@ angular.module('angSpa').filter('filterAccountsByUsername', function(){
         var m = k;
         if(accountsList[j].identities[m].provider === identityProvider && accountsList[j].identities[m].userName === username){
           var account = accountsList.splice(j,1);
-          console.log("filtered account");
-          console.log(account[0]);
-          return account[0];
-
-        }
-        
+          if(account){
+            return account[0];
+          }
+        }       
       }
     }
   };
