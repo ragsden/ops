@@ -96,7 +96,7 @@
                 };
               });
 
-              if(!_.find($scope.collaborators, function(collaborator){return account.id === collaborator.account})){
+              if(!_.find($scope.collaborators, function(collaborator){return account.id === collaborator.account; })){
             
                 $scope.newCollaborator = new CollaboratorObj(account.id, ["member"], account.identities);
 

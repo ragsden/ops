@@ -10,7 +10,7 @@ angular.module('angSpa').filter('filterAccountsByUsername', function(){
           if(account){
             return account[0];
           }
-        }       
+        }
       }
     }
   };
