@@ -28,10 +28,10 @@ angSpa.factory('ProjectsService',function($http){
         console.log(projectUpdate);
         $http({method: 'PUT', url: putProjectUrl, data: projectUpdate})
         .success(function(data, status, headers, config){
-          done(null, data);
+          done(status, data);
         })
         .error(function(data, status, headers, config){
-          done(data, null);
+          done(status, data);
         });
      
      };

@@ -1,6 +1,7 @@
 //Testing controllers... 
 describe('ProjectsController',function() {
 	var ctrlScope;
+    var modal;
 	var projectsService;
 	var ctrl;
 	var routeParams;
@@ -8,25 +9,45 @@ describe('ProjectsController',function() {
 	var _location;
 	beforeEach(function() {
 		module('angSpa');
-		inject(function($rootScope,$routeParams,$httpBackend,$controller,ProjectsService) {
+		inject(function($rootScope, $modal, $log, $routeParams,$httpBackend,$controller,ProjectsService) { 
+
 			ctrlScope = $rootScope.$new();
+            modal = $modal;
 			projectsService = ProjectsService;			
 			httpBackend = $httpBackend;
 			routeParams = $routeParams;
+            var fakeModal = {
+                result: {
+                    then: function(okCallback, closeCallback){
+                        this.okCallback = okCallback;
+                        this.closeCallback = closeCallback;
+                    }
+                },
+                close: function(){
+                    this.result.okCallback();
+                },
+                dismiss: function(closeString){
+                    this.result.closeCallback(closeString);
+                }
+            };
 
 			routeParams.subscriptionId = testData.subscriptionProjectsGETParam;
 			spyOn(projectsService,'getProjectsBySubscriptionId').andCallThrough();
 			spyOn(projectsService,'deleteProjectById').andCallThrough();
 			spyOn(projectsService,'deleteBuildsByProjectId').andCallThrough();			
+			spyOn(projectsService,'getProjectByProjectId').andCallThrough();			
+			spyOn(projectsService,'updateProjectByProjectId').andCallThrough();
+            spyOn(modal, 'open').andReturn(fakeModal);
 			
 			ctrl = $controller('projectsController',
 				{
 					$scope: ctrlScope, 
 					$location: _location,
 					ProjectsService: projectsService,
+                    $modal: modal
 					}
 			 );
-			 });
+	    });
 	});
 	
 	it('should call getProjectsBySubscriptionId of ProjectsService ',function() {
@@ -75,4 +96,72 @@ describe('ProjectsController',function() {
         httpBackend.flush();
         expect(projectsService.deleteBuildsByProjectId).toHaveBeenCalled();       
     });
+
+    it('should check the calls to project permissions modal', function(){
+   		httpBackend.expectGET(config.MW_URL+'/subscriptions/'+testData.subscriptionProjectsGETParam+'/projects')
+		.respond(200,testData.subscriptionProjectsGET);
+		httpBackend.flush();
+		expect(projectsService.getProjectsBySubscriptionId).toHaveBeenCalled();
+		
+        expect(ctrlScope.modalCloseClicked).toEqual(true);
+
+        ctrlScope.editPermissions(testData.projectId);
+        expect(ctrlScope.modalCloseClicked).toEqual(false);
+        ctrlScope.modalInstance.dismiss('close');
+        expect(ctrlScope.modalCloseClicked).toEqual(true);
+
+        httpBackend.expectGET(config.MW_URL+'/subscriptions/'+testData.subscriptionProjectsGETParam+'/projects')
+		.respond(200,testData.subscriptionProjectsGET);
+		httpBackend.flush();
+		expect(projectsService.getProjectsBySubscriptionId).toHaveBeenCalled();
+		
+        expect(ctrlScope.modalCloseClicked).toEqual(true);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });

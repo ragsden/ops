@@ -1,8 +1,5 @@
 angular.module('angSpa').filter('filterAccountsByUsername', function(){
   return function(identityProvider, username, accountsList) {
-  /*  console.log(identityProvider);
-    console.log(username);
-    console.log(accountsList); */
     var i, j, k, accsListLength = accountsList.length;
     for(i=0; i < accsListLength ; i++){
       j = i;
@@ -19,6 +16,6 @@ angular.module('angSpa').filter('filterAccountsByUsername', function(){
         }
         
       }
-    }    
+    }
   };
 });

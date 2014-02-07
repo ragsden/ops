@@ -118,11 +118,45 @@ var config = {
                     repositoryUrl:"git@github.com:xyz/boto.git",
                     subscription:"123f1f77bcf86cd799439011",
                     permissions:[{
-                      account:"1234567890qwertyuiopasdf", 
+                      account:"1234567890qwertyuiopasdf",
                       roles:["projectOwner"]
-                     }]         
+                     }]
                  }],
            'negsubscriptionProjectsGET': [],
+
+           //get project by project id - returns
+           'projectIdGETParam': "52d7c18af0412511007af7f7",
+           'projectGETByProjectId': {
+                    id:"52d7c18af0412511007af7f7",
+                    name:"boto:2.0_stable",
+                    nodeType:"ubuntu1204",
+                    buildCount: 5,
+                    repositoryKey:"xyz/boto",
+                    repositoryProvider:"github",
+                    repositoryUrl:"git@github.com:xyz/boto.git",
+                    isPrivateRepository: false,
+                    permissions:[{
+                      account:"1234567890qwertyuiopasdf",
+                      roles:["projectOwner"]
+                     }],
+                    created:"2014-01-20T07:53:56.491Z",
+                    updated:"2014-02-20T07:50:50.381Z",
+                 },
+           
+           'projectId': "52d7c18af0412511007af7f7",
+           'projectUpdate': {
+                    name:"boto:2.0_stable",
+                    nodeType:"ubuntu1204",
+                    subscription:"123f1f77bcf86cd799439011",
+                    permissions:[{
+                      account:"1234567890qwertyuiopasdf",
+                      roles:["projectOwner"]
+                     },{
+                      account:"0987654321qwertyuiopasdf",
+                      roles:["buildAdmin"]
+                     }],
+                 },
+           'projectUpdateReturns': 'OK',
 
            'testProjectId' : '52d7c18af0412511007af7f7',
            'negTestProjectId' : '52d7c19af0412511007af9f9',

@@ -4,8 +4,8 @@
 (function(){
    var ProjectPermissionsModalController = function($scope, $modalInstance, ProjectsService, AccountsService, dataToPermissionsModal, $filter){
 
-      $scope.cancel = function(){
-        $modalInstance.dismiss('cancel');
+      $scope.close = function(){
+        $modalInstance.dismiss('close');
       };
       
       $scope.projectId = dataToPermissionsModal.projectId;
@@ -48,6 +48,7 @@
                   $scope.collaborators.push(collaborator);
                 }else{
                   console.log("err in getting account: " + accDataErr);
+                  $scope.permissionsModalErrors.push("Error in getting accounts");
                 }
             });
            }
@@ -69,10 +70,12 @@
       
       $scope.projectUpdate.permissions = $scope.collaborators;
 
-      ProjectsService.updateProjectByProjectId($scope.projectId, $scope.projectUpdate, function(updateErr, data){
-        if(!updateErr){
+      ProjectsService.updateProjectByProjectId($scope.projectId, $scope.projectUpdate, function(status, data){
+        if(status === 200){
          $scope.refresh();
-        }      
+        }else{
+         $scope.permissionsModalErrors.push("Error in updating the project permissions");
+        }
       });
     };
 
@@ -86,8 +89,9 @@
         AccountsService.searchAccountsByUsername($scope.newCollaboratorUsername, function(err, searchAccsResults){
           if(!err){
             var account = $filter("filterAccountsByUsername")($scope.repositoryProvider, $scope.newCollaboratorUsername, searchAccsResults);
-            console.log(account);
-
+            if(!account){
+              $scope.projectPermissionsModalErrors.push("Account not found for the entered username");
+            }else{
             account.identities = $filter('filter')(account.identities, function(){
                 return function(){
                   console.log(account.identities);
@@ -99,11 +103,8 @@
                     }
                     return filteredAccountIdentity;
                 };
-                console.log("filteredAccountIdentity: " + filteredAccountIdentity);
               });
             
-              console.log("accountIdentities:");
-              console.log(account.identities);
               $scope.newCollaborator = new CollaboratorObj(account.id, [], account.identities);
               $scope.selection = "addingCollaboratorRoles";
 
@@ -112,11 +113,12 @@
                 console.log($scope.collaborators);
                 $scope.updateProject();
               };
-              
-            }else{
-              console.log("search accounts error");
             }
-        });
+            }else{
+              $scope.projectPermissionsModalErrors.push("No account on Shippable for the entered username");
+            }
+          
+         });
 
     };
 
