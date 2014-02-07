@@ -208,5 +208,6 @@ var config = {
              expiry: "01/2023",
              type: "Visa Gold",
            },
+           'dockerHosts' : [ { id : '',vmName : 'testhost' } ],
       }
 

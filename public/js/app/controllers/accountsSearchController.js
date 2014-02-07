@@ -10,6 +10,10 @@ var AccountsSearchController = function($scope,$location) {
     $location.path("/accounts/search/"+$scope.accountsSearchModel.loginId);
   };
 
+  $scope.showDockerHosts = function() {
+    $location.path('/hosts');
+  };
+
 
 };
 AccountsSearchController.$inject = ["$scope","$location"];
