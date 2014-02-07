@@ -62,7 +62,7 @@ function runapp() {
               res.redirect('/');
           });
           app.get('/auth/github',
-                passport.authenticate('github'),function(req,res) { });
+                passport.authenticate('github',{'scope':'repo,user:email' }),function(req,res) { });
           app.get('/auth/github/callback',
                   passport.authenticate('github',{ failureRedirect: '/' }),
                   function(req,res) {
