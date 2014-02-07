@@ -2,10 +2,9 @@
   <h3>Job Permissions</h3>
 </div>
 
-<!-- when modal comes up, display memebers and roles  -->
-<div class="modal-body" ng-switch on="selection">
+<div class="modal-body">
   <p ng-repeat="error in permissionsModalErrors">{{error}}</p>
- <div ng-switch-when="default">
+ 
     <table class="table">
             <thead>                
                 <th>Login</th>
@@ -16,58 +15,30 @@
             <tbody>
               <tr ng-repeat="c in collaborators">
                 <td>{{c.identities[0].userName}}</td>
-                <td><input type="radio" ng-model="c.roles[0]" value="projectOwner" /></td>
-                <td><input type="radio" ng-model="c.roles[0]" value="buildAdmin" /></td>
-                <td><input type="radio" ng-model="c.roles[0]" value="member" /></td>
+                <td><input type="radio" ng-model="c.roles[0]" value="projectOwner" ng-change="updateProject()"/></td>
+                <td><input type="radio" ng-model="c.roles[0]" value="buildAdmin" ng-change="updateProject()"/></td>
+                <td><input type="radio" ng-model="c.roles[0]" value="member" ng-change="updateProject()"/></td>
                 </tr>
             </tbody>
           </table>
-          <button ng-click="updateProject()">update</button>
-  </div>
  <br />
-  
-  <button ng-click="addNewCollaborator()" class="btn btn-xs btn-primary">Add a new collaborator</button>
-  <div ng-switch-when="addingCollaborator">
-    <br />
-  <form name="addNewCollaboratorForm"> 
+
+   <form name="addNewCollaboratorForm"> 
     <div class="search-block">
-					<div class="input-group " style="width:170px">
+					<div class="input-group">
                       <input type="text" class="form-control input-sm" placeholder="Enter {{repositoryProvider}} login" ng-model="newCollaboratorUsername" required ></input>
 						<span class="input-group-btn">
-							<button class="btn btn-default btn-sm" type="submit" ng-disabled="addNewCollaboratorForm.$invalid"  ng-click="searchForShippableAccount(newCollaboratorUsername)" ><i class="fa fa-search"></i></button>
+							<button class="btn btn-default btn-sm" type="submit" ng-disabled="addNewCollaboratorForm.$invalid"  ng-click="addNewCollaborator(newCollaboratorUsername)">Add new collaborator</button>
 						</span>
 					</div><!-- /input-group -->
 				</div><!-- /search-block -->
-    <br/>
-    <br/></br>
   </form>
 </div>
 
-<div ng-switch-when="addingCollaboratorRoles"> <!--show when adding collaborator roles -->
-    <table class="table">
-            <thead>                
-                <th>Login</th>
-                <th>Owner</th>
-                <th>Build admin</th>
-                <th>Member</th>
-            </thead>
-            <tbody>
-                <td>{{newCollaborator.identities[0].userName}}</td>
-                <td><input type="radio" ng-model="newCollaborator.roles[0]" value="projectOwner"></td>
-                <td><input type="radio" ng-model="newCollaborator.roles[0]" value="buildAdmin"></td>
-                <td><input type="radio" ng-model="newCollaborator.roles[0]" value="member"></td>
-                </tr>
-            </tbody>
-          </table>
-          <button ng-click="updateNewCollaborator()">update</button>
 </div>
-
-
-</div>
-
 
 
 <div class="modal-footer">
-  <button class="btn btn-primary" ng-click="close()">close</button>
+  <button class="btn btn-primary btn-sm" ng-click="close()">Close</button>
   </div>
 

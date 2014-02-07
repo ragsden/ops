@@ -43,7 +43,6 @@
                   var collaborator = new CollaboratorObj(permission.account, permission.roles, accountData.identities);
                   $scope.collaborators.push(collaborator);
                 }else{
-                  console.log("err in getting account: " + accDataErr);
                   $scope.permissionsModalErrors.push("Error in getting accounts");
                 }
             });
@@ -76,11 +75,8 @@
     };
 
     
-    $scope.addNewCollaborator = function(){
-      $scope.selection = "addingCollaborator";
-    };
-
-    $scope.searchForShippableAccount = function(newCollaboratorUsername){
+    $scope.addNewCollaborator = function(newCollaboratorUsername){
+        $scope.permissionsModalErrors = [];
         $scope.newCollaboratorUsername = newCollaboratorUsername;
         AccountsService.searchAccountsByUsername($scope.newCollaboratorUsername, function(err, searchAccsResults){
           if(!err){
@@ -90,7 +86,6 @@
             }else{
             account.identities = $filter('filter')(account.identities, function(){
                 return function(){
-                  console.log(account.identities);
                   var filteredAccountIdentity;
                     for(var i=0; i < account.identities; i++){
                         if(account.identities[i].provider === $scope.repositoryProvider){
@@ -100,16 +95,17 @@
                     return filteredAccountIdentity;
                 };
               });
-            
-              $scope.newCollaborator = new CollaboratorObj(account.id, [], account.identities);
-              $scope.selection = "addingCollaboratorRoles";
 
-              $scope.updateNewCollaborator = function(){
+              if(!_.find($scope.collaborators, function(collaborator){return account.id === collaborator.account})){
+            
+                $scope.newCollaborator = new CollaboratorObj(account.id, ["member"], account.identities);
+
                 $scope.collaborators.push($scope.newCollaborator);
-                console.log($scope.collaborators);
                 $scope.updateProject();
-              };
-            }
+              }else{
+                $scope.permissionsModalErrors.push("Collaborator exists.");
+              }
+             }
             }else{
               $scope.permissionsModalErrors.push("No account on Shippable for the entered username");
             }

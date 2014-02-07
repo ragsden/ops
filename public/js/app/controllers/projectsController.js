@@ -1,6 +1,6 @@
 'use strict';
 
-var ProjectsController = function($scope, $modal, $log, $routeParams, $location, ProjectsService) {
+var ProjectsController = function($scope, $modal, $routeParams, $location, ProjectsService) {
   $scope.projectsModel={
     projects:[{
       created:"",
@@ -120,6 +120,6 @@ var ProjectsController = function($scope, $modal, $log, $routeParams, $location,
   };
   $scope.init();
 };
-ProjectsController.$inject = ["$scope", "$modal", "$log", "$routeParams", "$location", "ProjectsService"];
+ProjectsController.$inject = ["$scope", "$modal", "$routeParams", "$location", "ProjectsService"];
 angSpa.controller("projectsController",ProjectsController);
 
