@@ -97,5 +97,15 @@ describe('Testing routes',function() {
     });
   });
 
+it('should check if hosts nodes page resolves correctly',function() {
+    inject(function($route) {
+      var controller = $route.routes['/hosts/:hostId/nodes'].controller;
+      var templateUrl = $route.routes['/hosts/:hostId/nodes'].templateUrl;
+      expect(controller).toEqual('hostNodesController');
+      expect(templateUrl).toEqual('/partials/hostNodes.html');
+    });
+  });
+
+
 });
 /* jshint ignore:end */

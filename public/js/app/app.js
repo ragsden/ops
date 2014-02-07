@@ -25,7 +25,9 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
     when('/projects/:projectId/builds/:buildNumber',{ controller : 'buildController', templateUrl : '/partials/build.html',title : 'Build Details' }).
     when('/projects/:projectId/builds',{ controller : 'buildsController', templateUrl : '/partials/builds.html',title: 'Builds'}).
     when('/cards/:cardId',{ controller : 'cardsController', templateUrl : '/partials/card.html',title: 'Cards' }).
+    when('/hosts/:hostId/nodes',{ controller : 'hostNodesController', templateUrl : '/partials/hostNodes.html' ,title : 'HostNodes' }).
     when('/hosts',{ controller : 'dockerHostsController', templateUrl : '/partials/dockerhosts.html',title: 'Hosts' }).
+    when('/hosts/:hostId/nodes', { controller: 'hostNodesController', templateUrl : '/partials/hostNodes.html',title: 'HostNodes' }).
     when('/', { redirectTo: '/'}).
     otherwise({ redirectTo: '/accounts' });
 

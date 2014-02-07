@@ -3,12 +3,17 @@
 //sample controller
 
 
-angular.module('angSpa').controller('dockerHostsController',['$scope','DockerHostService',
-                                    function($scope,DockerHostService)
+angular.module('angSpa').controller('dockerHostsController',['$scope','DockerHostService','$location',
+                                    function($scope,DockerHostService,$location)
                                     {
                                       console.log('ctrl.. ' + DockerHostService);
                                       $scope.hosts = [];
                                       $scope.messages = [];
+
+                                      $scope.showNodes = function(hostId) {
+                                        $location.path('/hosts/'+hostId+'/nodes');
+                                         
+                                      };
 
                                       DockerHostService.getAll(function(err,data) {
                                         if(err) {
