@@ -9,7 +9,7 @@ describe('ProjectsController',function() {
 	var _location;
 	beforeEach(function() {
 		module('angSpa');
-		inject(function($rootScope, $modal, $log, $routeParams,$httpBackend,$controller,ProjectsService) { 
+		inject(function($rootScope, $modal, $routeParams,$httpBackend,$controller,ProjectsService) { 
 
 			ctrlScope = $rootScope.$new();
             modal = $modal;
