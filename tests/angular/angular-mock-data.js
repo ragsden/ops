@@ -175,5 +175,10 @@ var config = {
              type: "Visa Gold",
            },
            'dockerHosts' : [ { id : '',vmName : 'testhost' } ],
+           'testHostId' : '712f1f77bcf86cd799439022',
+           'testNodesData' : [
+             {"__v":0,"_id":"12f37e2fbe2c170f008c4ed0","nodeType":"ubuntu1204","subscriptionId":"62ef5f77b9796c0f00e2b9b2","username":"cazipicogohemuhu","vmName":"ip-20-0-110-21","updated":"2014-02-06T12:21:03.956Z","created":"2014-02-06T12:21:03.955Z","nodeState":2},
+             {"__v":0,"_id":"22f37e2fbe2c170f008c4ed0","nodeType":"ubuntu1204","subscriptionId":"42ef5f77b9796c0f00e2b9b2","username":"aaapicogohemuhu","vmName":"ip-20-0-110-21","updated":"2014-02-06T12:21:03.956Z","created":"2014-02-06T12:21:03.955Z","nodeState":2}
+           ],
       }
 
