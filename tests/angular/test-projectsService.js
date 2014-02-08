@@ -12,6 +12,11 @@ describe('Projects Service',function() {
 				.respond(200,testData.subscriptionProjectsGET);
 				httpBackend.when('GET',config.MW_URL+'/subscriptions/'+testData.negsubscriptionProjectsGETParam+'/projects')
 				.respond(200,testData.negsubscriptionProjectsGET);
+				
+                httpBackend.when('GET', config.MW_URL + '/projects/'+ testData.projectIdGETParam)
+            	.respond(200, testData.projectGETByProjectId);
+            	httpBackend.when('PUT', config.MW_URL + '/projects/'+ testData.projectId, testData.projectUpdate)
+            	.respond(200, testData.projectUpdateReturns);
 
 				httpBackend.when('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam)
             	.respond(200, testData.projectIdDELDataReturned);
@@ -60,6 +65,26 @@ describe('Projects Service',function() {
 			httpBackend.flush();
 			expect(result.length).toBe(0);
 			});
+		//get project by project id
+        it('testing - getting project details using a valid projectId', function(){
+    		var projectData;
+    		projectsService.getProjectByProjectId(testData.projectIdGETParam, function(err, data){
+              projectData = data;
+            });
+    		httpBackend.flush();
+            //add more assertions
+   			expect(projectData.id).toBe(testData.projectIdGETParam);
+  		});
+
+        //update project by project id
+		it('testing - updating a project using a valid project Id', function(){
+    		var statusReceived;
+    		projectsService.updateProjectByProjectId(testData.projectId, testData.projectUpdate, function(status, data){
+        		statusReceived = status;
+    			});
+    		httpBackend.flush();
+   			expect(statusReceived).toBe(200);
+  		});
 
 		it('testing - deleting a project using a valid projectId', function(){
     		var statusReceived;

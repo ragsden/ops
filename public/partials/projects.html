@@ -29,6 +29,7 @@
                     <td>{{project.created | format_to_pst }}</td>
                     <td>{{project.repositoryUrl}}</td>                    
                     <td>
+                        <a class="btn btn-xs btn-info" ng-click="editPermissions(project.id)">Permissions</a> 
                         <a class="btn btn-xs btn-info" ng-click="showBuilds(project.id)">Show Builds</a>
                         <a class="btn btn-xs btn-danger" ng-click="deleteBuilds(project.id)">Delete All Builds</a>
                         <a class="btn btn-xs btn-danger" ng-click="deleteProject(project.id)">Delete</a> 
