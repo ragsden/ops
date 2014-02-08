@@ -3110,7 +3110,7 @@ input[type="text"].dial {
 }
 input[type="radio"],
 input[type="checkbox"] {
-  opacity: 0;
+  opacity: 50;
   position: absolute;
   width: 15px;
   height: 15px;

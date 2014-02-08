@@ -12,6 +12,29 @@ angSpa.factory('ProjectsService',function($http){
         });
      };
 
+     ProjectsService.prototype.getProjectByProjectId = function(projectId, done){
+        var getProjectUrl = middlewareUrl + "/projects/" + projectId;
+        $http({method: 'GET', url: getProjectUrl})
+        .success(function(data, status, headers, config){
+          done(null, data);
+        })
+        .error(function(data, status, headers, config){
+          done(data, null);
+        });
+     };
+
+     ProjectsService.prototype.updateProjectByProjectId = function(projectId, projectUpdate, done){
+        var putProjectUrl = middlewareUrl + "/projects/" + projectId;
+        $http({method: 'PUT', url: putProjectUrl, data: projectUpdate})
+        .success(function(data, status, headers, config){
+          done(status, data);
+        })
+        .error(function(data, status, headers, config){
+          done(status, data);
+        });
+     
+     };
+
      ProjectsService.prototype.deleteProjectById = function(projectId, done){
         var deleteProjectUrl = middlewareUrl + "/projects/" + projectId;
         $http({ method: 'DELETE', url: deleteProjectUrl}).

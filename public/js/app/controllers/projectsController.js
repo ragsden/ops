@@ -1,6 +1,6 @@
 'use strict';
 
-var ProjectsController = function($scope,$routeParams,$location,ProjectsService) {
+var ProjectsController = function($scope, $modal, $routeParams, $location, ProjectsService) {
   $scope.projectsModel={
     projects:[{
       created:"",
@@ -27,10 +27,34 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
 
   $scope.sort = {column:'name', descending: false};
 
+  $scope.subscriptionId = $routeParams.subscriptionId;
+
+  $scope.editPermissions = function(projId){
+    $scope.modalInstance = $modal.open({
+        templateUrl: '/templates/projectPermissionsModal.html',
+        controller: 'projectPermissionsModalController',
+        resolve: {
+          dataToPermissionsModal: function(){
+            return {subscriptionId: $scope.subscriptionId, projectId: projId};
+            }
+          }
+      
+    });
+
+    $scope.modalInstance.result.then(function(){
+        //empty 'OK' function
+    }, function(closeString){
+        $scope.init();
+    });
+  };
+
   $scope.init = function(){
+
       $scope.showBuilds = function(id) {
         $location.path('/projects/'+id+'/builds');
       };
+
+      $scope.subscriptionId = $routeParams.subscriptionId;
 
 
       $scope.changeSorting = function(column){
@@ -96,6 +120,6 @@ var ProjectsController = function($scope,$routeParams,$location,ProjectsService)
   };
   $scope.init();
 };
-ProjectsController.$inject = ["$scope","$routeParams","$location","ProjectsService"];
+ProjectsController.$inject = ["$scope", "$modal", "$routeParams", "$location", "ProjectsService"];
 angSpa.controller("projectsController",ProjectsController);
 
