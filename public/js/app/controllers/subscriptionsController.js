@@ -3,7 +3,7 @@
 /*jshint -W083 */
 'use strict';
 
-var SubscriptionsController = function($scope, $modal, $log, $location, subscriptionsService, plansService,ProjectsService, $routeParams, AccountsService, $window){
+var SubscriptionsController = function($q,$scope, $modal, $log, $location, subscriptionsService, plansService,ProjectsService, $routeParams, AccountsService, $window){
   $scope.subscriptionsModel = {
     accountInfo: {},
     subscriptions:[],
@@ -147,16 +147,20 @@ var SubscriptionsController = function($scope, $modal, $log, $location, subscrip
               }
               else
               {
-                for(var k=0; k < projectsData.length; k++) {
-                var l = k;
-                 ProjectsService.deleteBuildsByProjectId(projectsData[l].id, function(status, data){
-                  if(status !== 200)
-                    {
-                      done(data);
-                    }
-                  });
-                }
-                done(null);
+                var deferred = $q.defer();
+                var promises = [];
+
+                    projectsData.forEach(function(obj) {
+                    var prom = ProjectsService.deleteBuildsByProjectId(obj.id);
+                    promises.push(prom);
+                    });
+
+                    $q.all(promises).then(function success(data){
+                      done(null);
+                 },function failure(err)
+                 {
+                  done(err);
+                 });
               }
             }
           });
@@ -185,5 +189,5 @@ var SubscriptionsController = function($scope, $modal, $log, $location, subscrip
   $scope.init();
 };
 
-SubscriptionsController.$inject = ["$scope", "$modal", "$log", "$location", "subscriptionsService", "plansService", "ProjectsService", "$routeParams", "AccountsService", "$window"];
+SubscriptionsController.$inject = ["$q","$scope", "$modal", "$log", "$location", "subscriptionsService", "plansService", "ProjectsService", "$routeParams", "AccountsService", "$window"];
 angSpa.controller("subscriptionsController", SubscriptionsController);
