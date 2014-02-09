@@ -1,7 +1,7 @@
 /*jshint -W040 */
 /*jshint -W055 */
 /*jshint -W083 */
-var AccountController = function($scope,$modal,$log,$location,AccountsService,subscriptionsService,ProjectsService,$routeParams) {
+var AccountController = function($q,$scope,$modal,$log,$location,AccountsService,subscriptionsService,ProjectsService,$routeParams) {
   $scope.accountModel={
     account : {
     id: "",
@@ -122,16 +122,20 @@ var AccountController = function($scope,$modal,$log,$location,AccountsService,su
               }
               else
               {
-                for(var k=0; k < projectsData.length; k++) {
-                var l = k;
-                 ProjectsService.deleteBuildsByProjectId(projectsData[l].id, function(status, data){
-                  if(status !== 200)
-                    {
-                     done(data);
-                    }
-                  });
-                }
-                done(null);
+                var deferred = $q.defer();
+                var promises = [];
+
+                    projectsData.forEach(function(obj) {
+                    var prom = ProjectsService.deleteBuildsByProjectId(obj.id);
+                    promises.push(prom);
+                    });
+
+                    $q.all(promises).then(function success(data){
+                      done(null);
+                 },function failure(err)
+                 {
+                  done(err);
+                 });
               }
             }
           });
@@ -173,5 +177,5 @@ $scope.deleteSubscriptions = function(done){
     };
 };
  
-AccountController.$inject = ["$scope","$modal","$log","$location","AccountsService","subscriptionsService","ProjectsService","$routeParams"];
+AccountController.$inject = ["$q","$scope","$modal","$log","$location","AccountsService","subscriptionsService","ProjectsService","$routeParams"];
 angSpa.controller("accountController",AccountController);

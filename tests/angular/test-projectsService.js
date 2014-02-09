@@ -107,17 +107,19 @@ describe('Projects Service',function() {
 
 		it('testing - deleting builds for a valid projectId', function(){
     		var statusReceived;
-    		projectsService.deleteBuildsByProjectId(testData.projectIdDELParam, function(status, data){
-        		statusReceived = status;
-    			});
+    		var DelBuilds = projectsService.deleteBuildsByProjectId(testData.projectIdDELParam);
+        		DelBuilds.success(function(data,status){
+        			statusReceived = status;
+        		});
     		httpBackend.flush();
    			expect(statusReceived).toBe(200);
   		});
  
   		it('testing - deleting builds for an invalid projetId', function(){
     		var statusReceived;
-    		projectsService.deleteBuildsByProjectId(testData.negProjectIdDELParam, function(status, data){
-       		 statusReceived = status;
+    		var DelBuilds = projectsService.deleteBuildsByProjectId(testData.negProjectIdDELParam);
+       		DelBuilds.error(function(data,status){
+       		statusReceived = status;
     			});
     		httpBackend.flush();
     		expect(statusReceived).not.toBe(200);

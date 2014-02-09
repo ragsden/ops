@@ -101,22 +101,24 @@ var ProjectsController = function($scope, $modal, $routeParams, $location, Proje
   };
 
   $scope.deleteBuilds = function(projectId){
-    ProjectsService.deleteBuildsByProjectId(projectId, function(status, data){
-      if(status === 200){
-        if(data.deleteCount === 0)
-        {
-          $scope.projectsModel.status = 'There are no builds in project ' + projectId + " to be deleted.";
+    var delBuilds = ProjectsService.deleteBuildsByProjectId(projectId);
+    delBuilds
+    .success(function(data, status, headers, config) {
+       if(status === 200){
+            if(data.deleteCount === 0)
+            {
+              $scope.projectsModel.status = 'There are no builds in project ' + projectId + " to be deleted.";
+            }
+            else
+            {
+            $scope.projectsModel.status = 'The builds of project ' + projectId + " have been deleted.";
+            }
         }
-        else
-        {
-        $scope.projectsModel.status = 'The builds of project ' + projectId + " have been deleted.";
-        }
-      }
-      else
-        {
-          $scope.projectsModel.err = 'There was an error while deleting the builds :' + data;
-        }
+    })
+    .error(function(data, status, headers, config) {
+      $scope.projectsModel.err = 'There was an error while deleting the builds :' + data;
     });
+  
   };
   $scope.init();
 };
