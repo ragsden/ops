@@ -16,7 +16,6 @@
       
       $scope.projectUpdate.subscription = dataToPermissionsModal.subscriptionId;
 
-      $scope.permissionsModalErrors = [];
       $scope.newCollaboratorUsername = "";
 
       function CollaboratorObj(account, roles, identities){
@@ -26,6 +25,8 @@
       }
 
       $scope.refresh = function(){
+      
+        $scope.permissionsModalErrors = [];
               
         $scope.selection = "default";
         $scope.collaborators = [];
@@ -79,7 +80,7 @@
         $scope.collaborators = _.without($scope.collaborators, _.findWhere($scope.collaborators, $scope.collaborators[index]));
         $scope.updateProject();
       }else{
-        $scope.permissionsModalErrors.push('Denied..');
+        $scope.permissionsModalErrors.push('There is only one collaborator on the project.');
       }
     };
 
