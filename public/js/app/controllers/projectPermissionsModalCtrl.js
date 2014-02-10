@@ -76,16 +76,8 @@
 
     $scope.removeCollaborator = function(index){
       if($scope.collaborators.length > 1){
-      delete $scope.collaborators[index];
-      var collaboratorsUpdate = [];
-      _.each($scope.collaborators, function(collaborator){
-        if(collaborator){
-          collaboratorsUpdate.push(collaborator);
-        }
-      });
-
-      $scope.collaborators = collaboratorsUpdate;
-      $scope.updateProject();
+        $scope.collaborators = _.without($scope.collaborators, _.findWhere($scope.collaborators, $scope.collaborators[index]));
+        $scope.updateProject();
       }else{
         $scope.permissionsModalErrors.push('Denied..');
       }
