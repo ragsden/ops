@@ -80,7 +80,7 @@
         $scope.collaborators = _.without($scope.collaborators, _.findWhere($scope.collaborators, $scope.collaborators[index]));
         $scope.updateProject();
       }else{
-        $scope.permissionsModalErrors.push('There is only one collaborator on the project.');
+        $scope.permissionsModalErrors.push('The last collaborator cannot be removed.');
       }
     };
 
