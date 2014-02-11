@@ -16,7 +16,6 @@
       
       $scope.projectUpdate.subscription = dataToPermissionsModal.subscriptionId;
 
-      $scope.permissionsModalErrors = [];
       $scope.newCollaboratorUsername = "";
 
       function CollaboratorObj(account, roles, identities){
@@ -26,6 +25,8 @@
       }
 
       $scope.refresh = function(){
+      
+        $scope.permissionsModalErrors = [];
               
         $scope.selection = "default";
         $scope.collaborators = [];
@@ -72,6 +73,15 @@
          $scope.permissionsModalErrors.push("Error in updating the project permissions");
         }
       });
+    };
+
+    $scope.removeCollaborator = function(index){
+      if($scope.collaborators.length > 1){
+        $scope.collaborators = _.without($scope.collaborators, _.findWhere($scope.collaborators, $scope.collaborators[index]));
+        $scope.updateProject();
+      }else{
+        $scope.permissionsModalErrors.push('The last collaborator cannot be removed.');
+      }
     };
 
     
