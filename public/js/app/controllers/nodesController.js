@@ -14,25 +14,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                       $scope.nodes = [];
                                       $scope.errorsAndMessages = [];
 
-                                      $scope.nodeStatuses = [
-                                        'QUEUED',
-                                        'NODE_READY',
-                                        'ADMIN_READY',
-                                        'ADMIN_STOPPED',
-                                        'WORKER_READY',
-                                        'WORKER_STOPPED',
-                                        'NODE_FAILURE',
-                                        'NODE_STOPPED',
-                                        'USER_SETUP',
-                                        'USER_SETUP_FAILED',
-                                        'BUILD_IN_PROGRESS',
-                                        'REMOVE_QUEUED',
-                                        'REMOVE_FAILED',
-                                        'REMOVED'
-                                      ];
-
-
-
+                                    
                                       $scope.sort = {column:'created', descending: false};
 
                                       $scope.deleteNode = function(nodeId) {
@@ -92,7 +74,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                               for(var i=0;i<data.length;i++) {
                                                 $scope.nodes.push({
                                                   'id' : data[i].id,
-                                                  'status' : $scope.nodeStatuses[data[i].state],
+                                                  'status' : data[i].state,
                                                   'created': data[i].created,
                                                   'updated' : data[i].updated
                                                 });
