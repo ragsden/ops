@@ -16,9 +16,9 @@
             <tbody>
               <tr ng-repeat="c in collaborators">
                 <td>{{c.identities[0].userName}}</td>
-                <td><input type="radio" ng-model="c.roles[0]" value="projectOwner" ng-change="updateProject()"/></td>
-                <td><input type="radio" ng-model="c.roles[0]" value="buildAdmin" ng-change="updateProject()"/></td>
-                <td><input type="radio" ng-model="c.roles[0]" value="member" ng-change="updateProject()"/></td>
+                <td><input type="radio" ng-model="c.roles[0]" value="Project owners" ng-change="updateProject()"/></td>
+                <td><input type="radio" ng-model="c.roles[0]" value="Build engineer" ng-change="updateProject()"/></td>
+                <td><input type="radio" ng-model="c.roles[0]" value="Member" ng-change="updateProject()"/></td>
                 <td><button class="btn btn-xs btn-danger fa fa-times fa-lg" ng-click="removeCollaborator($index)"></button></td>
                 </tr>
             </tbody>

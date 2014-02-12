@@ -23,11 +23,10 @@
         this.roles = roles;
         this.identities = identities;
       }
+      
+      $scope.permissionsModalErrors = [];
 
       $scope.refresh = function(){
-      
-        $scope.permissionsModalErrors = [];
-              
         $scope.selection = "default";
         $scope.collaborators = [];
         
@@ -58,6 +57,18 @@
     };
 
     $scope.updateProject = function(){
+      $scope.permissionsModalErrors = [];
+      var owners = 0;
+      _.each($scope.collaborators, function(collaborator){
+        if(collaborator.roles[0] === "Project owners"){
+          owners = owners + 1;
+        }
+      });
+
+      if(owners < 1){
+        $scope.permissionsModalErrors.push("Cannot change role of owner when there is a single owner.");
+        $scope.refresh();
+      }else{
       var k, l=$scope.collaborators.length;
       for(k=0; k< l; k++){
         var p = k;
@@ -73,14 +84,25 @@
          $scope.permissionsModalErrors.push("Error in updating the project permissions");
         }
       });
+    }
     };
 
     $scope.removeCollaborator = function(index){
-      if($scope.collaborators.length > 1){
+      $scope.permissionsModalErrors = [];
+
+      var collaboratorToDelete = $scope.collaborators[index];
+      var owners = 0;
+      _.each($scope.collaborators, function(collaborator){
+        if(collaborator.roles[0] === "Project owners"){
+            owners = owners + 1 ;
+        }
+      });
+
+      if(owners === 1 && collaboratorToDelete.roles[0] === "Project owners"){
+        $scope.permissionsModalErrors.push('The last owner cannot be removed.');
+      }else{
         $scope.collaborators = _.without($scope.collaborators, _.findWhere($scope.collaborators, $scope.collaborators[index]));
         $scope.updateProject();
-      }else{
-        $scope.permissionsModalErrors.push('The last collaborator cannot be removed.');
       }
     };
 
@@ -108,7 +130,7 @@
 
               if(!_.find($scope.collaborators, function(collaborator){return account.id === collaborator.account; })){
             
-                $scope.newCollaborator = new CollaboratorObj(account.id, ["member"], account.identities);
+                $scope.newCollaborator = new CollaboratorObj(account.id, ["Member"], account.identities);
 
                 $scope.collaborators.push($scope.newCollaborator);
                 $scope.updateProject();
