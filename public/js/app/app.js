@@ -22,6 +22,7 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
     when('/accounts/:accountId/subscriptions', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController',title :'Subscriptions'}).
     when('/subscriptions/:subscriptionId/nodes', { controller: 'nodesController', templateUrl: '/partials/nodes.html',title : 'Nodes'}).
     when('/subscriptions/:subscriptionId/projects', { controller: 'projectsController', templateUrl: '/partials/projects.html',title : 'Projects'}).
+    when('/subscriptions/:subscriptionId/queues', { controller: 'queuesController', templateUrl: '/partials/queues.html',title : 'Queues'}).
     when('/projects/:projectId/builds/:buildNumber',{ controller : 'buildController', templateUrl : '/partials/build.html',title : 'Build Details' }).
     when('/projects/:projectId/builds',{ controller : 'buildsController', templateUrl : '/partials/builds.html',title: 'Builds'}).
     when('/cards/:cardId',{ controller : 'cardsController', templateUrl : '/partials/card.html',title: 'Cards' }).
