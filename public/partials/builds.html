@@ -36,8 +36,8 @@
                 </td>
                     <td>{{build.buildNumber}}</td>
                     <td>{{build.phase}}</td>
-                    <td>{{build.status}}</td>
-                    <td>{{build.duration}}</td>
+                    <td>{{build.status | mapBuildStatus}}</td>
+                    <td>{{build.duration | format_seconds }}</td>
                     <td>{{build.commitSha}}</td>
                     <td>{{build.lastAuthorEmail}}</td>
                     <td>{{build.triggeredByAuthor}}</td>
