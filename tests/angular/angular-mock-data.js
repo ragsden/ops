@@ -214,5 +214,22 @@ var config = {
              {"__v":0,"_id":"12f37e2fbe2c170f008c4ed0","nodeType":"ubuntu1204","subscriptionId":"62ef5f77b9796c0f00e2b9b2","username":"cazipicogohemuhu","vmName":"ip-20-0-110-21","updated":"2014-02-06T12:21:03.956Z","created":"2014-02-06T12:21:03.955Z","nodeState":2},
              {"__v":0,"_id":"22f37e2fbe2c170f008c4ed0","nodeType":"ubuntu1204","subscriptionId":"42ef5f77b9796c0f00e2b9b2","username":"aaapicogohemuhu","vmName":"ip-20-0-110-21","updated":"2014-02-06T12:21:03.956Z","created":"2014-02-06T12:21:03.955Z","nodeState":2}
            ],
+           'testSubscriptionId' : "123f1f77bcf86cd799439011",
+           'testSubscriptionData' : {
+
+                    created:"2014-01-20T07:53:56.491Z",
+                    id:"52d7c18af0412511007af7f7",
+                    language:"Python",
+                    name:"boto:2.0_stable",
+                    nodeType:"ubuntu1204",
+                    repositoryKey:"xyz/boto",
+                    repositoryProvider:"github",
+                    repositoryUrl:"git@github.com:xyz/boto.git",
+                    subscription:"123f1f77bcf86cd799439011",
+                    permissions:[{
+                      account:"1234567890qwertyuiopasdf",
+                      roles:["projectOwner"]
+                     }]
+           },
       }
 

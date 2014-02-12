@@ -22,6 +22,9 @@ describe('Testing - subscriptions service module', function(){
             httpBackend.when('DELETE', config.MW_URL + '/subscriptions/'+ testData.negSubIdDELParam + '/projects')
             .respond(403, 'Bad Request');
 
+            httpBackend.when('GET', config.MW_URL + '/subscriptions/'+ testData.testSubscriptionId)
+            .respond(200, testData.testSubscriptionData);
+
             subsServ = subscriptionsService;
             bootstrapped = true;
         }
@@ -87,6 +90,16 @@ it('testing - deleting projects of subscription using a valid subId', function()
     httpBackend.flush();
     expect(statusReceived).not.toBe(200);
   });
+
+it('should get subscription details for a given Id', function(){
+    var result;
+    subsServ.getById(testData.testSubscriptionId, function(status, data){
+        result = data;
+    });
+    httpBackend.flush();
+    expect(result.created).toBe(testData.testSubscriptionData.created);
+  });
+
 
   afterEach(function(){
     httpBackend.verifyNoOutstandingExpectation();
