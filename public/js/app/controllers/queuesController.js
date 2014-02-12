@@ -28,6 +28,21 @@ var QueuesController = function($scope,$routeParams,QueuesService) {
 
     });
   };
+
+  $scope.clearQueue = function(queueName){
+    $scope.messages = [];
+    QueuesService.clearQueueByQueueName(queueName, function(status, data){
+        if(status === 200){
+            $scope.messages.push('Queue: ' + queueName + 'cleared');
+            $scope.init();
+        }else{
+            $scope.messages.push('Error in clearing Queue: ' + queueName);
+        }
+    });
+  };
+
+
+
   $scope.init();
 };
 QueuesController.$inject = ["$scope","$routeParams","QueuesService"];
