@@ -4,9 +4,9 @@
 //sample controller
 
 
-angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
+angular.module('angSpa').controller('nodesController',['$scope','$routeParams','$interval',
                                     'NodeService','NodeTypeService',
-                                    function($scope,$routeParams,nodeService,nodeTypeService)
+                                    function($scope,$routeParams,$interval,nodeService,nodeTypeService)
                                     {
                                       //Model
                                       $scope.selectedNodeId = "";
@@ -28,7 +28,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                                                      else {
                                                                        $scope.errorsAndMessages.push("No status returned for deleting the node");
                                                                      }
-                                                                     $scope.refresh();
+                                                                     refresh();
                                                                    });
                                       };
 
@@ -46,13 +46,9 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                                                                   else {
                                                                                     $scope.errorsAndMessages.push("No status returned for creating a node for this subscription");
                                                                                   }
-                                                                                  $scope.refresh();
+                                                                                  refresh();
                                                                                 });
                                       };
-
-
-                                      $scope.refresh = function() {
-
 
                                         $scope.changeSorting = function(column){
                                           if($scope.sort.column === column){
@@ -64,6 +60,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                         };
 
 
+                                      function refresh() {
                                         nodeService.getNodesBySubscriptionId($routeParams.subscriptionId,function(err,data) {
                                           if(err) {
                                             $scope.errorsAndMessages.push("Error getting container information");
@@ -82,7 +79,7 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                             }
                                           }
                                         });
-                                      };
+                                      }
                                       nodeTypeService.getAllNodeTypes(function(err,data) {
                                         if(err) {
                                           $scope.errorsAndMessages.push("Error getting node types");
@@ -98,7 +95,10 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams',
                                           }
                                         }
                                       });
-                                      $scope.refresh();
+                                      refresh();
+                                      $interval(function() {
+                                        refresh();
+                                      },10 * 1000);
                                     }
 
 ]);
