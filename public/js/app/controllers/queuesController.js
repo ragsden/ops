@@ -30,13 +30,13 @@ var QueuesController = function($scope,$routeParams,QueuesService) {
   };
 
   $scope.clearQueue = function(queueName){
-    $scope.messages = [];
+    $scope.message = "";
     QueuesService.clearQueueByQueueName(queueName, function(status, data){
         if(status === 200){
-            $scope.messages.push('Queue: ' + queueName + 'cleared');
+            $scope.message = 'Queue: ' + queueName + 'cleared';
             $scope.init();
         }else{
-            $scope.messages.push('Error in clearing Queue: ' + queueName);
+            $scope.message = 'Error in clearing Queue: ' + queueName ;
         }
     });
   };
