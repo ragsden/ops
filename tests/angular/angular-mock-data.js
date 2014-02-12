@@ -67,6 +67,7 @@ var config = {
           
           //list of subscriptions
           'test_subsId' : '123f1f77bcf86cd799439011',
+          'negtest_subsId': '12345677bcf86cd799439011',
           'subscriptionsGET': [{
                   id: '123f1f77bcf86cd799439011',
                   name: 'Free Plan',
@@ -231,5 +232,17 @@ var config = {
                       roles:["projectOwner"]
                      }]
            },
+
+           'testQueuesData' : [{
+             name : "52f87c8813e0c70f00ed6cd1.ubuntu1204",
+             status: "running",
+             consumers: [{
+              channel_details : {
+               name : "20.0.110.21:44428 -> 172.17.0.2:5672 (1)"
+              }
+             }],
+             pending_acks: "0"
+           }],
+           'getQueuesErr' : "Error getting the Queues Information.",
       }
 
