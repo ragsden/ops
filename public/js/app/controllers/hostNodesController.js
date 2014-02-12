@@ -23,24 +23,35 @@ angular.module('angSpa').controller('hostNodesController',['$scope','DockerHostS
          }
          else
          {
-         for(var i=0; i < data.length; i++) {
-          var j = i;
-          NodesInfoService.getNodeInfoByNodeId(data[j]._id, function(err, nodeData){
-            if(!err){
-              if(nodeData.length !== 0){
-              console.log(nodeData);}
-              var nodesData = new nodesDataObject(data[j]._id,
-                                                  data[j].vmName,
-                                                  data[j].nodeType,
-                                                  data[j].nodeState,
-                                                  data[j].created,
-                                                  data[j].updated
-                                                  );
-              $scope.nodes.push(nodesData);
-            }
+          data.forEach(function(obj) {
+              NodesInfoService.getNodeInfoByNodeId(obj._id, function(err, nodeData){
+                if(!err){
+                  if(nodeData.length !== 0)
+                  {
+                  console.log(obj._id);
+                  console.log(nodeData);
+                  console.log(nodeData[0].meta);
+                 //var metaData = JSON.parse(nodeData[0].meta);
+                 // console.log(metaData);
+                  }
+                  var nodesData = new nodesDataObject(obj._id,
+                                                      obj.vmName,
+                                                      obj.nodeType,
+                                                      obj.nodeState,
+                                                      obj.created,
+                                                      obj.updated
+                                                      );
+                  $scope.nodes.push(nodesData);
+                  
+                }
+              else
+              {
+                console.log(err);
+                console.log(obj._id);
+               }
+            });
           });
-        }
-      }
+         }
 
         }
   });

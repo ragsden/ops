@@ -13,9 +13,9 @@
     <td>{{node._id}}</td>
     <td>{{node.vmName}}</td>
     <td>{{node.nodeType}}</td>
-    <td>{{node.nodeState}}</td>
-    <td>{{node.created}}</td>
-    <td>{{node.updated}}</td>
+    <td>{{node.nodeState | mapToNodeStatus}}</td>
+    <td>{{node.created | format_to_pst }}</td>
+    <td>{{node.updated | format_to_pst }}</td>
   </tr>
 </table>
 </div>
