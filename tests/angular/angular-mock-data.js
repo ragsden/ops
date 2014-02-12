@@ -67,6 +67,7 @@ var config = {
           
           //list of subscriptions
           'test_subsId' : '123f1f77bcf86cd799439011',
+          'negtest_subsId': '12345677bcf86cd799439011',
           'subscriptionsGET': [{
                   id: '123f1f77bcf86cd799439011',
                   name: 'Free Plan',
@@ -214,5 +215,17 @@ var config = {
              {"__v":0,"_id":"12f37e2fbe2c170f008c4ed0","nodeType":"ubuntu1204","subscriptionId":"62ef5f77b9796c0f00e2b9b2","username":"cazipicogohemuhu","vmName":"ip-20-0-110-21","updated":"2014-02-06T12:21:03.956Z","created":"2014-02-06T12:21:03.955Z","nodeState":2},
              {"__v":0,"_id":"22f37e2fbe2c170f008c4ed0","nodeType":"ubuntu1204","subscriptionId":"42ef5f77b9796c0f00e2b9b2","username":"aaapicogohemuhu","vmName":"ip-20-0-110-21","updated":"2014-02-06T12:21:03.956Z","created":"2014-02-06T12:21:03.955Z","nodeState":2}
            ],
+
+           'testQueuesData' : [{
+             name : "52f87c8813e0c70f00ed6cd1.ubuntu1204",
+             status: "running",
+             consumers: [{
+              channel_details : {
+               name : "20.0.110.21:44428 -> 172.17.0.2:5672 (1)"
+              }
+             }],
+             pending_acks: "0"
+           }],
+           'getQueuesErr' : "Error getting the Queues Information.",
       }
 

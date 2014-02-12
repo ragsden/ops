@@ -97,6 +97,14 @@ describe('Testing routes',function() {
     });
   });
 
+it('should check if queues page resolves correctly',function() {
+    inject(function($route) {
+      var controller = $route.routes['/subscriptions/:subscriptionId/queues'].controller;
+      var templateUrl = $route.routes['/subscriptions/:subscriptionId/queues'].templateUrl;
+      expect(controller).toEqual('queuesController');
+      expect(templateUrl).toEqual('/partials/queues.html');
+    });
+  });
 it('should check if hosts nodes page resolves correctly',function() {
     inject(function($route) {
       var controller = $route.routes['/hosts/:hostId/nodes'].controller;

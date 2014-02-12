@@ -10,7 +10,7 @@ var QueuesController = function($scope,$routeParams,QueuesService) {
               name : ""
             }
           }],
-          pending_acks: "", 
+          pending_acks: "",
     }],
     err:";"
   };
