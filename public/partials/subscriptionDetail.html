@@ -1,0 +1,28 @@
+<table class="table table-bordered table-condensed table-hover table-striped">
+    <tr>
+    <th>Name</th>
+    <th>Storage Bytes Used</th>
+    <th>Private Projects Used</th>
+    <th>Nodes Used</th>
+    <th>Options</th>
+</tr>
+<td>{{subscription.name}}</td>
+<td>{{subscription.storageUsed}}</td>
+<td>{{subscription.privateProjectsUsed}} / {{subscription.privateProjectsQuota}}</td>
+<td>{{subscription.nodesUsed}} / {{subscription.nodesQuota}}</td>
+    <td>
+
+      <a class="btn btn-xs btn-info" ng-href="/cards/{{subscription.cardId}}" ng-if="subscription.cardId">Card Details</a>
+      <a class="btn btn-xs btn-info" ng-href="/subscriptions/{{subscription.id}}/nodes">Manage Nodes</a>
+      <a class="btn btn-xs btn-info" ng-href="/subscriptions/{{subscription.id}}/projects">Projects</a>
+        <a class="btn btn-xs btn-danger" ng-click="openModal(subscription.id)">Delete</a>
+    </td>
+    </tr>
+  </table>
+
+   <div style="clear:both;">
+        <ul ng-repeat = "message in messages track by $index">
+            <li>{{message}}</li>
+        </ul>
+    </div>
+

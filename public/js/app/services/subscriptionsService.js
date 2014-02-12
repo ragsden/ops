@@ -35,6 +35,17 @@ angSpa.factory('subscriptionsService',function($http){
           done(status, data);
         });
      };
+     subscriptionsService.prototype.getById = function(subId, done){
+        var url = middlewareUrl + "/subscriptions/" + subId;
+        $http({ method: 'GET', url: url}).
+        success(function(data, status, headers, config) {
+          done(null, data);
+        }).
+        error(function(data, status, headers, config) {
+          done(status, data);
+        });
+     };
+
 
    };
 
