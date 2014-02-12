@@ -2,16 +2,20 @@
 /*jshint -W055 */
 /*jshint -W083 */
 
-angular.module('angSpa').controller('hostNodesController',['$scope','DockerHostService','NodesInfoService','$routeParams',function($scope,DockerHostService,NodesInfoService,$routeParams) {
+angular.module('angSpa').controller('hostNodesController',['$scope','$filter','$location','DockerHostService','NodesInfoService','$routeParams',function($scope,$filter,$location,DockerHostService,NodesInfoService,$routeParams) {
   $scope.nodes = [];
   $scope.messages = [];
-  function nodesDataObject(id,vmName,nodeType,nodeState,created,updated){
+  function nodesDataObject(id,vmName,nodeType,nodeState,created,updated,latestProjectRun,latestBuildRun,latestBuildStatus,latestBuildTime){
     this._id = id;
     this.vmName = vmName;
     this.nodeType = nodeType;
     this.nodeState = nodeState;
     this.created = created;
     this.updated = updated;
+    this.latestProjectRun = latestProjectRun;
+    this.latestBuildRun = latestBuildRun;
+    this.latestBuildStatus = latestBuildStatus;
+    this.latestBuildTime = latestBuildTime;
   }
   DockerHostService.getNodesByHostId($routeParams.hostId,function(err,data) {
         if(err) {
@@ -25,21 +29,31 @@ angular.module('angSpa').controller('hostNodesController',['$scope','DockerHostS
          {
           data.forEach(function(obj) {
               NodesInfoService.getNodeInfoByNodeId(obj._id, function(err, nodeData){
+                var latestBuildRun = "";
+                var latestProjectRun = "";
+                var latestBuildStatus = "";
+                var latestBuildTime = "";
                 if(!err){
                   if(nodeData.length !== 0)
                   {
-                  console.log(obj._id);
-                  console.log(nodeData);
-                  console.log(nodeData[0].meta);
-                 //var metaData = JSON.parse(nodeData[0].meta);
-                 // console.log(metaData);
+                      nodeData = $filter('orderBy')(nodeData,'loggedAt');
+                      var lastObjectIndex = nodeData.length - 1;
+                      var metaData = JSON.parse(nodeData[lastObjectIndex].meta);
+                      latestBuildRun = metaData.BuildNumber;
+                      latestProjectRun = metaData.JobId;
+                      latestBuildStatus = metaData.Status;
+                      latestBuildTime = metaData.Time * 1000;
                   }
                   var nodesData = new nodesDataObject(obj._id,
                                                       obj.vmName,
                                                       obj.nodeType,
                                                       obj.nodeState,
                                                       obj.created,
-                                                      obj.updated
+                                                      obj.updated,
+                                                      latestProjectRun,
+                                                      latestBuildRun,
+                                                      latestBuildStatus,
+                                                      latestBuildTime
                                                       );
                   $scope.nodes.push(nodesData);
                   
@@ -55,5 +69,13 @@ angular.module('angSpa').controller('hostNodesController',['$scope','DockerHostS
 
         }
   });
+$scope.showLastBuildPage = function(projectId, buildNo)
+{
+  $location.path("/projects/"+projectId+"/builds/" + buildNo);
+};
+$scope.showLastProjectPage = function(projectId)
+{
+  $location.path("/projects/"+projectId + "/builds");
+};
 }]);
 

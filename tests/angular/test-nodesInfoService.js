@@ -8,8 +8,8 @@ describe('Nodes Info Service',function() {
 			
  			if(!bootstrapped) {
 				httpBackend = $httpBackend;
-			//	httpBackend.when('GET',config.MW_URL+'/nodesInfo/'+testData.testNodesData[0]._id)
-			//	.respond(200,testData.testNodesData);
+				httpBackend.when('GET',config.MW_URL+'/nodeInfo/'+testData.testNodesData[0]._id)
+				.respond(200,testData.testNodesInfoData);
 				httpBackend.when('GET',config.MW_URL+'/nodeInfo/'+testData.testNodesData[1]._id)
 				.respond(200,null);
 				nodesInfoService = NodesInfoService;
@@ -20,13 +20,13 @@ describe('Nodes Info Service',function() {
 	});
 	describe('Nodes Info Service',function() {
 		it('gets the node info by nodeID',function() {
-			/*var result ;			
+			var result ;			
 			nodesInfoService.getNodeInfoByNodeId(testData.testNodesData[0]._id,function(err,data) {
 				result = data;
 			});
 			httpBackend.flush();
-			expect(result.id).toBe(testData.testCardData.id);
-			expect(result.lastFourDigits).toBe(testData.testCardData.lastFourDigits);*/
+			expect(result[0].nodeId).toBe("12f37e2fbe2c170f008c4ed0");
+			expect(result[0].loggedAt).toBe("1392195983");
 		});
 
 		it('checks for null result for invalid nodeId',function() {

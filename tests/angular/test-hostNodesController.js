@@ -29,9 +29,9 @@ describe('DockerHostsController',function() {
       httpBackend.expect('GET',config.MW_URL+'/hosts/'+testData.testHostId+'/nodes')
       .respond(200,testData.testNodesData);
       httpBackend.expect('GET',config.MW_URL+'/nodeInfo/'+testData.testNodesData[0]._id)
-      .respond(200,testData.testNodesData);
+      .respond(200,testData.testNodesInfoData);
       httpBackend.expect('GET',config.MW_URL+'/nodeInfo/'+testData.testNodesData[1]._id)
-      .respond(200,testData.testNodesData);
+      .respond(200,testData.testNodesInfoData);
 
       //create the controller. The parameters are the same as used in the actual controller.
       ctrl = $controller('hostNodesController', 
