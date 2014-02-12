@@ -99,6 +99,9 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
   $scope.getCardInfo = function(cardId){
     $location.path("/cards/"+cardId);
   };
+  $scope.getQueuesBySubId = function(subId){
+    $location.path("/subscriptions/"+subId + "/queues");
+  };
   
   $scope.delSubBySubId = function(subId){
     $scope.modalInstance = $modal.open({

@@ -1,0 +1,31 @@
+
+    Queues Status:
+
+    <table class="table table-bordered table-condensed table-hover table-striped">
+    <thead>
+            <thead>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Consumers</th>
+                <th>Pending Acks</th>
+                <th>Options</th>
+            </thead>
+            <tbody  ng-repeat="queue in queuesModel.queues">
+                <tr>                    
+                    <td>{{queue.name}}</td>
+                    <td>{{queue.status}}</td>
+                    <td><table>
+                             <tbody ng-repeat="consumer in queue.consumers">
+                             <tr>
+                                <td>  {{consumer.channel_details.name}}</td>
+                             </tr>
+                            </tbody>
+                            </table>
+                    </td>
+                    <td>{{queue.pending_acks}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+            
+   </table> 
+
