@@ -20,13 +20,13 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
     when('/accounts/search/:loginId', { templateUrl: '/partials/accounts.html', controller: 'accountsController',title: 'Search'}).
     when('/accounts/:accountId',{templateUrl: '/partials/account.html', controller: 'accountController',title: 'Account Profile'}).
     when('/accounts/:accountId/subscriptions', { templateUrl: '/partials/subscriptions.html', controller: 'subscriptionsController',title :'Subscriptions'}).
+    when('/subscriptions/:subscriptionId', { templateUrl: '/partials/subscriptionDetail.html', controller: 'subscriptionDetailsController',title :'SubscriptionDetails'}).
     when('/subscriptions/:subscriptionId/nodes', { controller: 'nodesController', templateUrl: '/partials/nodes.html',title : 'Nodes'}).
     when('/subscriptions/:subscriptionId/projects', { controller: 'projectsController', templateUrl: '/partials/projects.html',title : 'Projects'}).
     when('/subscriptions/:subscriptionId/queues', { controller: 'queuesController', templateUrl: '/partials/queues.html',title : 'Queues'}).
     when('/projects/:projectId/builds/:buildNumber',{ controller : 'buildController', templateUrl : '/partials/build.html',title : 'Build Details' }).
     when('/projects/:projectId/builds',{ controller : 'buildsController', templateUrl : '/partials/builds.html',title: 'Builds'}).
     when('/cards/:cardId',{ controller : 'cardsController', templateUrl : '/partials/card.html',title: 'Cards' }).
-    when('/hosts/:hostId/nodes',{ controller : 'hostNodesController', templateUrl : '/partials/hostNodes.html' ,title : 'HostNodes' }).
     when('/hosts',{ controller : 'dockerHostsController', templateUrl : '/partials/dockerhosts.html',title: 'Hosts' }).
     when('/hosts/:hostId/nodes', { controller: 'hostNodesController', templateUrl : '/partials/hostNodes.html',title: 'HostNodes' }).
     when('/', { redirectTo: '/'}).
