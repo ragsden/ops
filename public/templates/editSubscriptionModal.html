@@ -1,0 +1,48 @@
+
+<div class="modal-header">
+  <h3>Edit Subscription</h3>
+</div>
+
+<div class="modal-body">
+
+  <h4>Subscription Name: {{subscription.name}}</h4>
+   <form name="editSubscriptionForm"> 
+    <div class="search-block">
+					<div class="input-group">
+                      <input type="text" class="form-control input-sm" placeholder="Enter new name for subscription" ng-model="subscription.name" required ></input>
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-sm" type="submit" ng-disabled="addNewCollaboratorForm.$invalid"  ng-click="updateSubscription()">Submit</button>
+						</span>
+					</div><!-- /input-group -->
+				</div><!-- /search-block -->
+  </form>
+
+
+  <br />
+
+  <h4>Change subscription plan</h4>
+    <table class="table">
+      <thead>
+        <th>Subscription Name</th>
+                <th>Free</th>
+                <th>Lite</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{subscription.name}}</td>
+                <td><input type="radio" ng-model="subscription.plan" value="free" ng-change="updateSubscription()"/></td>
+                <td><input type="radio" ng-model="subscription.plan" value="lite" ng-change="updateSubscription()"/></td>
+              </tr>
+            </tbody>
+          </table>
+  <br />
+
+  {{message}}
+
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary btn-sm" ng-click="ok()">Ok</button>
+  <button class="btn btn-primary btn-sm" ng-click="close()">Close</button>
+</div>
+

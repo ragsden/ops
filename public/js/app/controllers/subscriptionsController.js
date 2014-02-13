@@ -102,6 +102,28 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
   $scope.getQueuesBySubId = function(subId){
     $location.path("/subscriptions/"+subId + "/queues");
   };
+
+  $scope.editSubscription = function(subId){
+   var modalInstance = $modal.open({
+        templateUrl: '/templates/editSubscriptionModal.html',
+        cotnroller: 'editSubscriptionModalCtrl',
+        resolve: {
+          dataToEditSubscriptionModal: function(){
+            return { subscriptionId : subId };
+          }
+        }
+    });
+
+    modalInstance.result.then(
+    function(){
+        //closed.
+      $scope.init();
+    },
+    function(){
+      // dismissed.
+      $scope.init();
+    });
+  };
   
   $scope.delSubBySubId = function(subId){
     $scope.modalInstance = $modal.open({

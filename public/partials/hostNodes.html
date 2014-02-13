@@ -8,9 +8,13 @@
 <th>State</td>
 <th>Created</td>
 <th>Updated</td>
+<td>Latest Project</td>
+<td>Latest Build</td>
+<td>Latest Build Status</td>
+<td>Latest Build Time</td>
 
   </thead>
-  <tr ng-repeat = "node in nodes">
+  <tr ng-repeat = "node in nodes | orderBy:'created'">
     <td>{{node._id}}</td>
     <td><a class="btn btn-xs btn-info" ng-href="/subscriptions/{{node.subscriptionId}}">Show Subscription</a>
     <td>{{node.vmName}}</td>
@@ -18,6 +22,10 @@
     <td>{{node.nodeState | mapToNodeStatus}}</td>
     <td>{{node.created | format_to_pst }}</td>
     <td>{{node.updated | format_to_pst }}</td>
+    <td><span ng-if="node.latestProjectRun"><a class="btn btn-xs btn-info" ng-click="showLastProjectPage(node.latestProjectRun)">{{node.latestProjectRun}}</a></span></td>
+    <td><span  ng-if="node.latestBuildRun"> <a class="btn btn-xs btn-info" ng-click="showLastBuildPage(node.latestProjectRun,node.latestBuildRun)">Build# {{node.latestBuildRun}}</a> </span></td>
+    <td>{{node.latestBuildStatus | mapBuildStatus}}</td>
+    <td > <span ng-if="node.latestBuildTime">{{node.latestBuildTime | format_to_pst }}</span></td>
   </tr>
 </table>
 </div>
