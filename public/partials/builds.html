@@ -41,14 +41,15 @@
                     <td>{{build.commitSha}}</td>
                     <td>{{build.lastAuthorEmail}}</td>
                     <td>{{build.triggeredByAuthor}}</td>
-                     <td><a class="btn btn-xs btn-info" ng-click="getBuildDetails(build.buildNumber)">Show Details</a> 
+                    <td><a class="btn btn-xs btn-info" ng-click="getBuildDetails(build.buildNumber)">Show Details</a> 
+                      <a class="btn btn-xs btn-info" href="{{build.downloadUrl}}" target="_blank">Download</a>
                     <a class="btn btn-xs btn-danger" ng-click="deleteBuild(build.buildNumber,true)">Delete</a> 
                     </td>
                 </tr>
             </tbody>            
-   </table>
+          </table>
 
-   <div style="clear:both;">
+             <div style="clear:both;">
         <ul ng-repeat = "error in errorsAndMessages track by $index ">
             <li>{{error}}</li>
         </ul>
