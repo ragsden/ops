@@ -114,6 +114,16 @@ it('should check if hosts nodes page resolves correctly',function() {
     });
   });
 
+it('should check if subscription page resolves correctly',function() {
+    inject(function($route) {
+      var controller = $route.routes['/subscriptions/:subscriptionId'].controller;
+      var templateUrl = $route.routes['/subscriptions/:subscriptionId'].templateUrl;
+      expect(controller).toEqual('subscriptionDetailsController');
+      expect(templateUrl).toEqual('/partials/subscriptionDetail.html');
+    });
+  });
+
+
 
 });
 /* jshint ignore:end */

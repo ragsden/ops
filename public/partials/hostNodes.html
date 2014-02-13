@@ -2,6 +2,7 @@
 <table class="table table-bordered table-condensed table-hover table-striped">
   <thead>
     <th>Id</td>
+    <th>Subscription</th>
 <th>Machine</td>
 <th>Type</td>
 <th>State</td>
@@ -13,8 +14,9 @@
 <td>Latest Build Time</td>
 
   </thead>
-  <tr ng-repeat = "node in nodes">
+  <tr ng-repeat = "node in nodes | orderBy:'created'">
     <td>{{node._id}}</td>
+    <td><a class="btn btn-xs btn-info" ng-href="/subscriptions/{{node.subscriptionId}}">Show Subscription</a>
     <td>{{node.vmName}}</td>
     <td>{{node.nodeType}}</td>
     <td>{{node.nodeState | mapToNodeStatus}}</td>

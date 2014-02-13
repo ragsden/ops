@@ -195,7 +195,7 @@ var config = {
             {
              'console' : [{
                 'output' : 'The build finished successfully!'
-             }], 
+             }],
             },
 
            'postBuildByProjectId' : { 'buildNumbers' : 1 },
@@ -224,7 +224,23 @@ var config = {
               meta : "{\"Status\":4,\"ArchiveBytes\":0,\"RepositorySize\":0,\"CoverageReports\":[],\"TestReports\":[],\"NumberOfFiles\":0,\"SubscriptionNodeId\":\"52fb399dfc2cf70f009f283d\",\"JobId\":\"52f895a248015b10004c7f82\",\"BuildNumber\":2,\"Duration\":1,\"CommitSha\":\"\",\"Time\":1392195983,\"Phase\":2,\"SubscriptionId\":\"52f87c8813e0c70f00ed6cd1\",\"BranchName\":\"master\",\"Type\":\"buildLog\",\"ConsoleOutput\":\"Starting Project 52f895a248015b10004c7f82 Build 2 for branch master at Wed, 12 Feb 2014 09:06:23 +0000\",\"Archives\":\"\"}",
               loggedAt : "1392195983",
             }],
+           'testSubscriptionId' : "123f1f77bcf86cd799439011",
+           'testSubscriptionData' : {
 
+                    created:"2014-01-20T07:53:56.491Z",
+                    id:"52d7c18af0412511007af7f7",
+                    language:"Python",
+                    name:"boto:2.0_stable",
+                    nodeType:"ubuntu1204",
+                    repositoryKey:"xyz/boto",
+                    repositoryProvider:"github",
+                    repositoryUrl:"git@github.com:xyz/boto.git",
+                    subscription:"123f1f77bcf86cd799439011",
+                    permissions:[{
+                      account:"1234567890qwertyuiopasdf",
+                      roles:["projectOwner"]
+                     }]
+           },
            'testQueuesData' : [{
              name : "52f87c8813e0c70f00ed6cd1.ubuntu1204",
              status: "running",
@@ -236,5 +252,13 @@ var config = {
              pending_acks: "0"
            }],
            'getQueuesErr' : "Error getting the Queues Information.",
-      }
+
+           //clear queues
+            'queueName' : '52f87c8813e0c70f00ed6cd1.ubuntu1204',
+            'negQueueName': 'ABCDE52f87c8813e0c70f00e.ubuntu1204',
+            'clearQueueReturnStatus': 200,
+            'clearNegQueueReturnStatus': 400,
+            'clearQueueReturnData': 'OK',
+            'clearNegQueueReturnData': 'Not OK'
+      };
 
