@@ -41,13 +41,10 @@ describe('QueuesController',function() {
 
       httpBackend.expectPUT(config.MW_URL + '/queues/' + testData.queueName)
       .respond(200,testData.queueName);
-      httpBackend.expectGET(config.MW_URL+'/subscriptions/'+testData.test_subsId + '/queues')
-      .respond(200,testData.testQueuesData);
       ctrlScope.clearQueue(testData.queueName);
 
       httpBackend.flush();
       expect(queuesService.clearQueueByQueueName).toHaveBeenCalled();
-      expect(queuesService.getQueuesBySubId).toHaveBeenCalled();
     });
 
 });
