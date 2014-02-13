@@ -47,6 +47,17 @@ angSpa.factory('BuildsService',function($http){
         });
      };
    };
+   BuildsService.prototype.getBuildArtifact = function(projectId,buildNumber,done) {
+      var url = middlewareUrl + "/projects/" + projectId + "/builds/" + buildNumber+"/artifacts?noredirect=true";
+   $http({ method: 'GET', url: url }).
+        success(function(data, status, headers, config) {
+          done(null, data);
+        }).
+        error(function(data, status, headers, config) {
+          done(status, data);
+        });
+
+   };
    return new BuildsService();
 
 });

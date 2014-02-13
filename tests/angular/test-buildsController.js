@@ -22,6 +22,7 @@ describe('BuildsController',function() {
 			spyOn(buildsService,'getBuildsByProjectId').andCallThrough();
 			spyOn(buildsService,'deleteBuildByBuildNumber').andCallThrough();
 			spyOn(buildsService,'runBuildByProjectId').andCallThrough();
+            spyOn(buildsService,'getBuildArtifact').andCallThrough();
 			routeParams.projectId = testData.testProjectId;
 
 			//Since the controller calls these APIs we expect to get some data back
@@ -30,7 +31,9 @@ describe('BuildsController',function() {
 			httpBackend.expect('GET',
 					config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
 					.respond(200,testData.testProjectData);
-
+            httpBackend.expect('GET',
+					config.MW_URL+'/projects/'+testData.testProjectId+'/builds/1/artifacts?noredirect=true')
+					.respond(200);
 			//create the controller. The parameters are the same as used in the actual controller.
 			ctrl = $controller('buildsController',
 				{
@@ -70,6 +73,9 @@ describe('BuildsController',function() {
         .respond(200, 'OK');
         httpBackend.expect('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
 					.respond(200,testData.testProjectData);
+httpBackend.expect('GET',
+					config.MW_URL+'/projects/'+testData.testProjectId+'/builds/1/artifacts?noredirect=true')
+					.respond(200);
         ctrlScope.deleteBuild(testData.testBuildNumber,true);
         httpBackend.flush();
         expect(buildsService.deleteBuildByBuildNumber).toHaveBeenCalled(); 
@@ -84,6 +90,9 @@ describe('BuildsController',function() {
 				.respond(200,testData.postBuildByProjectId);
         httpBackend.expect('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
 					.respond(200,testData.testProjectData);
+httpBackend.expect('GET',
+					config.MW_URL+'/projects/'+testData.testProjectId+'/builds/1/artifacts?noredirect=true')
+					.respond(200);
         ctrlScope.runBuild(true);
         httpBackend.flush();
         expect(buildsService.runBuildByProjectId).toHaveBeenCalled(); 
@@ -93,5 +102,9 @@ describe('BuildsController',function() {
 	it('should change the path to /projects/projectId/builds/buildNumber',function() {
 		ctrlScope.getBuildDetails(testData.testBuildNumber);
 		expect(location.path()).toBe('/projects/'+testData.testProjectId + '/builds/' + testData.testBuildNumber);
+	});
+
+	it('should execute downloading of build artifacts',function() {
+
 	});
 });
