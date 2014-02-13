@@ -4,16 +4,17 @@ var QueuesController = function($scope,$routeParams,QueuesService) {
   $scope.queuesModel={
       queues: [{
           name : "",
-          status: "",
+          status: 0,
           consumers: [{
             channel_details : {
               name : ""
             }
           }],
-          pending_acks: "",
+          pending_acks: 0,
     }],
     err:""
   };
+
   $scope.init = function()
   {
     QueuesService.getQueuesBySubId($routeParams.subscriptionId,function(err,data){
@@ -28,7 +29,9 @@ var QueuesController = function($scope,$routeParams,QueuesService) {
 
     });
   };
+
   $scope.init();
+
 };
 QueuesController.$inject = ["$scope","$routeParams","QueuesService"];
 angSpa.controller("queuesController",QueuesController);

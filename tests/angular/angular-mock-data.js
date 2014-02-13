@@ -195,7 +195,7 @@ var config = {
             {
              'console' : [{
                 'output' : 'The build finished successfully!'
-             }], 
+             }],
             },
 
            'postBuildByProjectId' : { 'buildNumbers' : 1 },
@@ -244,5 +244,5 @@ var config = {
              pending_acks: "0"
            }],
            'getQueuesErr' : "Error getting the Queues Information.",
-      }
+      };
 

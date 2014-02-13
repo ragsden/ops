@@ -12,13 +12,14 @@ describe('QueuesController',function() {
 			routeParams = $routeParams;
 			httpBackend = $httpBackend;
 			spyOn(queuesService,'getQueuesBySubId').andCallThrough();
-			routeParams.subscriptionId = testData.test_subsId;
+	
+            routeParams.subscriptionId = testData.test_subsId;
 
 			ctrl = $controller('queuesController',
 				{
 					$scope: ctrlScope,
 					QueuesService: queuesService,
-					}
+				}
 			 );
 			 });
 	});
@@ -29,4 +30,5 @@ describe('QueuesController',function() {
 		expect(queuesService.getQueuesBySubId).toHaveBeenCalled();
 		expect(ctrlScope.queuesModel.queues[0].name).toBe('52f87c8813e0c70f00ed6cd1.ubuntu1204');
 	});
+	
 });
