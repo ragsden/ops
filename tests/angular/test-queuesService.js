@@ -12,6 +12,11 @@ describe('TestingQueues Service',function() {
         httpBackend.when('GET',config.MW_URL+'/subscriptions/'+testData.negtest_subsId + '/queues')
         .respond(400,testData.getQueuesErr);
 
+        httpBackend.when('PUT',config.MW_URL+'/queues/'+ testData.queueName)
+        .respond(testData.clearQueueReturnStatus, testData.clearQueueReturnData);
+        httpBackend.when('PUT',config.MW_URL+'/queues/'+testData.negQueueName)
+        .respond(testData.clearNegQueueReturnStatus, testData.clearNegQueueReturnData);
+
         queuesService = QueuesService;
         bootstrapped = true;
       }
@@ -37,7 +42,25 @@ describe('TestingQueues Service',function() {
     httpBackend.flush();
     expect(result).toBe("Error getting the Queues Information.");
   });
-  
+
+  it('clear queue by a valid queue name', function(){
+    var statusReceived;
+    queuesService.clearQueueByQueueName(testData.queueName, function(status, data){
+      statusReceived = status;
+    });
+    httpBackend.flush();
+    expect(statusReceived).toBe(200);
+  });
+
+  it('clear queue by a invalid queue name', function(){
+    var statusReceived;
+    queuesService.clearQueueByQueueName(testData.negQueueName, function(status, data){
+      statusReceived = status;
+    });
+    httpBackend.flush();
+    expect(statusReceived).toBe(400);
+  });
+
   afterEach(function() {
     httpBackend.verifyNoOutstandingExpectation();
     httpBackend.verifyNoOutstandingRequest();

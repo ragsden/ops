@@ -23,8 +23,9 @@
                             </table>
                     </td>
                     <td>{{queue.pending_acks}}</td>
-                    <td></td>
+                    <td><button class="btn btn-xs btn-danger" ng-click="clearQueue(queue.name)">Clear Queue</button></td>
                 </tr>
             </tbody>
             
-   </table> 
+          </table>
+          <h5>{{queuesModel.err}}</h5>
