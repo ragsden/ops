@@ -4,16 +4,17 @@ var QueuesController = function($scope,$routeParams,QueuesService) {
   $scope.queuesModel={
       queues: [{
           name : "",
-          status: "",
+          status: 0,
           consumers: [{
             channel_details : {
               name : ""
             }
           }],
-          pending_acks: "",
+          pending_acks: 0,
     }],
     err:""
   };
+
   $scope.init = function()
   {
     QueuesService.getQueuesBySubId($routeParams.subscriptionId,function(err,data){
@@ -29,21 +30,8 @@ var QueuesController = function($scope,$routeParams,QueuesService) {
     });
   };
 
-  $scope.clearQueue = function(queueName){
-    $scope.message = "";
-    QueuesService.clearQueueByQueueName(queueName, function(status, data){
-        if(status === 200){
-            $scope.message = 'Queue: ' + queueName + 'cleared';
-            $scope.init();
-        }else{
-            $scope.message = 'Error in clearing Queue: ' + queueName ;
-        }
-    });
-  };
-
-
-
   $scope.init();
+
 };
 QueuesController.$inject = ["$scope","$routeParams","QueuesService"];
 angSpa.controller("queuesController",QueuesController);

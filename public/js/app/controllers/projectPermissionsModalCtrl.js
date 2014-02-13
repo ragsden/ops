@@ -60,7 +60,7 @@
       $scope.permissionsModalErrors = [];
       var owners = 0;
       _.each($scope.collaborators, function(collaborator){
-        if(collaborator.roles[0] === "Project owners"){
+        if(collaborator.roles[0] === "projectOwner"){
           owners = owners + 1;
         }
       });
@@ -93,12 +93,12 @@
       var collaboratorToDelete = $scope.collaborators[index];
       var owners = 0;
       _.each($scope.collaborators, function(collaborator){
-        if(collaborator.roles[0] === "Project owners"){
+        if(collaborator.roles[0] === "projectOwner"){
             owners = owners + 1 ;
         }
       });
 
-      if(owners === 1 && collaboratorToDelete.roles[0] === "Project owners"){
+      if(owners === 1 && collaboratorToDelete.roles[0] === "projectOwner"){
         $scope.permissionsModalErrors.push('The last owner cannot be removed.');
       }else{
         $scope.collaborators = _.without($scope.collaborators, _.findWhere($scope.collaborators, $scope.collaborators[index]));
@@ -130,7 +130,7 @@
 
               if(!_.find($scope.collaborators, function(collaborator){return account.id === collaborator.account; })){
             
-                $scope.newCollaborator = new CollaboratorObj(account.id, ["Member"], account.identities);
+                $scope.newCollaborator = new CollaboratorObj(account.id, ["projectMember"], account.identities);
 
                 $scope.collaborators.push($scope.newCollaborator);
                 $scope.updateProject();

@@ -244,14 +244,5 @@ var config = {
              pending_acks: "0"
            }],
            'getQueuesErr' : "Error getting the Queues Information.",
-
-           //clear queues
-           'queueName' : '52f87c8813e0c70f00ed6cd1.ubuntu1204',
-           'negQueueName': 'ABCDE52f87c8813e0c70f00e.ubuntu1204',
-           'clearQueueReturnStatus': 200,
-           'clearNegQueueReturnStatus': 400,
-           'clearQueueReturnData': 'OK',
-           'clearNegQueueReturnData': 'Not OK'
-
       };
 
