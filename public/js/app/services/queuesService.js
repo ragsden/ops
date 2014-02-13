@@ -10,6 +10,16 @@ angSpa.factory('QueuesService',function($http){
             done(status,data);
           });
   };
+  
+  QueuesService.prototype.clearQueueByQueueName = function(queueName,done){
+    var clearQueueUrl = middlewareUrl + "/queues/" + queueName ;
+    $http({method: 'PUT', url: clearQueueUrl}).
+      success(function(data, status, header, config) {
+      done(status, data);
+    }).error(function(data, status, headers, config) {
+      done(status, data);
+    });
+  };
 
   };
   return new QueuesService();
