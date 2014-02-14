@@ -84,9 +84,6 @@ describe('BuildsController',function() {
         .respond(404);
         httpBackend.expect('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
 					.respond(200,testData.testProjectData);
-httpBackend.expect('GET',
-					config.MW_URL+'/projects/'+testData.testProjectId+'/builds/1/artifacts?noredirect=true')
-					.respond(200);
         ctrlScope.deleteBuild(testData.testBuildNumber,true);
         httpBackend.flush();
         expect(buildsService.deleteBuildByBuildNumber).toHaveBeenCalled(); 
