@@ -19,6 +19,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                         'finished' : 'finished',
                                         'all' : ''
                                       };
+                                      $scope.projectId = $routeParams.projectId;
                                       $scope.disable_runButton = false;
                                       $scope.buildPhases =  Object.keys($scope.buildPhasesObj).splice(0,8);
                                       $scope.selectedBuildPhase = '';
@@ -120,45 +121,12 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 
 
                                                   $scope.builds.push(buildObj);
-
-                                                  execute(i,$routeParams.projectId,data[i].buildNumber).then(function(artifactUrl) {
-                                                    if(artifactUrl.data) {
-                                                    $scope.builds[artifactUrl.index].downloadUrl = JSON.parse(artifactUrl.data);
-                                                    }
-                                                    else {
-                                                         $scope.builds[artifactUrl.index].downloadUrl = "";
-                                                    }
-                                                  },function(i,failed) {
-                                                    $scope.builds[failed.index].downloadUrl = "";
-                                                  });
-
                                                 }
                                               }
                                           }
                                         });
                                       };
 
-                                      function safeApply(scope, fn) {
-                                        (scope.$$phase || scope.$root.$$phase) ? fn() : scope.$apply(fn);
-                                      }
-
-                                      function execute(i,projectId,buildNumber){
-                                        var deferred = $q.defer();
-
-                                        safeApply($scope,function() {
-                                          buildsService.getBuildArtifact(projectId,buildNumber,function(status,data) {
-                                            if(status) {
-                                              deferred.reject({ index: i, data: null});
-                                            }
-                                            else {
-
-                                              deferred.resolve({ index: i,data:data });
-                                            }
-                                          });
-
-                                        });
-                                        return deferred.promise;
-                                      }
                                       $scope.deleteBuild = function(buildNumber,shouldRefresh){
                                         $scope.status = "";
                                         buildsService.deleteBuildByBuildNumber($routeParams.projectId,buildNumber,
