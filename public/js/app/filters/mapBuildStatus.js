@@ -13,4 +13,17 @@ angular.module('angSpa').filter('mapBuildStatus',function() {
       return buildStatusMessages[v];
     }
   };
+}).filter('mapBuildStatusToColor',function() {
+var buildStatusMessages = [
+                                        '',
+                                        'bg-success',
+                                        'bg-danger',
+                                        'bg-warning',
+                                        'bg-default'
+                                      ];
+
+
+  return function(s) {
+    return buildStatusMessages[s] || '';
+  };
 });
