@@ -5,8 +5,9 @@
 angular.module('angSpa').controller('hostNodesController',['$scope','$filter','$location','DockerHostService','NodesInfoService','$routeParams',function($scope,$filter,$location,DockerHostService,NodesInfoService,$routeParams) {
   $scope.nodes = [];
   $scope.messages = [];
-  function nodesDataObject(id,vmName,nodeType,nodeState,created,updated,latestProjectRun,latestBuildRun,latestBuildStatus,latestBuildTime){
+  function nodesDataObject(id,subscriptionId,vmName,nodeType,nodeState,created,updated,latestProjectRun,latestBuildRun,latestBuildStatus,latestBuildTime){
     this._id = id;
+    this.subscriptionId = subscriptionId;
     this.vmName = vmName;
     this.nodeType = nodeType;
     this.nodeState = nodeState;
@@ -45,6 +46,7 @@ angular.module('angSpa').controller('hostNodesController',['$scope','$filter','$
                       latestBuildTime = metaData.Time * 1000;
                   }
                   var nodesData = new nodesDataObject(obj._id,
+                                                      obj.subscriptionId,
                                                       obj.vmName,
                                                       obj.nodeType,
                                                       obj.nodeState,
@@ -60,9 +62,8 @@ angular.module('angSpa').controller('hostNodesController',['$scope','$filter','$
                 }
               else
               {
-                console.log(err);
-                console.log(obj._id);
-               }
+                $scope.messages.push("Error getting node information " + err);
+              }
             });
           });
          }
