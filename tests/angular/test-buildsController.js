@@ -31,10 +31,7 @@ describe('BuildsController',function() {
 			httpBackend.expect('GET',
 					config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
 					.respond(200,testData.testProjectData);
-            httpBackend.expect('GET',
-					config.MW_URL+'/projects/'+testData.testProjectId+'/builds/1/artifacts?noredirect=true')
-					.respond(200);
-			//create the controller. The parameters are the same as used in the actual controller.
+       	//create the controller. The parameters are the same as used in the actual controller.
 			ctrl = $controller('buildsController',
 				{
 					$scope: ctrlScope, 
@@ -73,10 +70,7 @@ describe('BuildsController',function() {
         .respond(200, 'OK');
         httpBackend.expect('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
 					.respond(200,testData.testProjectData);
-httpBackend.expect('GET',
-					config.MW_URL+'/projects/'+testData.testProjectId+'/builds/1/artifacts?noredirect=true')
-					.respond(200);
-        ctrlScope.deleteBuild(testData.testBuildNumber,true);
+    ctrlScope.deleteBuild(testData.testBuildNumber,true);
         httpBackend.flush();
         expect(buildsService.deleteBuildByBuildNumber).toHaveBeenCalled(); 
         expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();      
@@ -90,9 +84,6 @@ httpBackend.expect('GET',
 				.respond(200,testData.postBuildByProjectId);
         httpBackend.expect('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
 					.respond(200,testData.testProjectData);
-httpBackend.expect('GET',
-					config.MW_URL+'/projects/'+testData.testProjectId+'/builds/1/artifacts?noredirect=true')
-					.respond(200);
         ctrlScope.runBuild(true);
         httpBackend.flush();
         expect(buildsService.runBuildByProjectId).toHaveBeenCalled(); 
