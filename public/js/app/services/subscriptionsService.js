@@ -12,8 +12,7 @@ angSpa.factory('subscriptionsService',function($http){
           done(message, null);
         });
      };
-
-
+     
      subscriptionsService.prototype.deleteSubscriptionBySubId = function(subId, done){
         var subsUrl = middlewareUrl + "/subscriptions/" + subId;
         $http({ method: 'DELETE', url: subsUrl}).

@@ -102,7 +102,7 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
   $scope.getQueuesBySubId = function(subId){
     $location.path("/subscriptions/"+subId + "/queues");
   };
-  
+
   $scope.delSubBySubId = function(subId){
     $scope.modalInstance = $modal.open({
       //templateUrl should be the path assuming public as the root.

@@ -15,7 +15,7 @@ angular.module('angSpa').filter('mapBuildStatus',function() {
   };
 }).filter('mapBuildStatusToColor',function() {
 var buildStatusMessages = [
-                                        '',
+                                        'bg-primary',
                                         'bg-success',
                                         'bg-danger',
                                         'bg-warning',

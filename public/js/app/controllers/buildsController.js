@@ -24,7 +24,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                       $scope.selectedBuildPhase = '';
 
                                       $scope.selectedBuildNumbers=[];
-                                      $scope.$watch('builds|filter:{isSelected:true}',function(nv) {
+                                      $scope.$watch('builds|filter:{isSelected:true}|filter:{phase: selectedBuildPhase}',function(nv) {
                                         $scope.selectedBuildNumbers = nv.map(function(build) {
                                           return build.buildNumber;
                                         });
@@ -33,10 +33,17 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                       $scope.masterToggle = false;
 
                                       $scope.selectAllBuilds = function(){
+                                        $scope.masterToggle=!$scope.masterToggle;
                                         for(var i=0;i<$scope.builds.length;i++) {
-                                          $scope.builds[i].isSelected = $scope.masterToggle;
+                                          if($scope.builds[i].phase === $scope.selectedBuildPhase){
+                                            $scope.builds[i].isSelected = $scope.masterToggle;
+                                          }else if($scope.selectedBuildPhase === ""){
+                                            $scope.builds[i].isSelected = $scope.masterToggle;
+                                          }
                                         }
                                       };
+                                      
+                                      
 
                                       $scope.deleteSelectedBuilds = function() {
                                         console.log($scope.selectedBuildNumbers);
@@ -44,6 +51,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                           $scope.deleteBuild($scope.selectedBuildNumbers[i],true);
                                         }
                                         $scope.selectedBuildNumbers.length = 0;
+                                        $scope.masterToggle = false;
                                       };
 
                                       $scope.getBuildDetails = function(buildNumber){
