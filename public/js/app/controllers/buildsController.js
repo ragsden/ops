@@ -46,8 +46,6 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                       
 
                                       $scope.deleteSelectedBuilds = function() {
-                                        console.log($scope.selectedBuildNumbers);
-
                                         $scope.modalInstance = $modal.open({
                                             templateUrl : '/templates/commonModal.html',
                                             controller : 'commonModalController',
@@ -66,9 +64,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                             }
                                             $scope.selectedBuildNumbers.length = 0;
                                             $scope.masterToggle = false;
-                                        }, function(confirmCancel){
-                                            //cancel delete
-                                        });
+                                        }, function(confirmCancel){});
                                       };
 
                                       $scope.getBuildDetails = function(buildNumber){
@@ -156,7 +152,6 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                             }
                                             else {
 
-                                              //              console.log('data ' + data + ',' + status);
                                               deferred.resolve({ index: i,data:data });
                                             }
                                           });
