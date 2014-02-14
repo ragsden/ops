@@ -21,7 +21,7 @@
         <td> {{s.percent_nodesUsed}} %</td>
     <td>
 
-        <a class="btn btn-xs btn-primary" ng-click="editSubscription(s.id)">Edit Subscription</a>
+        <a class="btn btn-xs btn-primary" ng-click="editSubscription(s)">Edit Subscription</a>
         <a class="btn btn-xs btn-info" ng-click="getCardInfo(s.cardId)" ng-if="s.cardId">Card Details</a>
         <a class="btn btn-xs btn-info" ng-click="getToNodesOnSubId(s.id)">Manage Nodes</a>
         <a class="btn btn-xs btn-info" ng-click="getQueuesBySubId(s.id)">Queues</a>

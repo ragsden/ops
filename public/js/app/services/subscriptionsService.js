@@ -13,6 +13,17 @@ angSpa.factory('subscriptionsService',function($http){
         });
      };
 
+     subscriptionsService.prototype.updateSubscriptionBySubId = function(subId, done){
+        var url = middlewareUrl + "/subscriptions/" + subId;
+        $http({ method: 'PUT', url: url}).
+        success(function(data, status, headers, config) {
+          done(status, data);
+        }).
+        error(function(data, status, headers, config) {
+          done(status, data);
+        });
+     };
+
 
      subscriptionsService.prototype.deleteSubscriptionBySubId = function(subId, done){
         var subsUrl = middlewareUrl + "/subscriptions/" + subId;

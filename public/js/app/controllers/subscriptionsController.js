@@ -104,9 +104,10 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
   };
 
   $scope.editSubscription = function(subId){
-   var modalInstance = $modal.open({
+    console.log('subId: ' + subId);
+   $scope.modalInstance = $modal.open({
         templateUrl: '/templates/editSubscriptionModal.html',
-        cotnroller: 'editSubscriptionModalCtrl',
+        controller: 'editSubscriptionModalController',
         resolve: {
           dataToEditSubscriptionModal: function(){
             return { subscriptionId : subId };
@@ -114,12 +115,7 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
         }
     });
 
-    modalInstance.result.then(
-    function(){
-        //closed.
-      $scope.init();
-    },
-    function(){
+    $scope.modalInstance.result.then(function(){}, function(cancelString){
       // dismissed.
       $scope.init();
     });

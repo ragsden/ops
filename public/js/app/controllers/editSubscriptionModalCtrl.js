@@ -1,31 +1,22 @@
 (function(){
   var EditSubscriptionModalController = function($scope, $modalInstance, subscriptionsService, dataToEditSubscriptionModal){
 
-    $scope.ok = function(){
-      $modalInstance.close('ok');
-    };
-
     $scope.close = function(){
       $modalInstance.dismiss('close');
     };
 
     $scope.subId = dataToEditSubscriptionModal.subscriptionId;
 
-    $scope.subscriptionUpdate = {
-      "name" : null,
-      "plan" : null,
-      "permissions" : []
-    };
+    function subscriptionUpdateObj(name, plan, cardId, permissions){
+        this.name = name;
+        this.plan = plan;
+        this.cardId = cardId;
+        this.permissions = permissions;
+    }
 
     $scope.refresh = function(){
-      $scope.message = "subId" + $scope.subId;
 
-      console.log(dataToEditSubscriptionModal.subscriptionId);
-
-    console.log('sub id passed to modal' + $scope.subId);
-      $scope.selection = "default";
-
-      subscriptionsService.getById($scope.subId, function(err, data){
+    subscriptionsService.getById($scope.subId, function(err, data){
         if(!err){
           $scope.subscription = data;
           console.log(data);
@@ -35,8 +26,20 @@
       });
     };
 
-    $scope.updateSubscription = function(subsciptionUpdate){
-        subscriptionsService.updateSubscriptionBySubId($scope.subId, function(){});
+    $scope.updateSubscription = function(){
+
+      $scope.message = "";
+      $scope.subscriptionUpdate = new subscriptionUpdateObj($scope.subscription.name, $scope.subscription.plan,
+                                                            $scope.subscription.cardId, $scope.subscription.permissions);
+
+      subscriptionsService.updateSubscriptionBySubId($scope.subId, $scope.subscriptionUpdate, function(status, data){
+        if(status === 200){
+         $scope.message = "subscription updated.";
+         $scope.refresh();
+        }else{
+         $scope.message = "Error in updating the subscription";
+        }
+      });
     };
 
     $scope.refresh();
@@ -47,3 +50,5 @@
   angSpa.controller("editSubscriptionModalController", EditSubscriptionModalController);
 
 })();
+
+
