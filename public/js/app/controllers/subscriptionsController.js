@@ -103,24 +103,6 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
     $location.path("/subscriptions/"+subId + "/queues");
   };
 
-  $scope.editSubscription = function(subId){
-    console.log('subId: ' + subId);
-   $scope.modalInstance = $modal.open({
-        templateUrl: '/templates/editSubscriptionModal.html',
-        controller: 'editSubscriptionModalController',
-        resolve: {
-          dataToEditSubscriptionModal: function(){
-            return { subscriptionId : subId };
-          }
-        }
-    });
-
-    $scope.modalInstance.result.then(function(){}, function(cancelString){
-      // dismissed.
-      $scope.init();
-    });
-  };
-  
   $scope.delSubBySubId = function(subId){
     $scope.modalInstance = $modal.open({
       //templateUrl should be the path assuming public as the root.
