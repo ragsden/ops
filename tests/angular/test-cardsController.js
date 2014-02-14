@@ -29,4 +29,13 @@ describe('CardsController',function() {
 		expect(cardsService.getCardById).toHaveBeenCalled();
 		expect(ctrlScope.cardsModel.card.id).toBe('312f1f77bcf86cd799439011');
 	});
+
+	it('should call getCardById of CardsService and handle error output ',function() {
+		httpBackend.expectGET(config.MW_URL+'/cards/'+testData.testCardId)
+		.respond(404);
+		httpBackend.flush();
+		expect(cardsService.getCardById).toHaveBeenCalled();
+		expect(ctrlScope.cardsModel.err).toBe('Error getting the Card Information.');
+	});
+
 });

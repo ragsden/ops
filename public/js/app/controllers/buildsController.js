@@ -156,7 +156,7 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                                                                  }
                                                                                  else
                                                                                    {
-                                                                                     $scope.errorsAndMessages.push('Error deleting the build..' + status + ',' + data);
+                                                                                     $scope.errorsAndMessages.push('Error deleting the build..');
                                                                                    }
                                                                                    if(shouldRefresh) {
                                                                                      $scope.init();

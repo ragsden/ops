@@ -82,6 +82,24 @@ httpBackend.expect('GET',
         expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();      
     });
 
+    it('should add error message if build cannot be deleted',function() {
+	httpBackend.flush();
+		expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();
+
+        httpBackend.expect('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam + '/builds/' + testData.testBuildNumber)
+        .respond(404);
+        httpBackend.expect('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds')
+					.respond(200,testData.testProjectData);
+httpBackend.expect('GET',
+					config.MW_URL+'/projects/'+testData.testProjectId+'/builds/1/artifacts?noredirect=true')
+					.respond(200);
+        ctrlScope.deleteBuild(testData.testBuildNumber,true);
+        httpBackend.flush();
+        expect(buildsService.deleteBuildByBuildNumber).toHaveBeenCalled(); 
+        expect(buildsService.getBuildsByProjectId).toHaveBeenCalled(); 
+        expect(ctrlScope.errorsAndMessages).toContain('Error deleting the build..');
+    });
+
     it('should call runBuildByProjectId when Run a build button is clicked', function(){
 		httpBackend.flush();
 		expect(buildsService.getBuildsByProjectId).toHaveBeenCalled();
