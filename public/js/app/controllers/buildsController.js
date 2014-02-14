@@ -2,8 +2,8 @@
 /*jshint -W030 */
 
 'use strict';
-angular.module('angSpa').controller('buildsController',['$scope','$routeParams','$location','BuildsService','$filter','$q',
-                                    function($scope,$routeParams,$location,buildsService,$filter,$q){
+angular.module('angSpa').controller('buildsController',['$scope','$routeParams','$location','BuildsService','$filter','$q', '$modal',
+                                    function($scope,$routeParams,$location,buildsService,$filter,$q, $modal){
                                       $scope.builds = [];
                                       $scope.errorsAndMessages = [];
 
@@ -47,11 +47,28 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
 
                                       $scope.deleteSelectedBuilds = function() {
                                         console.log($scope.selectedBuildNumbers);
-                                        for(var i=0;i<$scope.selectedBuildNumbers.length;i++) {
-                                          $scope.deleteBuild($scope.selectedBuildNumbers[i],true);
-                                        }
-                                        $scope.selectedBuildNumbers.length = 0;
-                                        $scope.masterToggle = false;
+
+                                        $scope.modalInstance = $modal.open({
+                                            templateUrl : '/templates/commonModal.html',
+                                            controller : 'commonModalController',
+                                            resolve: {
+                                               dataToCommonModal : function(){
+                                                return { header : "Delete builds",
+                                                  body : "Click Yes to delete builds: ",
+                                                  data : $scope.selectedBuildNumbers };
+                                               }
+                                            }
+                                        });
+
+                                        $scope.modalInstance.result.then(function(confirmYes){
+                                            for(var i=0;i<$scope.selectedBuildNumbers.length;i++) {
+                                              $scope.deleteBuild($scope.selectedBuildNumbers[i],true);
+                                            }
+                                            $scope.selectedBuildNumbers.length = 0;
+                                            $scope.masterToggle = false;
+                                        }, function(confirmCancel){
+                                            //cancel delete
+                                        });
                                       };
 
                                       $scope.getBuildDetails = function(buildNumber){
