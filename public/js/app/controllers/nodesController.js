@@ -96,9 +96,13 @@ angular.module('angSpa').controller('nodesController',['$scope','$routeParams','
                                         }
                                       });
                                       refresh();
-                                      $interval(function() {
+                                      var intervalPromise = $interval(function() {
                                         refresh();
                                       },10 * 1000);
+
+                                      $scope.$on("$destroy", function(){
+                                                $interval.cancel(intervalPromise);
+                                                    });
                                     }
 
 ]);

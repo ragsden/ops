@@ -79,6 +79,18 @@ describe('Builds Service',function() {
 			httpBackend.flush();
 			expect(result[0].output).toBe('The build finished successfully!');
 		});
+
+        it('gets a valid response for downloading build artifacts',function() {
+          var result;
+          	httpBackend.when('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds/' + testData.testBuildNumber + "/artifacts?noredirect=true")
+				.respond(200);
+            buildService.getBuildArtifact(testData.testProjectId,testData.testBuildNumber,function(status,data) {
+
+              result = status;
+            });
+            httpBackend.flush();
+            expect(result).toBe(null);
+        });
 	
 	afterEach(function() {
 		httpBackend.verifyNoOutstandingExpectation();
