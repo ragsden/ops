@@ -45,7 +45,6 @@ angular.module('angSpa').controller('hostNodesController',['$scope','$filter','$
                       latestBuildStatus = metaData.Status;
                       latestBuildTime = metaData.Time * 1000;
                   }
-                  console.log(obj);
                   var nodesData = new nodesDataObject(obj._id,
                                                       obj.subscriptionId,
                                                       obj.vmName,
@@ -63,9 +62,8 @@ angular.module('angSpa').controller('hostNodesController',['$scope','$filter','$
                 }
               else
               {
-                console.log(err);
-                console.log(obj._id);
-               }
+                $scope.messages.push("Error getting node information " + err);
+              }
             });
           });
          }
