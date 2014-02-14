@@ -17,7 +17,7 @@ angular.module('angSpa').controller('dockerHostsController',['$scope','DockerHos
 
                                       DockerHostService.getAll(function(err,data) {
                                         if(err) {
-                                            $scope.messages.push("Error getting docker host information. " + err);
+                                            $scope.messages.push("Error getting docker host information.");
                                         }
                                         else {
                                           if(data.length === 0) {

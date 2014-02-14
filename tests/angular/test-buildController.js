@@ -32,4 +32,11 @@ describe('BuildController',function() {
 		httpBackend.flush();
 		expect(buildsService.getConsoleByBuildNo).toHaveBeenCalled();		
 	});
+    it('should handle error in case build number could not be fetched',function() {
+	httpBackend.expectGET(config.MW_URL+'/projects/'+testData.testProjectId+'/builds/' + testData.testBuildNumber + "/console")
+		.respond(404);
+		httpBackend.flush();
+		expect(buildsService.getConsoleByBuildNo).toHaveBeenCalled();	
+        expect(ctrlScope.buildModel.err).toEqual('Error getting the Console Output.');
+    });
 });
