@@ -178,7 +178,9 @@ var config = {
                   lastAuthorEmail: 'hjd@afhj.com',
                   lastCommitAuthorEmail: 'sjdf@asgf.com',
                   lastCommitShortDescription: 'short',
-                  triggeredByAccount: 'thecccount'
+                  triggeredByAccount: 'thecccount',
+                  runtime: '0.10',
+                  language: 'node_js'
                 }
             ],
             'negsubscriptionProjectsGET': [],

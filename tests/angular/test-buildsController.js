@@ -58,7 +58,8 @@ describe('BuildsController',function() {
 		expect(ctrlScope.builds[0].status).toBe('Finished');
 		expect(ctrlScope.builds[0].lastAuthorEmail).toBe('hjd@afhj.com');
 		expect(ctrlScope.builds[0].triggeredByAccount).toBe('thecccount');
-		
+	    expect(ctrlScope.builds[0].runTime).toBe('0.10');	
+        expect(ctrlScope.builds[0].language).toBe('node_js');
 		//Can add more checks here to validate if test data is assigned in the controller's scope
 	});
 
