@@ -1,6 +1,7 @@
 /*
 This file contains all the test data used by the tests.
 */
+/* jshint ignore:start */
 var config = {
         MW_URL: "http://www.example.com",
         runMode: "",
@@ -29,18 +30,37 @@ var config = {
           //accountsSearchPage: accountsSearch by username result data  
             'accountsSearchByUsernameGETParam': 'testUser',
             'negaccountsSearchByUsernameGETParam': 'abc',     
-             'accountsGET':
-                [{
-                  'id': '1234567890qwertyuiopasdf', 
-                  'identities': [{
-                     'provider': 'github', 
-                     'userName': 'testUser',
-                  },
-                  {
-                     'provider': 'bitbucket', 
-                     'userName': 'testUser',
-                }]
-                }],
+            'accountsGET':
+              [
+
+              {
+              'id': '1234567890qwertyuiopasdf', 
+              'identities': [
+                {
+                'provider': 'github', 
+                'userName': 'testUser',
+              },
+              {
+                'provider': 'bitbucket', 
+                'userName': 'testUser',
+              } ]
+             },
+
+             {
+              'id': '1234567890qwertyuiopasd2', 
+              'identities': [
+                {
+                'provider': 'github', 
+                'userName': 'testUser2',
+              },
+              {
+                'provider': 'bitbucket', 
+                'userName': 'testUser2',
+              } ]
+             }
+
+
+            ],
               'negAccountsGET': [],
 
           //accountPage: account data
@@ -125,6 +145,7 @@ var config = {
                  }],
            'negsubscriptionProjectsGET': [],
 
+           //project permissions - collaborators
            //get project by project id - returns
            'projectIdGETParam': "52d7c18af0412511007af7f7",
            'projectGETByProjectId': {
@@ -145,6 +166,17 @@ var config = {
                  },
            
            'projectId': "52d7c18af0412511007af7f7",
+           'collaboratorsUpdate': [{
+                      account:"1234567890qwertyuiopasdf",
+                      roles:["projectOwner"],
+                      identities:[{ 'provider': 'github', 'userName': 'testUser'}]
+                     },{
+                      account:"1234567890qwertyuiopasd2",
+                      roles:["buildAdmin"],
+                      identities:[{ 'provider': 'github', 'userName': 'testUser2'}]
+                     }],
+           'newCollaboratorUsername' : 'testUser2',
+
            'projectUpdate': {
                     name:"boto:2.0_stable",
                     nodeType:"ubuntu1204",
@@ -153,7 +185,7 @@ var config = {
                       account:"1234567890qwertyuiopasdf",
                       roles:["projectOwner"]
                      },{
-                      account:"0987654321qwertyuiopasdf",
+                      account:"1234567890qwertyuiopasd2",
                       roles:["buildAdmin"]
                      }],
                  },
@@ -262,3 +294,4 @@ var config = {
             'clearNegQueueReturnData': 'Not OK'
       };
 
+      /* jshint ignore:end */

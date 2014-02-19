@@ -44,7 +44,7 @@ describe('Accounts Service',function() {
 			});
 
 			httpBackend.flush();
-			expect(result.length).toBe(1);
+			expect(result.length).toBe(2);
 			expect(result[0].id).toBe(testData.accountsGET[0].id);
 
 		});
