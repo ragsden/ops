@@ -15,10 +15,7 @@ describe('projectPermissions',function() {
     module("angSpa");
     inject(function($rootScope,$controller,$httpBackend,$modal,ProjectsService, AccountsService, $filter, filterAccountsByUsernameFilter) {
 
-      console.log(filterAccountsByUsernameFilter);
-
       ctrlScope = $rootScope.$new();
-
       projectsService = ProjectsService;
       accountsService = AccountsService;
       filter = $filter;
@@ -96,11 +93,11 @@ describe('projectPermissions',function() {
     
     ctrlScope.addNewCollaborator(testData.newCollaboratorUsername);
 
-    var filterOp= filterAccounts(testData.projectGETByProjectId.repositoryProvider, testData.newCollaboratorUsername, testData.accountsGET);
+    var filteredAccount = filterAccounts(testData.projectGETByProjectId.repositoryProvider, testData.newCollaboratorUsername, testData.accountsGET);
     //We are now expecting a spliced result with one object from
     //the original test data
     expect(testData.accountsGET.length).toBe(1);
-    expect(filterOp.id).toBe('1234567890qwertyuiopasd2');
+    expect(filteredAccount.id).toBe('1234567890qwertyuiopasd2');
 
    
 
