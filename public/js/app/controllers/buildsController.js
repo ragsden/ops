@@ -116,6 +116,8 @@ angular.module('angSpa').controller('buildsController',['$scope','$routeParams',
                                                     commitUrl : data[i].commitUrl,
                                                     lastAuthorEmail: data[i].lastAuthorEmail,
                                                     triggeredByAccount : data[i].triggeredByAccount,
+                                                    runTime : data[i].runtime,
+                                                    language: data[i].language,
                                                     isSelected: false
                                                   };
 

@@ -210,7 +210,9 @@ var config = {
                   lastAuthorEmail: 'hjd@afhj.com',
                   lastCommitAuthorEmail: 'sjdf@asgf.com',
                   lastCommitShortDescription: 'short',
-                  triggeredByAccount: 'thecccount'
+                  triggeredByAccount: 'thecccount',
+                  runtime: '0.10',
+                  language: 'node_js'
                 }
             ],
             'negsubscriptionProjectsGET': [],
@@ -291,7 +293,9 @@ var config = {
             'clearQueueReturnStatus': 200,
             'clearNegQueueReturnStatus': 400,
             'clearQueueReturnData': 'OK',
-            'clearNegQueueReturnData': 'Not OK'
+            'clearNegQueueReturnData': 'Not OK',
+
+            'negativeSubscriptionId' : '52f87c8813e0c70f00ed6caa'
       };
 
       /* jshint ignore:end */
