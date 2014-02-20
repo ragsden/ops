@@ -23,6 +23,11 @@ describe('Projects Service',function() {
         httpBackend.when('PUT', config.MW_URL + '/projects/'+ testData.projectId, testData.projectUpdate)
         .respond(200, testData.projectUpdateReturns);
 
+        httpBackend.when('GET', config.MW_URL + '/projects/'+ testData.negTestProjectId)
+        .respond(404, null);
+        httpBackend.when('PUT', config.MW_URL + '/projects/'+ testData.negTestProjectId, testData.projectUpdate)
+        .respond(403, testData.negProjectUpdateReturns);
+
         httpBackend.when('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam)
         .respond(200, testData.projectIdDELDataReturned);
         httpBackend.when('DELETE', config.MW_URL + '/projects/'+ testData.negProjectIdDELParam)
@@ -70,7 +75,8 @@ describe('Projects Service',function() {
       httpBackend.flush();
       expect(status).toBe(404);
     });
-    //get project by project id
+    
+    //get project by valid project id
     it('testing - getting project details using a valid projectId', function(){
       var projectData;
       projectsService.getProjectByProjectId(testData.projectIdGETParam, function(err, data){
@@ -88,7 +94,7 @@ describe('Projects Service',function() {
       httpBackend.flush();
       //add more assertions
       expect(result).toBe(500);
-    });
+   });
 
     //update project by project id
     it('testing - updating a project using a valid project Id', function(){
@@ -99,6 +105,17 @@ describe('Projects Service',function() {
       httpBackend.flush();
       expect(statusReceived).toBe(200);
     });
+
+    //update project by invalid project id
+    it('testing - updating a project using a valid project Id', function(){
+      var statusReceived;
+      projectsService.updateProjectByProjectId(testData.negTestProjectId, testData.projectUpdate, function(status, data){
+        statusReceived = status;
+      });
+      httpBackend.flush();
+      expect(statusReceived).toBe(403);
+    });
+
 
     it('testing - deleting a project using a valid projectId', function(){
       var statusReceived;

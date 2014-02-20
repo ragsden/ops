@@ -6,7 +6,6 @@
 angular.module('angSpa').controller('dockerHostsController',['$scope','DockerHostService','$location',
                                     function($scope,DockerHostService,$location)
                                     {
-                                      console.log('ctrl.. ' + DockerHostService);
                                       $scope.hosts = [];
                                       $scope.messages = [];
 
