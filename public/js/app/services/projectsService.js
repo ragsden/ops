@@ -19,7 +19,7 @@ angSpa.factory('ProjectsService',function($http){
           done(null, data);
         })
         .error(function(data, status, headers, config){
-          done(data, null);
+          done(status, null);
         });
      };
 

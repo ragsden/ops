@@ -16,6 +16,10 @@ describe('Projects Service',function() {
 
         httpBackend.when('GET', config.MW_URL + '/projects/'+ testData.projectIdGETParam)
         .respond(200, testData.projectGETByProjectId);
+
+        httpBackend.when('GET', config.MW_URL + '/projects/'+ testData.negprojectIdDELParam)
+        .respond(500);
+
         httpBackend.when('PUT', config.MW_URL + '/projects/'+ testData.projectId, testData.projectUpdate)
         .respond(200, testData.projectUpdateReturns);
 
@@ -75,6 +79,15 @@ describe('Projects Service',function() {
       httpBackend.flush();
       //add more assertions
       expect(projectData.id).toBe(testData.projectIdGETParam);
+    });
+    it('testing - getting project details using a invalid projectId', function(){
+      var result;
+      projectsService.getProjectByProjectId(testData.negprojectIdDELParam, function(err, data){
+        result = err;
+      });
+      httpBackend.flush();
+      //add more assertions
+      expect(result).toBe(500);
     });
 
     //update project by project id
