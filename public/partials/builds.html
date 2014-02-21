@@ -23,7 +23,7 @@
                     ng-repeat="build in builds | filter: {phase: selectedBuildPhase} |orderBy:sort.column:!sort.descending" ng-if="build.buildNumber"
                     ng-click="toggleSelection(build)">
 
-                    <div class="media"  ng-class="build.isSelected ? 'bg-info' : ''" style="padding: 5px;">
+                    <div class="media"  ng-class="build.isSelected ? 'bg-info' : ''" style="padding: 5px;border 1px solid #000000">
                       <span class="pull-left">
                         <h1>{{build.buildNumber}}</h1>
                       </span> <!-- span build number -->
@@ -40,6 +40,7 @@
 
                         </strong>
 
+                        <strong class="btn btn-default btn-xs btn-info">{{build.language}} - {{build.runTime}}</strong>
                         <span class="pull-right">
                           <a href="https://apibeta.shippable.com/projects/{{projectId}}/builds/{{build.buildNumber}}/artifacts" target="_blank" style="color:white;"><i class="fa fa-arrow-circle-o-down fa-lg" ng-click="$event.stopPropagation()"></a></i> 
                         </span>  <!-- download url -->

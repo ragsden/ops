@@ -25,6 +25,10 @@ describe('Testing - subscriptions service module', function(){
             httpBackend.when('GET', config.MW_URL + '/subscriptions/'+ testData.testSubscriptionId)
             .respond(200, testData.testSubscriptionData);
 
+            httpBackend.when('GET', config.MW_URL + '/subscriptions/'+ testData.negativeSubscriptionId)
+            .respond(400);
+
+
             subsServ = subscriptionsService;
             bootstrapped = true;
         }
@@ -98,6 +102,15 @@ it('should get subscription details for a given Id', function(){
     });
     httpBackend.flush();
     expect(result.created).toBe(testData.testSubscriptionData.created);
+  });
+
+it('should get a response of 400 for ainvalid Id', function(){
+    var result;
+    subsServ.getById(testData.negativeSubscriptionId, function(status, data){
+        result = status;
+    });
+    httpBackend.flush();
+    expect(result).toBe(400);
   });
 
 

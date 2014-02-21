@@ -1,0 +1,6 @@
+runMode=BETA
+clientId=6b9dc9d6d644f6a7be71
+clientSecret=b9ea0b22edc4d3f98e756fcd1cc6e4a770ee70a2
+callbackUrl=https://opsbeta.shippable.com/auth/github/callback
+
+PORTMAP:31154:31154

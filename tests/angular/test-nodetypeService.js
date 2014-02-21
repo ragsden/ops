@@ -1,27 +1,23 @@
+/* jshint ignore:start */
 describe('Nodes Page',function() {
 	var httpBackend;
 	var nodeTypeService;
-	var bootstrapped = false;
 	beforeEach(function() {
 		module('angSpa');
 		inject(function($httpBackend,NodeTypeService) {
-			//Jasmine doesnt not work with a global 'describe' call that runs once
-			//so we make sure our test setup is initialized once for a series of tests
- 			if(!bootstrapped) {
-				httpBackend = $httpBackend;
-				httpBackend.when('GET',config.MW_URL+'/nodetypes')
-					.respond(200,testData.nodeTypesGET);
-			
-				nodeTypeService = NodeTypeService;
-				bootstrapped = true;
-			}
-		});
+					httpBackend = $httpBackend;
+								nodeTypeService = NodeTypeService;
+			});
 
 		
 	});
 	describe('NodeType Service',function() {
 		
 		it('gets all node types',function() {
+            httpBackend.when('GET',config.MW_URL+'/nodetypes')
+					.respond(200,testData.nodeTypesGET);
+			
+
 			var result ;
 			//Call the service
 			nodeTypeService.getAllNodeTypes(function(err,data) {
@@ -43,6 +39,27 @@ describe('Nodes Page',function() {
 
 		});
 
+
+     it('gets 500 if node types cannot be retrieved',function() {
+            httpBackend.when('GET',config.MW_URL+'/nodetypes')
+					.respond(500);
+			
+
+			var result ;
+			//Call the service
+			nodeTypeService.getAllNodeTypes(function(err,data) {
+				result = err;
+			});
+
+			httpBackend.flush();
+
+			//Make sure that the http call inside the method returns the data that we have given
+			//as part of tests
+			expect(result).toBe(500);
+
+		});
+
+
 	});
 	
 	afterEach(function() {
@@ -50,3 +67,5 @@ describe('Nodes Page',function() {
      	httpBackend.verifyNoOutstandingRequest();
 	});
 });
+
+/*jshint ignore:end */

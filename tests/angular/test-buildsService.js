@@ -26,6 +26,19 @@ describe('Builds Service',function() {
 			expect(result[0].buildNumber).toBe(1);
 			expect(result[0].phase).toBe(1);
 		});
+		it('gets 500  a invalid project',function() {
+			var result;
+			httpBackend.when('GET',config.MW_URL+'/projects/'+testData.projectIdGETParam+'/builds')
+				.respond(500);
+
+			buildService.getBuildsByProjectId(testData.projectIdGETParam,function(err,data) {
+				result = err;
+			});
+
+				
+			httpBackend.flush();
+			expect(result).toBe(500);
+		});
 
 		it('testing - deleting a build by projects/projectid/builds/buildNumber', function(){
 			httpBackend.when('DELETE', config.MW_URL + '/projects/'+ testData.projectIdDELParam + '/builds/' + testData.testBuildNumber)
