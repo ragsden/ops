@@ -2,12 +2,12 @@ Shippable Ops-Dashboard
 
 
 Requirements
-1. NodeJS
-2. NPM
-3. Grunt `npm install -g grunt-cli`
-4. supervisor `npm install -g supervisor`
-5. Karma `npm install -g karma`
-6. PhantomJS `sudo apt-get install phantomjs`
+* NodeJS
+* NPM
+* Grunt `npm install -g grunt-cli`
+* supervisor `npm install -g supervisor`
+* Karma `npm install -g karma`
+* PhantomJS `sudo apt-get install phantomjs`
 
 Steps to run
 `npm install`
