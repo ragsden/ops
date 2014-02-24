@@ -13,14 +13,18 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
 
   $scope.confirmDeleteSubscription = false;
 
-  function subscriptionDataObject(id, name, percent_storageBytesUsed, percent_privateProjectsUsed,percent_nodesUsed, cardId){
+  function subscriptionDataObject(id, name, percent_storageBytesUsed, privateProjectsCount,
+                                  privateProjectsQuota, nodesUsed, nodesQuota, cardId){
     this.id = id;
     this.name = name;
     this.percent_storageBytesUsed = percent_storageBytesUsed;
-    this.percent_privateProjectsUsed = percent_privateProjectsUsed;
-    this.percent_nodesUsed = percent_nodesUsed;
+    this.privateProjectsCount = privateProjectsCount;
+    this.privateProjectsQuota = privateProjectsQuota;
+    this.nodesUsed = nodesUsed;
+    this.nodesQuota = nodesQuota;
     this.cardId = cardId;
   }
+  
   $scope.sort = {column:'name', descending: false};
 
   $scope.init = function(){
@@ -61,14 +65,17 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
           plansService.getPlanByPlanId(subscription.plan, function(errP, planData){
             if(planData){
               var percent_storageBytesUsed = ((subscription.storageBytesUsed/(planData.storageGigaBytesQuota * 1073741824))*100).toFixed(2);
-              var percent_privateProjectsUsed = (subscription.privateProjectsCount/planData.privateProjectsQuota)*100;
+              var privateProjectsCount = subscription.privateProjectsCount;
+              var privateProjectsQuota = planData.privateProjectsQuota;
               var nodesUsed = subscription.nodes.length;
-              var percent_nodesUsed = (nodesUsed/planData.nodesQuota)*100;
+              var nodesQuota = planData.nodesQuota;
               var subscriptionData = new subscriptionDataObject(subscription.id,
                                                                 subscription.name,
                                                                 percent_storageBytesUsed,
-                                                                percent_privateProjectsUsed,
-                                                                percent_nodesUsed,
+                                                                privateProjectsCount,
+                                                                privateProjectsQuota,
+                                                                nodesUsed,
+                                                                nodesQuota,
                                                                 subscription.card
                                                                );
 

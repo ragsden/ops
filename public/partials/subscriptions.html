@@ -17,8 +17,8 @@
     <tr ng-repeat="s in subscriptionsModel.subscriptions | orderBy:sort.column:sort.descending">
         <td>{{s.name}}</td>
         <td> {{s.percent_storageBytesUsed}} %</td>
-        <td> {{s.percent_privateProjectsUsed}} %</td>        
-        <td> {{s.percent_nodesUsed}} %</td>
+        <td> {{s.privateProjectsCount}}/{{s.privateProjectsQuota}}</td>        
+        <td> {{s.nodesUsed}}/{{s.nodesQuota}}</td>
     <td>
 
         <a class="btn btn-xs btn-info" ng-click="getCardInfo(s.cardId)" ng-if="s.cardId">Card Details</a>
