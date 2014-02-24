@@ -1,13 +1,18 @@
 Build Information<br/><br/>
 
 {{buildModel.err}}
-  <tabset>
-    <tab heading="Console">
-    <br/>
-    	<div ng-repeat="console in buildModel.console">
-  			{{console.output}}
- 		</div>
-    </tab>
-    <tab heading="Tests">Tests</tab>
-    <tab heading="Coverage">Coverage</tab>      
-  </tabset>
+<tabset>
+<tab heading="Console">
+<br/>
+<div ng-repeat="consoleItem in newConsoleLogs track by $index"> <!-- ng-class="{'bg-primary' : consoleItem.shouldCompress}"> -->
+  <ul ng-repeat="console in consoleItem.output track by $index" ng-hide="!consoleItem.isShowing && consoleItem.shouldCompress" >
+    <li>{{ console }}</li>
+  </ul>
+  <a ng-click="consoleItem.isShowing = !consoleItem.isShowing" ng-show="consoleItem.isShowing" ng-if=" consoleItem.shouldCompress" class="btn btn-xs btn-info">Hide {{ consoleItem.title }}</a>
+  <a ng-click="consoleItem.isShowing = !consoleItem.isShowing" ng-show="!consoleItem.isShowing" ng-if=" consoleItem.shouldCompress" class="btn btn-xs btn-info">Show {{ consoleItem.title }}</a>
+</div>
+
+</tab>
+<tab heading="Tests">Tests</tab>
+<tab heading="Coverage">Coverage</tab>      
+</tabset>
