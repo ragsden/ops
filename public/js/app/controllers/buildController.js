@@ -1,13 +1,21 @@
 var BuildController = function($scope,$routeParams,BuildsService) {
   var collapseMap = {
-    "install": { "pattern" : "[install]" },
-    "_install": { "pattern" : "[/install]" },
-    "script": { "pattern" : "[script]" },
-    "_script": { "pattern" : "[/script]" },
-    "before": { "pattern" : "[before]" },
-    "_before": { "pattern" : "[/before]" },
+    "install": "[install]",
+    "script": "[script]",
+    "before":  "[before]" ,
+    "afterSuccess": "[after_success]",
 
   };
+
+ var collapseMap2 = {
+    "_install": "[/install]",
+    "_script":  "[/script]",
+    "_before": "[/before]",
+    "_afterSuccess" : "[/after_success]"
+  };
+
+
+
   $scope.buildModel={
     console:[{ output : "" }],
     err : "",
@@ -33,61 +41,42 @@ var BuildController = function($scope,$routeParams,BuildsService) {
 
   $scope.newConsoleLogs = [];
 
+  function findPatternInString(c,str) {
+    var patterns = _.values(c);
+    for(var i=0;i<patterns.length;i++) {
+      if(str.indexOf(patterns[i]) != -1) {
+        console.log('found pattern ' + patterns[i]);
+        return true;
+      }
+    }
+    return false;
+  }
+
   function getNewConsoleItem(title) {
     return { output : [], shouldCompress : false, isShowing: false,title : title };
 
   }
   function processLogs() {
+    findPatternInString(collapseMap,'---[script]----');
     var createNewItem = false;
     var consoleItem = getNewConsoleItem();
     for(var i=0;i<$scope.buildModel.console.length;i++) {
-      //To do ..generalize this condition for all inclusive patterns
-      if(consoleLogs[i].output.indexOf(collapseMap.install.pattern) != -1) {
-        console.log('found install pattern');
+
+      if( findPatternInString(collapseMap,consoleLogs[i].output)) {
         console.log('creating');
         $scope.newConsoleLogs.push(consoleItem);
-        consoleItem = getNewConsoleItem("install");
+        consoleItem = getNewConsoleItem(consoleLogs[i].output);
 
         consoleItem.output.push(consoleLogs[i].output);
         consoleItem.shouldCompress = true;
+
       }
-      else if(consoleLogs[i].output.indexOf(collapseMap._install.pattern) != -1) {
-        console.log('found _install pattern');
+      else if(findPatternInString(collapseMap2,consoleLogs[i].output)) {
         consoleItem.output.push(consoleLogs[i].output);
         $scope.newConsoleLogs.push(consoleItem);
         consoleItem = getNewConsoleItem("");
-      }
-      else if(consoleLogs[i].output.indexOf(collapseMap.script.pattern) != -1) {
-        console.log('found script pattern');
-        console.log('creating');
-        $scope.newConsoleLogs.push(consoleItem);
-        consoleItem = getNewConsoleItem("script");
 
-        consoleItem.output.push(consoleLogs[i].output);
-        consoleItem.shouldCompress = true;
       }
-      else if(consoleLogs[i].output.indexOf(collapseMap._script.pattern) != -1) {
-        console.log('found _script pattern');
-        consoleItem.output.push(consoleLogs[i].output);
-        $scope.newConsoleLogs.push(consoleItem);
-        consoleItem = getNewConsoleItem("");
-      }
-      else if(consoleLogs[i].output.indexOf(collapseMap.before.pattern) != -1) {
-        console.log('found before pattern');
-        console.log('creating');
-        $scope.newConsoleLogs.push(consoleItem);
-        consoleItem = getNewConsoleItem("before");
-
-        consoleItem.output.push(consoleLogs[i].output);
-        consoleItem.shouldCompress = true;
-      }
-      else if(consoleLogs[i].output.indexOf(collapseMap._before.pattern) != -1) {
-        console.log('found _before pattern');
-        consoleItem.output.push(consoleLogs[i].output);
-        $scope.newConsoleLogs.push(consoleItem);
-        consoleItem = getNewConsoleItem("");
-      }
-
 
       else {
         consoleItem.output.push(consoleLogs[i].output);
@@ -98,8 +87,8 @@ var BuildController = function($scope,$routeParams,BuildsService) {
     $scope.newConsoleLogs.push(consoleItem);
 
 
-    console.log("new");
-    console.log($scope.newConsoleLogs);
+//    console.log("new");
+//    console.log($scope.newConsoleLogs);
 
 
 
