@@ -3,7 +3,7 @@
 /*jshint -W083 */
 'use strict';
 
-var SubscriptionsController = function($q,$scope, $modal, $log, $location, subscriptionsService, plansService,ProjectsService, $routeParams, AccountsService, $window){
+var SubscriptionsController = function($q,$scope, $modal, $log, $location, subscriptionsService, plansService,ProjectsService, $routeParams, AccountsService){
   $scope.subscriptionsModel = {
     accountInfo: {},
     subscriptions:[],
@@ -13,14 +13,18 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
 
   $scope.confirmDeleteSubscription = false;
 
-  function subscriptionDataObject(id, name, percent_storageBytesUsed, percent_privateProjectsUsed,percent_nodesUsed, cardId){
+  function subscriptionDataObject(id, name, percent_storageBytesUsed, privateProjectsCount,
+                                  privateProjectsQuota, nodesUsed, nodesQuota, cardId){
     this.id = id;
     this.name = name;
     this.percent_storageBytesUsed = percent_storageBytesUsed;
-    this.percent_privateProjectsUsed = percent_privateProjectsUsed;
-    this.percent_nodesUsed = percent_nodesUsed;
+    this.privateProjectsCount = privateProjectsCount;
+    this.privateProjectsQuota = privateProjectsQuota;
+    this.nodesUsed = nodesUsed;
+    this.nodesQuota = nodesQuota;
     this.cardId = cardId;
   }
+  
   $scope.sort = {column:'name', descending: false};
 
   $scope.init = function(){
@@ -55,36 +59,35 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
       if(subsData.length === 0){
         $scope.subscriptionsModel.zeroSubscriptionsMessage = 'There are no subscriptions on this account';
       }
-      if(!errS){
-        for(var i=0; i < subsData.length; i++) {
-          var j = i;
-          plansService.getPlanByPlanId(subsData[j].plan, function(errP, planData){
-            if(!errP){
-              var percent_storageBytesUsed = ((subsData[j].storageBytesUsed/(planData.storageGigaBytesQuota * 1073741824))*100).toFixed(2);
-              var percent_privateProjectsUsed = (subsData[j].privateProjectsCount/planData.privateProjectsQuota)*100;
-              var nodesUsed = subsData[j].nodes.length;
-              var percent_nodesUsed = (nodesUsed/planData.nodesQuota)*100;
-              var subscriptionData = new subscriptionDataObject(subsData[j].id,
-                                                                subsData[j].name,
+      if(!errS && subsData.length !== 0){
+
+        _.each(subsData, function(subscription){
+          plansService.getPlanByPlanId(subscription.plan, function(errP, planData){
+            if(planData){
+              var percent_storageBytesUsed = ((subscription.storageBytesUsed/(planData.storageGigaBytesQuota * 1073741824))*100).toFixed(2);
+              var privateProjectsCount = subscription.privateProjectsCount;
+              var privateProjectsQuota = planData.privateProjectsQuota;
+              var nodesUsed = subscription.nodes.length;
+              var nodesQuota = planData.nodesQuota;
+              var subscriptionData = new subscriptionDataObject(subscription.id,
+                                                                subscription.name,
                                                                 percent_storageBytesUsed,
-                                                                percent_privateProjectsUsed,
-                                                                percent_nodesUsed,
-                                                                subsData[j].card
+                                                                privateProjectsCount,
+                                                                privateProjectsQuota,
+                                                                nodesUsed,
+                                                                nodesQuota,
+                                                                subscription.card
                                                                );
 
-                                                               $scope.subscriptionsModel.subscriptions.push(subscriptionData);
+              $scope.subscriptionsModel.subscriptions.push(subscriptionData);
             }else{
               $scope.subscriptionsModel.errors.push(errP);
             }
-
           });
-        }
-
+        });
+      }else{
+              $scope.subscriptionsModel.errors.push(errS);
       }
-      else{
-        $scope.subscriptionsModel.errors.push(errS);
-      }
-
     });
 
   };
@@ -192,5 +195,5 @@ var SubscriptionsController = function($q,$scope, $modal, $log, $location, subsc
   $scope.init();
 };
 
-SubscriptionsController.$inject = ["$q","$scope", "$modal", "$log", "$location", "subscriptionsService", "plansService", "ProjectsService", "$routeParams", "AccountsService", "$window"];
+SubscriptionsController.$inject = ["$q","$scope", "$modal", "$log", "$location", "subscriptionsService", "plansService", "ProjectsService", "$routeParams", "AccountsService"];
 angSpa.controller("subscriptionsController", SubscriptionsController);
