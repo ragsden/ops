@@ -1,22 +1,22 @@
 <div ng-if="nodes[0]._id">
 <table class="table table-bordered table-condensed table-hover table-striped">
   <thead>
-    <th>Id</td>
-    <th>Subscription</th>
+    <th>Node Id</td>
+    <!--    <th>Subscription</th> -->
 <th>Machine</td>
 <th>Type</td>
 <th>State</td>
 <th>Created</td>
 <th>Updated</td>
-<td>Latest Project</td>
-<td>Latest Build</td>
-<td>Latest Build Status</td>
-<td>Latest Build Time</td>
+<th>Latest Project</th>
+<th>Latest Build</th>
+<th>Latest Build Status</th>
+<th>Latest Build Time</th>
+</thead>
 
-  </thead>
   <tr ng-repeat = "node in nodes | orderBy:'created'">
     <td>{{node._id}}</td>
-    <td><a class="btn btn-xs btn-info" ng-href="/subscriptions/{{node.subscriptionId}}">Show Subscription</a>
+    <!--    <td><a class="btn btn-xs btn-info" ng-href="/subscriptions/{{node.subscriptionId}}">Show Subscription</a> -->
     <td>{{node.vmName}}</td>
     <td>{{node.nodeType}}</td>
     <td>{{node.nodeState | mapToNodeStatus}}</td>
