@@ -1,17 +1,10 @@
 var BuildController = function($scope,$routeParams,BuildsService) {
-  var collapseMap = {
-    "install": "[install]",
-    "script": "[script]",
-    "before":  "[before]" ,
-    "afterSuccess": "[after_success]",
-
-  };
-
- var collapseMap2 = {
-    "_install": "[/install]",
-    "_script":  "[/script]",
-    "_before": "[/before]",
-    "_afterSuccess" : "[/after_success]"
+ var collapseMap = {
+    "[install]": "[/install]",
+    "[script]":  "[/script]",
+    "[before]": "[/before]",
+    "[after_success]" : "[/after_success]",
+    "[before_install]" : "[/before_install]"
   };
 
 
@@ -41,8 +34,8 @@ var BuildController = function($scope,$routeParams,BuildsService) {
 
   $scope.newConsoleLogs = [];
 
-  function findPatternInString(c,str) {
-    var patterns = _.values(c);
+  function findPatternInString(patterns,str) {
+    //var patterns = _.values(c);
     for(var i=0;i<patterns.length;i++) {
       if(str.indexOf(patterns[i]) != -1) {
         console.log('found pattern ' + patterns[i]);
@@ -62,7 +55,7 @@ var BuildController = function($scope,$routeParams,BuildsService) {
     var consoleItem = getNewConsoleItem();
     for(var i=0;i<$scope.buildModel.console.length;i++) {
 
-      if( findPatternInString(collapseMap,consoleLogs[i].output)) {
+      if( findPatternInString(_.keys(collapseMap),consoleLogs[i].output)) {
         console.log('creating');
         $scope.newConsoleLogs.push(consoleItem);
         consoleItem = getNewConsoleItem(consoleLogs[i].output);
@@ -71,7 +64,7 @@ var BuildController = function($scope,$routeParams,BuildsService) {
         consoleItem.shouldCompress = true;
 
       }
-      else if(findPatternInString(collapseMap2,consoleLogs[i].output)) {
+      else if(findPatternInString(_.values(collapseMap),consoleLogs[i].output)) {
         consoleItem.output.push(consoleLogs[i].output);
         $scope.newConsoleLogs.push(consoleItem);
         consoleItem = getNewConsoleItem("");
@@ -87,8 +80,6 @@ var BuildController = function($scope,$routeParams,BuildsService) {
     $scope.newConsoleLogs.push(consoleItem);
 
 
-//    console.log("new");
-//    console.log($scope.newConsoleLogs);
 
 
 
