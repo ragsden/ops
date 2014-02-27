@@ -29,7 +29,9 @@ describe('BuildController',function() {
 	it('should call getConsoleByBuildNo ',function() {
 		httpBackend.expectGET(config.MW_URL+'/projects/'+testData.testProjectId+'/builds/' + testData.testBuildNumber + "/console")
 		.respond(200,testData.testBuildData.console);
-		httpBackend.flush();
+		httpBackend.expectGET(config.MW_URL+'/projects/'+testData.testProjectId+'/builds/' + testData.testBuildNumber)
+		.respond(200,testData.testProjectData[0]);
+        httpBackend.flush();
 		expect(buildsService.getConsoleByBuildNo).toHaveBeenCalled();		
 	});
     it('should handle error in case build number could not be fetched',function() {
@@ -37,6 +39,6 @@ describe('BuildController',function() {
 		.respond(404);
 		httpBackend.flush();
 		expect(buildsService.getConsoleByBuildNo).toHaveBeenCalled();	
-        expect(ctrlScope.buildModel.err).toEqual('Error getting the Console Output.');
+        expect(ctrlScope.err).toEqual('Error getting the Console Output.');
     });
 });

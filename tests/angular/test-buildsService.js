@@ -104,6 +104,31 @@ describe('Builds Service',function() {
             httpBackend.flush();
             expect(result).toBe(null);
         });
+
+
+        it('gets a valid response for  build Id',function() {
+          var result;
+          	httpBackend.when('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds/' + testData.testBuildNumber)
+				.respond(200);
+            buildService.getById(testData.testProjectId,testData.testBuildNumber,function(status,data) {
+
+              result = status;
+            });
+            httpBackend.flush();
+            expect(result).toBe(null);
+        });
+        it('gets a 500 response for  build Id',function() {
+          var result;
+          	httpBackend.when('GET',config.MW_URL+'/projects/'+testData.testProjectId+'/builds/' + testData.testBuildNumber)
+				.respond(500);
+            buildService.getById(testData.testProjectId,testData.testBuildNumber,function(status,data) {
+
+              result = status;
+            });
+            httpBackend.flush();
+            expect(result).toBe(500);
+        });
+
 	
 	afterEach(function() {
 		httpBackend.verifyNoOutstandingExpectation();
