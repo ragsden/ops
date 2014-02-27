@@ -9,23 +9,30 @@ var BuildController = function($scope,$routeParams,BuildsService) {
 
 
 
-  $scope.buildModel={
-    console:[{ output : "" }],
-    err : "",
-  };
+  $scope.err = "";
+  
   var consoleLogs;
   $scope.init = function(){
     BuildsService.getConsoleByBuildNo($routeParams.projectId,$routeParams.buildNumber,function(err,data){
       if(err)
         {
-          $scope.buildModel.err = 'Error getting the Console Output.';
+          $scope.err = 'Error getting the Console Output.';
         }
         else
           {
             console.log(data);
             consoleLogs = data;
-            $scope.buildModel.console = data;
-            processLogs();
+            //get the build status.. if its success, only then process it
+            BuildsService.getById($routeParams.projectId,$routeParams.buildNumber,function(err,build) {
+              if(err) {
+                $scope.err = "Error getting build information";
+                processLogs(0);
+              }
+              else {
+                    processLogs(data,build.status);
+
+              }
+            });
           }
 
     });
@@ -49,19 +56,17 @@ var BuildController = function($scope,$routeParams,BuildsService) {
     return { output : [], shouldCompress : false, isShowing: false,title : title };
 
   }
-  function processLogs() {
-    findPatternInString(collapseMap,'---[script]----');
+  function processLogs(data,status) {
     var createNewItem = false;
     var consoleItem = getNewConsoleItem();
-    for(var i=0;i<$scope.buildModel.console.length;i++) {
+    for(var i=0;i<data.length;i++) {
 
       if( findPatternInString(_.keys(collapseMap),consoleLogs[i].output)) {
-        console.log('creating');
         $scope.newConsoleLogs.push(consoleItem);
         consoleItem = getNewConsoleItem(consoleLogs[i].output);
 
         consoleItem.output.push(consoleLogs[i].output);
-        consoleItem.shouldCompress = true;
+        consoleItem.shouldCompress = (status === 1);
 
       }
       else if(findPatternInString(_.values(collapseMap),consoleLogs[i].output)) {
