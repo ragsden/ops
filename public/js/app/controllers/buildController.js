@@ -7,9 +7,6 @@ var BuildController = function($scope,$routeParams,BuildsService) {
 
   $scope.err = "";
 
-  var consoleLogs;
-
-
   $scope.compressedLogs = [];
   function compressConsoleLogs(data) {
     var masterIndex = 0;
@@ -58,20 +55,6 @@ var BuildController = function($scope,$routeParams,BuildsService) {
           {
 
             console.log(data);
-            /*
-            //consoleLogs = data;
-            //get the build status.. if its success, only then process it
-            BuildsService.getById($routeParams.projectId,$routeParams.buildNumber,function(err,build) {
-            if(err) {
-            $scope.err = "Error getting build information";
-            processLogs(0);
-            }
-            else {
-            processLogs(data,build.status);
-
-            }
-            }); */
-            $scope.consoleLogs = data;
             compressConsoleLogs(data);
           }
 
