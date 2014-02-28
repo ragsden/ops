@@ -1,0 +1,30 @@
+.code {
+  display: block;
+  height: 100%;
+  overflow: auto;
+  padding: 15px;
+  background: #0f141a;
+  color: #adc2cc;
+  margin: 10px;
+}
+
+pre {
+  background: transparent;
+  border-radius: 0;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.span_pre {
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  font-size: 13px;
+  background-color:#333;
+  cursor:pointer;
+  border-radius: 2px;
+}
+.console_compress_icon {
+  padding-top: 3px;
+  padding-left: 5px;
+}

@@ -4,18 +4,25 @@ Build Information<br/><br/>
 <tabset>
 <tab heading="Console">
 <br/>
-<div ng-repeat="consoleItem in newConsoleLogs track by $index" style="background-color : black;"> <!-- ng-class="{'bg-primary' : consoleItem.shouldCompress}"> --> 
 
-<a ng-click="consoleItem.isShowing = !consoleItem.isShowing" ng-show="consoleItem.isShowing" ng-if=" consoleItem.shouldCompress">
-   <i class="fa fa-minus-circle fa-lg">{{ consoleItem.title }}</i></a>
-  <a ng-click="consoleItem.isShowing = !consoleItem.isShowing" ng-show="!consoleItem.isShowing" ng-if=" consoleItem.shouldCompress" >
-   <i class="fa fa-plus-circle fa-lg" style="margin-top:5px;margin-bottom: 5px;"> {{ consoleItem.title }}</i></a>
-  <pre ng-repeat="console in consoleItem.output track by $index" ng-hide="!consoleItem.isShowing && consoleItem.shouldCompress" 
-            style="background-color: black;padding: 0px;margin-bottom:0px;border: none;border-radius: 0px;color: white;" >
-    {{ console }}
-  </pre>
+<span class="code">
+
+<div ng-repeat="consoleItem in compressedLogs track by $index"> <!-- ng-class="{'bg-primary' : consoleItem.shouldCompress}"> --> 
+<div ng-click="consoleItem.isShowing = !consoleItem.isShowing" ng-if="consoleItem.shouldCompress"  class="span_pre">
+ <span class="">
+ <i class = "console_compress_icon fa fa-sm" ng-class="{'fa-minus-circle' : consoleItem.isShowing, 'fa-plus-circle' : !consoleItem.isShowing}"></i></span><span> {{consoleItem.meta}}</span>
+ <span class="pull-right" style="color:white;margin-right:5px;">{{consoleItem.title}}</span>
+</div>
+  <pre ng-repeat="console in consoleItem.output track by $index" ng-hide="!consoleItem.isShowing && consoleItem.shouldCompress" ng-class="{'bg-warning' : consoleItem.isCmd}">{{ console }}</pre>
 </div>
 
+
+
+            </span>
+
+
+<br/>
+<br/>
 </tab>
 <tab heading="Tests">Tests</tab>
 <tab heading="Coverage">Coverage</tab>      
