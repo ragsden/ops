@@ -29,8 +29,6 @@ describe('BuildController',function() {
 	it('should call getConsoleByBuildNo ',function() {
 		httpBackend.expectGET(config.MW_URL+'/projects/'+testData.testProjectId+'/builds/' + testData.testBuildNumber + "/console")
 		.respond(200,testData.testBuildData.console);
-		httpBackend.expectGET(config.MW_URL+'/projects/'+testData.testProjectId+'/builds/' + testData.testBuildNumber)
-		.respond(200,testData.testProjectData[0]);
         httpBackend.flush();
 		expect(buildsService.getConsoleByBuildNo).toHaveBeenCalled();		
 	});
