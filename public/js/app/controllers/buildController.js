@@ -1,9 +1,4 @@
 var BuildController = function($scope,$routeParams,BuildsService) {
-  var collapseMap = {
-    "__SH_CMD__": "__SH_CMD_END__",
-  };
-
-
 
   $scope.err = "";
 
@@ -14,12 +9,10 @@ var BuildController = function($scope,$routeParams,BuildsService) {
       //Split the individual console element by newline
       var splitData = data[i].output.split('\n');
       //console.log('splits ' + splitData.length + " i: " + i);
-      var hasCmdTag = false;
       var shouldCompress = false;
       var consoleItem = getNewConsoleItem("","");
       for(var j=0;j<splitData.length;j++) {
         if(splitData[j].indexOf("__SH_CMD__")!== -1) {
-          hasCmdTag =true;
           $scope.compressedLogs.push(consoleItem);
           var cmds = splitData[j].split('|');
           consoleItem = getNewConsoleItem(cmds[1],cmds[2]);
