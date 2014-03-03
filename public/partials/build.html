@@ -13,7 +13,11 @@ Build Information<br/><br/>
  <i class = "console_compress_icon fa fa-sm" ng-class="{'fa-minus-circle' : consoleItem.isShowing, 'fa-plus-circle' : !consoleItem.isShowing}"></i></span><span> {{consoleItem.meta}}</span>
  <span class="pull-right" style="color:white;margin-right:5px;">{{consoleItem.title}}</span>
 </div>
-  <pre ng-repeat="console in consoleItem.output track by $index" ng-hide="!consoleItem.isShowing && consoleItem.shouldCompress" ng-class="{'bg-warning' : consoleItem.isCmd}">{{ console }}</pre>
+ <div ng-if="!consoleItem.shouldCompress" class="pre">{{consoleItem.meta}}
+</div>
+<div class="pre" ng-repeat="console in consoleItem.output track by $index" ng-hide="!consoleItem.isShowing && consoleItem.shouldCompress" ng-class="{'bg-warning' : consoleItem.isCmd}"
+  ng-bind-html="to_trusted(console)">
+</div>
 </div>
 
 

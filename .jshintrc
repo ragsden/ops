@@ -14,7 +14,8 @@
       "config":false,
       "angular":false,
       "moment":false,
-      "_":false
+      "_":false,
+      "ansi_up":false
   },
     "browser" : true, 
     "devel" : true, 

@@ -1,4 +1,4 @@
-var BuildController = function($scope,$routeParams,BuildsService) {
+var BuildController = function($scope,$routeParams,BuildsService,$sce) {
 
   $scope.err = "";
 
@@ -26,7 +26,7 @@ var BuildController = function($scope,$routeParams,BuildsService) {
           consoleItem = getNewConsoleItem("","");
         }
         else {
-          consoleItem.output.push(splitData[j]);
+          consoleItem.output.push(ansi_up.ansi_to_html(splitData[j]));
 
         }
 
@@ -36,7 +36,9 @@ var BuildController = function($scope,$routeParams,BuildsService) {
     }
     console.log($scope.compressedLogs);
   }
-
+  $scope.to_trusted = function(html) {
+    return $sce.trustAsHtml(html);
+  };
 
   $scope.init = function(){
     BuildsService.getConsoleByBuildNo($routeParams.projectId,$routeParams.buildNumber,function(err,data){
@@ -62,5 +64,5 @@ var BuildController = function($scope,$routeParams,BuildsService) {
 
 
 };
-BuildController.$inject = ["$scope","$routeParams","BuildsService"];
+BuildController.$inject = ["$scope","$routeParams","BuildsService","$sce"];
 angSpa.controller("buildController",BuildController);

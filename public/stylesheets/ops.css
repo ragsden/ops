@@ -8,7 +8,8 @@
   margin: 10px;
 }
 
-pre {
+.pre {
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
   background: transparent;
   border-radius: 0;
   color: inherit;
