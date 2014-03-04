@@ -8,24 +8,23 @@
     "passport": "~0.1.17",
     "passport-github": "~0.1.5",
     "client-sessions": "~0.4.1",
-    "sinon": "~1.7.3",
-    "should": "~2.1.1",
-    "mocha": "~1.16.2",
     "request": "~2.30.0",
     "qs": "~0.6.6",
-    "istanbul": "~0.1.45",
     "jshint": "~2.3.0",
     "requirejs": "~2.1.9",
-    "karma-coverage": "~0.1.4",
     "underscore": "~1.5.2",
-    "moment": "~2.5.1",
-    "xunit-file": "0.0.5"
+    "moment": "~2.5.1"
   },
   "scripts": {
     "start": "supervisor app.js",
     "test": "./node_modules/mocha/bin/mocha --timeout 5000 --reporter=spec tests/node/*.js"
   },
   "devDependencies": {
+    "sinon": "~1.7.3",
+    "should": "~2.1.1",
+    "mocha": "~1.16.2",
+    "karma-coverage": "~0.1.4",
+    "istanbul": "~0.1.45",
     "xunit-file": "0.0.5",
     "phantomjs": "~1.9",
     "karma": "~0.10",
