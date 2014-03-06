@@ -20,7 +20,7 @@ var BuildController = function($scope,$routeParams,BuildsService,$sce) {
         }
         else if(splitData[j].indexOf("__SH_CMD_END__") !== -1) {
           shouldCompress = true;
-          //consoleItem.output.push(splitData[j]);
+          consoleItem.output.push("<br/>");
           consoleItem.shouldCompress = true;
           $scope.compressedLogs.push(consoleItem);
           consoleItem = getNewConsoleItem("","");
