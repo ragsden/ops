@@ -15,7 +15,7 @@ Build Information<br/><br/>
 </div>
  <div ng-if="!consoleItem.shouldCompress" class="pre">{{consoleItem.meta}}
 </div>
-<div class="pre" ng-repeat="console in consoleItem.output track by $index" ng-hide="!consoleItem.isShowing && consoleItem.shouldCompress" ng-class="{'bg-warning' : consoleItem.isCmd}"
+<div class="pre" ng-repeat="console in consoleItem.output track by $index" ng-hide="!consoleItem.isShowing && consoleItem.shouldCompress" ng-class="{'indent' : consoleItem.shouldCompress}"
   ng-bind-html="to_trusted(console)">
 </div>
 </div>
