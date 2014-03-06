@@ -15,11 +15,14 @@ var BuildController = function($scope,$routeParams,BuildsService,$sce) {
         if(splitData[j].indexOf("__SH_CMD__")!== -1) {
           $scope.compressedLogs.push(consoleItem);
           var cmds = splitData[j].split('|');
-          consoleItem = getNewConsoleItem(cmds[1],cmds[2]);
+          
+          consoleItem = getNewConsoleItem(cmds[1],cmds[2],cmds[3]);
           //consoleItem.output.push(cmds[2]);
         }
         else if(splitData[j].indexOf("__SH_CMD_END__") !== -1) {
           shouldCompress = true;
+          var vals = splitData[j].split('|');
+          consoleItem.end = vals[1];
           //consoleItem.output.push("<br/>");
           consoleItem.shouldCompress = true;
           $scope.compressedLogs.push(consoleItem);
@@ -36,6 +39,10 @@ var BuildController = function($scope,$routeParams,BuildsService,$sce) {
     }
     //console.log($scope.compressedLogs);
   }
+  $scope.getDuration = function(consoleItem) {
+    if(consoleItem.start === undefined || consoleItem.end === undefined) { return; }
+    return (Number(consoleItem.end) - Number(consoleItem.start)) * 1000;
+  };
   $scope.to_trusted = function(html) {
     return $sce.trustAsHtml(html);
   };
@@ -56,8 +63,16 @@ var BuildController = function($scope,$routeParams,BuildsService,$sce) {
     });
   };
   $scope.init();
-  function getNewConsoleItem(title,meta) {
-    return { output : [], shouldCompress : false, isShowing: false,title : title,meta:meta};
+  function getNewConsoleItem(title,meta,startTime,endTime) {
+    return {
+      output : [],
+      shouldCompress : false,
+      isShowing: false,
+      title : title,
+      meta:meta,
+      start: startTime,
+      end: endTime
+    };
 
   }
 

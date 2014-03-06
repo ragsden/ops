@@ -12,8 +12,8 @@ Build Information<br/><br/>
 				<!--compression strip -->
 				<div ng-click="consoleItem.isShowing = !consoleItem.isShowing" ng-if="consoleItem.shouldCompress"  class="span_pre">
 					<span>
-						<i class = "console_compress_icon fa fa-sm" ng-class="{'fa-minus-circle' : consoleItem.isShowing, 'fa-plus-circle' : !consoleItem.isShowing}"></i></span><span> {{consoleItem.meta}}</span>
-						<span class="pull-right" style="color:white;margin-right:5px;">{{consoleItem.title}}</span>
+						<i class = "console_compress_icon fa fa-sm" ng-class="{'fa-minus-circle' : consoleItem.isShowing, 'fa-plus-circle' : !consoleItem.isShowing}"></i></span><span> {{consoleItem.meta}} </span>
+						<span class="pull-right" style="color:white;margin-right:5px;">{{consoleItem.title}} ({{ getDuration(consoleItem)|format_seconds}})</span>
 					</div> <!-- compression strip -->
 					<br ng-if="consoleItem.shouldCompress && !consoleItem.isShowing"/>
 				

@@ -5,6 +5,6 @@ angular.module('angSpa').filter('format_seconds', function() {
     m = Math.floor(d % 3600000 / 60),
     s = Math.floor(d % 3600000 % 60);
 
-    return ((h > 0 ? h + "h " : "") + (m + "m ") + (s + "s "));
+    return ((h > 0 ? h + "h " : "") + (m + "m ") + (s + "s"));
   };
 });
