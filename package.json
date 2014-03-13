@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "supervisor app.js",
-    "test": "./node_modules/mocha/bin/mocha --timeout 5000 --reporter=spec tests/node/**/*.js"
+    "test": "./node_modules/mocha/bin/mocha --timeout 5000 --reporter=spec --recursive tests/node"
   },
   "devDependencies": {
     "sinon": "~1.7.3",
