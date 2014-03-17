@@ -10,9 +10,8 @@ describe('Stats Schema',function () {
 		AccountStat.schema.tree.should.have.property('created');
 	});
 
-	it('validates Stats schema',function() {
-		var Stats = new schema.Stats();
-
-		Stats.schema.tree.should.have.property('lastRunTime');
+	it('validates Setting schema',function() {
+		var Setting = new schema.Setting();
+		Setting.schema.tree.should.have.property('lastRunTime');
 	});
 });
