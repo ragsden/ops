@@ -20,3 +20,4 @@ exports.db = {
   "database" : process.env.SHIPPABLE_ANALYTICS_DB_NAME || "opsdashboard_test",
 };
 exports.cronJobPattern = "00 59 23 * * *";
+exports.MWToken = process.env.MWToken || "testToken";
