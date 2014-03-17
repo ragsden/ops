@@ -19,3 +19,4 @@ exports.db = {
   "port" : 27017,
   "database" : process.env.SHIPPABLE_ANALYTICS_DB_NAME || "opsdashboard_test",
 };
+exports.cronJobPattern = "00 59 23 * * *";

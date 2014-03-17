@@ -14,6 +14,5 @@ describe('Stats Schema',function () {
 		var Stats = new schema.Stats();
 
 		Stats.schema.tree.should.have.property('lastRunTime');
-		Stats.schema.tree.should.have.property('lastRunStatus');
 	});
 });

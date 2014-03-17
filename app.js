@@ -16,9 +16,11 @@ function runapp() {
             , path = require('path')
             , config = require('./config')
             , mongoose = require('mongoose')
+            , stats = require('./lib/stats/stats')
             , auth = require('./auth');
           var app =exports.app =  express();
           auth.init();
+          stats.init();
           app.set('port', config.port || 3000);
           app.set('views', path.join(__dirname, 'views'));
           app.set('view engine', 'ejs');
