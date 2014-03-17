@@ -15,6 +15,7 @@ function runapp() {
             , clientSessions = require("client-sessions")
             , path = require('path')
             , config = require('./config')
+            , mongoose = require('mongoose')
             , auth = require('./auth');
           var app =exports.app =  express();
           auth.init();
@@ -51,6 +52,26 @@ function runapp() {
           app.configure('production', function(){
             app.use(express.errorHandler());
           });
+
+          mongoose.set('debug', true);
+          mongoose.connect(config.db.host);
+          var shouldRetry = true;
+
+          mongoose.connection.on('error', function(error) {
+            console.log("Mongodb connection error: " + error);
+            if (shouldRetry) {
+              setTimeout(function() {
+                mongoose.connect(config.db.host);
+              }, 1000);
+            }
+          });
+
+          ///TODO: only proceed if messagequeue is connected
+          mongoose.connection.once('open', function() {
+            console.log("MongoDB connected");
+            shouldRetry = false;
+            });
+          
 
           // Routes
 

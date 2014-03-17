@@ -13,3 +13,9 @@ exports.port = process.env.port || 31154;
    
 exports.runMode = process.env.runMode || "TEST";
 exports.shippableTokenIdentifier = process.env.tokenIdentifier || "ops.shippable.com:token";
+exports.analyticsQueryDate = process.env.analyticsQueryDate || "2014-03-01";
+exports.db = {
+  "host" : process.env.SHIPPABLE_ANALYTICS_DB || "127.0.0.1",
+  "port" : 27017,
+  "database" : process.env.SHIPPABLE_ANALYTICS_DB_NAME || "opsdashboard_test",
+};
