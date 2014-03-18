@@ -49,8 +49,8 @@ module.exports.filter = function (req,res) {
 	endDate = null,
 	query = {};
 
-	if(req.query && req.query.createdBefore) {
-		startDate = new Date(req.query.createdBefore);
+	if(req.query && req.query.createdAfter) {
+		startDate = new Date(req.query.createdAfter);
 		if(!isValidDate(startDate))
 		{
 			return res.send(400,"INVALID_CREATED_BEFORE_DATE");
@@ -60,8 +60,8 @@ module.exports.filter = function (req,res) {
 		};
 	}
 
-	if (req.query && req.query.createdAfter) {
-		endDate = new Date(req.query.createdAfter);
+	if (req.query && req.query.createdBefore) {
+		endDate = new Date(req.query.createdBefore);
 		if(!isValidDate(endDate))
 		{
 			return res.send(400,"INVALID_CREATED_AFTER_DATE");
