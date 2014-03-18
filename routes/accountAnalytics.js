@@ -1,5 +1,48 @@
 var AccountStat = require('../lib/stats/schema').AccountStat;
+var AccountData = require('../lib/stats/schema').AccountData;
 var logger = require('../lib/logger');
+module.exports.getNewUsers = function(req,res) {
+	var startDate = null,
+	endDate = null,
+	query = {};
+
+	if(req.query && req.query.createdBefore) {
+		startDate = new Date(req.query.createdBefore);
+		if(!isValidDate(startDate))
+		{
+			return res.send(400,"INVALID_CREATED_BEFORE_DATE");
+		}
+		query.queryDate = {
+			$gte: startDate.toISOString()
+		};
+	}
+
+	if (req.query && req.query.createdAfter) {
+		endDate = new Date(req.query.createdAfter);
+		if(!isValidDate(endDate))
+		{
+			return res.send(400,"INVALID_CREATED_AFTER_DATE");
+		}
+
+		if(startDate && endDate && startDate.getTime() === endDate.getTime()) {
+			endDate.setHours(23,59,59,000);
+			logger.info('Making end date to EOD ' + endDate);
+		}
+
+		if (!query.queryDate) { query.queryDate = {}; };
+		query.queryDate.$lt = endDate.toISOString();
+	}
+	AccountData.find(query,function(err,accountDatas) {
+		if(err) {
+			logger.error('Error getting account stats ' + err);
+			res.send(500);
+		}
+		else {
+			res.json(accountDatas);
+		}
+	});
+
+}
 module.exports.filter = function (req,res) {
 	var startDate = null,
 	endDate = null,
