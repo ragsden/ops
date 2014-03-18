@@ -12,6 +12,7 @@ function runapp() {
             , routes = require('./routes')
             , http = require('http')
             , passport = require('passport')
+            , logger = require("./lib/logger")
             , clientSessions = require("client-sessions")
             , path = require('path')
             , config = require('./config')
@@ -60,7 +61,7 @@ function runapp() {
           var shouldRetry = true;
 
           mongoose.connection.on('error', function(error) {
-            console.log("Mongodb connection error: " + error);
+            logger.error("Mongodb connection error: " + error);
             if (shouldRetry) {
               setTimeout(function() {
                 mongoose.connect(config.db.host);
@@ -70,7 +71,7 @@ function runapp() {
 
           ///TODO: only proceed if messagequeue is connected
           mongoose.connection.once('open', function() {
-            console.log("MongoDB connected");
+            logger.info("MongoDB connected");
             shouldRetry = false;
             });
           
