@@ -42,18 +42,6 @@ angSpa.factory('AccountsService',function($http){
             done(status,data);
           });
   };
-
-  AccountsService.prototype.filter = function(start,end,done) {
-      var url = config.SERVER_URL + "/analytics/accounts";
-          $http({method: 'GET',url: url }).
-            success(function(data, status, headers, config) {
-            done(status,data);
-          }).
-            error(function(data, status, headers, config) {
-            done(status,data);
-          });
-  };
-
   return new AccountsService();
 
 });
