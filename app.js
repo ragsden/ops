@@ -78,7 +78,7 @@ function runapp() {
 
           // Routes
 
-
+          app.get('/test',function(req,res) { res.json({ 'data' : 'test'} ); });
           app.get('/',routes.home);
            app.get('/logout', function(req, res){
               req.logout();
@@ -105,6 +105,12 @@ function runapp() {
                 res.redirect('/');
               }
           });
+
+          //Analytics routes 
+          var analytics = require('./routes/analytics');
+          analytics.init(app); 
+          
+
           http.createServer(app).listen(app.get('port'), function(){
             console.log('Express server listening on port ' + app.get('port'));
           });

@@ -21,3 +21,4 @@ exports.db = {
 };
 exports.cronJobPattern = "00 59 23 * * *";
 exports.MWToken = process.env.MWToken || "testToken";
+exports.serverURL = process.env.SERVER_URL || "http://localhost:31154";

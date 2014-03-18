@@ -123,7 +123,7 @@ it('should check if subscription page resolves correctly',function() {
     });
   });
 
-
+it('should check if analytics page resolves correctly');
 
 });
 /* jshint ignore:end */

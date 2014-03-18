@@ -14,4 +14,9 @@ describe('Stats Schema',function () {
 		var Setting = new schema.Setting();
 		Setting.schema.tree.should.have.property('lastRunTime');
 	});
+	it('validates AccountData schema',function() {
+		var accountData = new schema.AccountData();
+		accountData.schema.tree.should.have.property('queryDate');
+		accountData.schema.tree.should.have.property('totalNewUsers');
+	});
 });

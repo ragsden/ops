@@ -17,7 +17,6 @@ describe('Account statistics',function () {
         var res = function() { };
         var accountStats = new AccountStats();
         accountStats.getFilteredAccounts(req,next);
-        next.calledOnce.should.equal(true);
         req.should.have.property('data');
         req.data.length.should.equal(2);
         mwStub.restore();
@@ -27,7 +26,6 @@ describe('Account statistics',function () {
 		var req = { data : mock.testStatsData.accountStats };
 		var accountStats = new AccountStats();
 		accountStats.createAccountStats(req,next);
-		next.calledOnce.should.equal(true);
 		req.should.have.property('accountStats');
 		req.accountStats.length.should.equal(2);
 	});
@@ -36,7 +34,7 @@ describe('Account statistics',function () {
 		var next = sinon.spy();
 		var accountStats = new AccountStats();
 		accountStats.createAccountStats(req,next);
-		next.calledOnce.should.equal(true);
+		
 	});
 	it('saves the report',function() {
 		var host = new schema.AccountStat();
@@ -65,5 +63,20 @@ describe('Account statistics',function () {
         next.calledOnce.should.equal(false);
         
         mwStub.restore();
+	});
+	it('churns statistics for accountStats that are returned',function() {
+		var host = new schema.AccountData();
+	    var stub = sinon.stub(host,"save");
+	    var accountStat = new schema.AccountStat();
+	    accountStat.accountId='12345';
+	    accountStat.created = new Date();
+	    var req = {
+	        accountStats : [accountStat]
+	    };
+	    var next = sinon.spy();
+	    var accountStats = new AccountStats();
+	    accountStats.markAccountStats(req,next);
+	    next.calledOnce.should.equal(false);
+    	stub.restore();
 	});
 });
