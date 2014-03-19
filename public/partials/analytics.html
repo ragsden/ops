@@ -36,7 +36,19 @@
 	</div>
 </div>
 
-<ul ng-repeat = "newUser in newUserData">
-	<li>{{newUser.queryDate | format_to_pst}}</li>
-	<li>{{newUser.totalNewUsers}}</li>
-</ul>
+ <table class="table table-bordered table-condensed table-hover table-striped" ng-if="newUserData.length > 0">
+    <thead>
+            <thead>
+                <th>Date</th>
+                <th>Total Accounts Created</th>
+                
+            </thead>
+                                <tbody>
+                <tr ng-repeat="data in newUserData">                    
+                    <td>{{data.queryDate | format_to_pst }}</td>
+                    <td>{{data.totalNewUsers}}</td>
+                    
+                </tr>
+            </tbody>
+            
+   </table>
