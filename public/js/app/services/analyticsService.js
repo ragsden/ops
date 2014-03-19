@@ -3,7 +3,7 @@ angSpa.factory('AnalyticsService',function($http){
   var AnalyticsService = function(){
   };
   AnalyticsService.prototype.filterAccounts = function(from,to,done) {
-      var url = config.SERVER_URL + "/analytics/accounts/filter?createdAfter="+start+"&createdBefore="+end;
+      var url = config.SERVER_URL + "/analytics/accounts/filter?createdAfter="+from+"&createdBefore="+to;
           $http({method: 'GET',url: url }).
             success(function(data, status, headers, config) {
             done(status,data);

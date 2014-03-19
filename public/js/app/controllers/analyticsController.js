@@ -11,11 +11,8 @@ angular.module('angSpa').controller('analyticsController',['$scope','AnalyticsSe
 		$scope.newUserData= [];
 		$scope.getNewRegisteredUsers = function() {
 			var filteredStartDate = $filter('date')($scope.startDate,'yyyy-MM-dd');
-			var filteredEndDate = $filter('date')($scope.endDate,'yyyy-MM-dd')
-			console.log(filteredStartDate+","+filteredEndDate);
+			var filteredEndDate = $filter('date')($scope.endDate,'yyyy-MM-dd');
 			AnalyticsService.getNewAccountData(filteredStartDate,filteredEndDate,function(status,data) {
-				console.log(status);
-				console.log(data);
 				$scope.newUserData = data;
 			});
 		};
@@ -28,40 +25,32 @@ angular.module('angSpa').controller('analyticsController',['$scope','AnalyticsSe
 		$scope.toggleWeeks = function () {
 			$scope.showWeeks = ! $scope.showWeeks;
 		};
-
 		$scope.clear = function () {
 			$scope.dt = null;
 		};
+		$scope.disabled = function(date, mode) {
+			return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+		};
+		$scope.toggleMin = function() {
+			$scope.minDate = ( $scope.minDate ) ? null : new Date();
+		};
+		$scope.toggleMin();
 
-	  // Disable weekend selection
-	  $scope.disabled = function(date, mode) {
-	  	return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-	  };
+		$scope.open = function(sc,$event) {
+			$event.preventDefault();
+			$event.stopPropagation();
+			if(sc === 'openedStartDate') {
+				$scope.openedStartDate = true;
+			}
+			if(sc === 'openedEndDate') {
+				$scope.openedEndDate = true;
+			}
+		};
 
-	  $scope.toggleMin = function() {
-	  	$scope.minDate = ( $scope.minDate ) ? null : new Date();
-	  };
-	  $scope.toggleMin();
+		$scope.dateOptions = {
+			'year-format': "'yy'",
+			'starting-day': 1
+		};
 
-	  $scope.open = function(sc,$event) {
-	  	$event.preventDefault();
-	  	$event.stopPropagation();
-	  	if(sc === 'openedStartDate') {
-	  		$scope.openedStartDate = true;
-	  	}
-	  	if(sc === 'openedEndDate') {
-	  		$scope.openedEndDate = true;
-	  	}
-	  };
-
-	  $scope.dateOptions = {
-	  	'year-format': "'yy'",
-	  	'starting-day': 1
-	  };
-
-	  AnalyticsService.getSystemAnalytics(function(status,data) {
-	  	$scope.lastRunTime = data.lastRun;
-	  	$scope.totalUsers = data.totalUsers;
-	  });
-
-}]);
+		AnalyticsService.getSystemAnalytics(function(status,data) { $scope.lastRunTime = data.lastRun; $scope.totalUsers = data.totalUsers; });
+	}]);
