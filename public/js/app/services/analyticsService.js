@@ -2,8 +2,8 @@ angSpa.factory('AnalyticsService',function($http){
   var middlewareUrl = config.MW_URL;
   var AnalyticsService = function(){
   };
-  AnalyticsService.prototype.filterAccounts = function(start,end,done) {
-      var url = config.SERVER_URL + "/analytics/accounts/filter?createdBefore="+start+"&createdAfter="+end;
+  AnalyticsService.prototype.filterAccounts = function(from,to,done) {
+      var url = config.SERVER_URL + "/analytics/accounts/filter?createdAfter="+start+"&createdBefore="+end;
           $http({method: 'GET',url: url }).
             success(function(data, status, headers, config) {
             done(status,data);
