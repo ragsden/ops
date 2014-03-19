@@ -25,7 +25,8 @@ angSpa.factory('AnalyticsService',function($http){
   };
 
   AnalyticsService.prototype.getNewAccountData = function(start,end,done) {
-      var url = config.SERVER_URL + "/analytics/new?createdBefore="+start+"&createdAfter="+end;
+      var url = config.SERVER_URL + "/analytics/accounts/new?createdAfter="+start+"&createdBefore="+end;
+      console.log(url);
           $http({method: 'GET',url: url }).
             success(function(data, status, headers, config) {
             done(status,data);
