@@ -42,7 +42,6 @@ angSpa.factory('AccountsService',function($http){
             done(status,data);
           });
   };
-
   return new AccountsService();
 
 });

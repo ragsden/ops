@@ -12,12 +12,16 @@ function runapp() {
             , routes = require('./routes')
             , http = require('http')
             , passport = require('passport')
+            , logger = require("./lib/logger")
             , clientSessions = require("client-sessions")
             , path = require('path')
             , config = require('./config')
+            , mongoose = require('mongoose')
+            , stats = require('./lib/stats/stats')
             , auth = require('./auth');
           var app =exports.app =  express();
           auth.init();
+          stats.init();
           app.set('port', config.port || 3000);
           app.set('views', path.join(__dirname, 'views'));
           app.set('view engine', 'ejs');
@@ -52,9 +56,29 @@ function runapp() {
             app.use(express.errorHandler());
           });
 
+          mongoose.set('debug', true);
+          mongoose.connect(config.db.host);
+          var shouldRetry = true;
+
+          mongoose.connection.on('error', function(error) {
+            logger.error("Mongodb connection error: " + error);
+            if (shouldRetry) {
+              setTimeout(function() {
+                mongoose.connect(config.db.host);
+              }, 1000);
+            }
+          });
+
+          ///TODO: only proceed if messagequeue is connected
+          mongoose.connection.once('open', function() {
+            logger.info("MongoDB connected");
+            shouldRetry = false;
+            });
+          
+
           // Routes
 
-
+          app.get('/test',function(req,res) { res.json({ 'data' : 'test'} ); });
           app.get('/',routes.home);
            app.get('/logout', function(req, res){
               req.logout();
@@ -81,6 +105,12 @@ function runapp() {
                 res.redirect('/');
               }
           });
+
+          //Analytics routes 
+          var analytics = require('./routes/analytics');
+          analytics.init(app); 
+          
+
           http.createServer(app).listen(app.get('port'), function(){
             console.log('Express server listening on port ' + app.get('port'));
           });

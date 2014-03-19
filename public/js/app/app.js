@@ -29,6 +29,7 @@ angSpa.config(function($httpProvider,$routeProvider, $locationProvider){
     when('/cards/:cardId',{ controller : 'cardsController', templateUrl : '/partials/card.html',title: 'Cards' }).
     when('/hosts',{ controller : 'dockerHostsController', templateUrl : '/partials/dockerhosts.html',title: 'Hosts' }).
     when('/hosts/:hostId/nodes', { controller: 'hostNodesController', templateUrl : '/partials/hostNodes.html',title: 'HostNodes' }).
+    when('/analytics',{ controller : 'analyticsController', templateUrl: '/partials/analytics.html',title: 'Analytics'}).
     when('/', { redirectTo: '/'}).
     otherwise({ redirectTo: '/accounts' });
 

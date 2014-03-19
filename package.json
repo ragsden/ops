@@ -13,11 +13,15 @@
     "jshint": "~2.3.0",
     "requirejs": "~2.1.9",
     "underscore": "~1.5.2",
-    "moment": "~2.5.1"
+    "moment": "~2.5.1",
+    "mongoose": "~3.8.8",
+    "cron": "~1.0.4",
+    "time": "~0.10.0",
+    "winston": "~0.7.2"
   },
   "scripts": {
     "start": "supervisor app.js",
-    "test": "./node_modules/mocha/bin/mocha --timeout 5000 --reporter=spec tests/node/*.js"
+    "test": "./node_modules/mocha/bin/mocha --timeout 5000 --reporter=spec --recursive tests/node"
   },
   "devDependencies": {
     "sinon": "~1.7.3",

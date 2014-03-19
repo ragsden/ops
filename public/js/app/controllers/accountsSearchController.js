@@ -13,7 +13,9 @@ var AccountsSearchController = function($scope,$location) {
   $scope.showDockerHosts = function() {
     $location.path('/hosts');
   };
-
+  $scope.showAnalytics = function() {
+    $location.path('/analytics');
+  };
 
 };
 AccountsSearchController.$inject = ["$scope","$location"];

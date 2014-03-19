@@ -108,10 +108,12 @@
     <script src="/js/app/filters/nodeStatusMapper.js"></script>
     <script src= "/js/app/filters/second_formatter.js"></script>
     <script src= "/js/app/filters/mapBuildStatus.js"></script>
+    <script src= "/js/app/controllers/analyticsController.js"></script>
     <script src= "/js/app/controllers/accountsSearchController.js"></script>
     <script src= "/js/app/controllers/accountsController.js"></script>
     <script src= "/js/app/controllers/accountController.js"></script>    
     <script src= "/js/app/controllers/cardsController.js"></script>
+    <script src= "/js/app/services/analyticsService.js"></script>
     <script src= "/js/app/services/cardsService.js"></script>
     <script src= "/js/app/services/nodeservices.js"></script>
     <script src= "/js/app/services/nodetypeService.js"></script>
@@ -139,7 +141,8 @@
       var config = {
         MW_URL: "<%= config.middleware.endPoint %>",
         runMode: "<%= config.runMode %>",
-        shippableTokenIdentifier: "<%= config.shippableTokenIdentifier %>"
+        shippableTokenIdentifier: "<%= config.shippableTokenIdentifier %>",
+        SERVER_URL: "<%= config.serverURL %>"
       }
     </script>
     
