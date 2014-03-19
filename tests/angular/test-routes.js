@@ -123,7 +123,14 @@ it('should check if subscription page resolves correctly',function() {
     });
   });
 
-it('should check if analytics page resolves correctly');
+it('should check if analytics page resolves correctly',function() {
+   inject(function($route) {
+      var controller = $route.routes['/analytics'].controller;
+      var templateUrl = $route.routes['/analytics'].templateUrl;
+      expect(controller).toEqual('analyticsController');
+      expect(templateUrl).toEqual('/partials/analytics.html');
+    });
+});
 
 });
 /* jshint ignore:end */
