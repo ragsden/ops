@@ -10,9 +10,13 @@ angular.module('angSpa').controller('analyticsController',['$scope','AnalyticsSe
 		$scope.endDate = '';
 		$scope.newUserData= [];
 		$scope.getNewRegisteredUsers = function() {
-			var filteredStartDate = $filter('date')($scope.startDate,'yyyy-MM-dd');
-			var filteredEndDate = $filter('date')($scope.endDate,'yyyy-MM-dd');
-			AnalyticsService.getNewAccountData(filteredStartDate,filteredEndDate,function(status,data) {
+			//var filteredStartDate = $filter('date')($scope.startDate,'yyyy-MM-dd');
+			//Since the date picker returns time set to 00:00:00, we need
+			//to append the end of day time to the end time
+			var currentDate = new Date();
+			var filteredEndDate = $scope.endDate.setHours(23,59,59);
+			AnalyticsService.getNewAccountData($scope.startDate.toISOString(),new Date(filteredEndDate).toISOString(),
+				function(status,data) {
 				$scope.newUserData = data;
 			});
 		};
