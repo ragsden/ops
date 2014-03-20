@@ -4,3 +4,6 @@ clientSecret=b9ea0b22edc4d3f98e756fcd1cc6e4a770ee70a2
 callbackUrl=https://opsbeta.shippable.com/auth/github/callback
 
 PORTMAP:31154:31154
+MWEndPoint=https://apibeta.shippable.com
+SHIPPABLE_ANALYTICS_DB=mongodb://localhost:27017/opsdashboard
+MWTOKEN=""
