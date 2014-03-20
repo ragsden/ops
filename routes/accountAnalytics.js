@@ -24,13 +24,8 @@ module.exports.getNewUsers = function(req,res) {
 			return res.send(400,"INVALID_CREATED_AFTER_DATE");
 		}
 
-		if(startDate && endDate && startDate.getTime() === endDate.getTime()) {
-			endDate.setHours(23,59,59,000);
-			logger.info('Making end date to EOD ' + endDate);
-		}
-
 		if (!query.queryDate) { query.queryDate = {}; };
-		query.queryDate.$lt = endDate.toISOString();
+		query.queryDate.$lte = endDate.toISOString();
 	}
 	console.log(query);
 	AccountData.find(query,function(err,accountDatas) {
