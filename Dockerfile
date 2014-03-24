@@ -3,6 +3,7 @@ MAINTAINER Sharath "sharath@shippable.com"
 
 RUN apt-get install -y git-core
 RUN mkdir -p /opt/shippable/opsDashboard
+RUN mkdir -p /opt/shippable/opsDashboard/logs
 ADD . /opt/shippable/opsDashboard
 
 
