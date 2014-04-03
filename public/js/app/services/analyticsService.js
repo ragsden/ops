@@ -3,7 +3,7 @@ angSpa.factory('AnalyticsService',function($http){
   var AnalyticsService = function(){
   };
   AnalyticsService.prototype.filterAccounts = function(from,to,done) {
-      var url = config.SERVER_URL + "/analytics/accounts/filter?createdAfter="+from+"&createdBefore="+to;
+      var url = "/analytics/accounts/filter?createdAfter="+from+"&createdBefore="+to;
           $http({method: 'GET',url: url }).
             success(function(data, status, headers, config) {
             done(status,data);
@@ -14,7 +14,7 @@ angSpa.factory('AnalyticsService',function($http){
   };
 
   AnalyticsService.prototype.getSystemAnalytics = function(done) {
-      var url = config.SERVER_URL + "/analytics/system";
+      var url = "/analytics/system";
           $http({method: 'GET',url: url }).
             success(function(data, status, headers, config) {
             done(status,data);
@@ -25,8 +25,7 @@ angSpa.factory('AnalyticsService',function($http){
   };
 
   AnalyticsService.prototype.getNewAccountData = function(start,end,done) {
-      var url = config.SERVER_URL + "/analytics/accounts/new?createdAfter="+start+"&createdBefore="+end;
-      console.log(url);
+      var url = "/analytics/accounts/new?createdAfter="+start+"&createdBefore="+end;
           $http({method: 'GET',url: url }).
             success(function(data, status, headers, config) {
             done(status,data);
