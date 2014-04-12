@@ -1,0 +1,24 @@
+<div ng-if="cardsModel.card.id">
+    Card Info:
+
+    <table class="table table-bordered table-condensed table-hover table-striped">
+    <thead>
+            <thead>
+                <th>Card Id</th>
+                <th>Card Number (LastFourDigits)</th>
+                <th>Expiry Date</th>
+                <th>Type</th>
+                <th>Options</th>
+            </thead>
+            <tbody>
+                <tr>                    
+                    <td>{{cardsModel.card.id}}</td>
+                    <td>{{cardsModel.card.lastFourDigits}}</td>
+                    <td>{{cardsModel.card.expiry}}</td>
+                    <td>{{cardsModel.card.type}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+            
+   </table> 
+</div>

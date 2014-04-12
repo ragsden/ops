@@ -1,0 +1,28 @@
+
+<div>
+  <form name="myForm"> 
+   
+    <div class="search-block">
+					<div class="input-group " style="width:170px">
+						<input type="text" class="form-control input-sm" placeholder="Enter Login Id" name= "user_id"  ng-model="accountsSearchModel.loginId" required ></input>
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-sm" type="submit" ng-disabled="myForm.$invalid"  ng-click="searchAccounts()" ><i class="fa fa-search"></i></button>
+						</span>
+					</div><!-- /input-group -->
+				</div><!-- /search-block -->
+    <br/>
+    <br/></br>
+    {{accountsSearchModel.err}}
+     
+   </form>
+   </br>
+ </div>
+
+
+ <div>
+   <button ng-click="showDockerHosts()" class="btn btn-default btn-sm">Docker Hosts</button>
+ </div>
+
+ <div>
+   <button ng-click="showAnalytics()" class="btn btn-default btn-sm">Show Analytics</button>
+ </div>

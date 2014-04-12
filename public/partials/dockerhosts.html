@@ -1,0 +1,26 @@
+<div ng-if="hosts[0].id">
+<table class="table table-bordered table-condensed table-hover table-striped">
+  <thead>
+    <thead>
+      <th>Id</th>
+      <th>VMName</th>
+      <th>Options</th>
+    </thead>
+  </thead>
+  <tbody>
+    <tr ng-repeat="host in hosts">                    
+      <td>{{host.id}}</td>
+      <td>{{host.vmName}}</td>
+      <td><button class="btn btn-xs btn-info" ng-click="showNodes(host.id)">Show Nodes</button></td>
+    </tr>
+  </tbody>
+
+</table>
+</div>
+
+   <div style="clear:both;">
+        <ul ng-repeat = "message in messages track by $index">
+            <li>{{message}}</li>
+        </ul>
+    </div>
+

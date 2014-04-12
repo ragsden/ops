@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="angSpa">
+  <head>
+    <meta charset="utf-8">
+    <title ng-bind="'Shippable Ops Dashboard :' + title"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="/stylesheets/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Endless -->
+    <link href="/stylesheets/endless.css" rel="stylesheet">
+    <link href="/stylesheets/endless-skin.css" rel="stylesheet">
+    <link href="/stylesheets/ops.css" rel="stylesheet">
+    
+  </head>
+
+  <body class="overflow-hidden">
+    <!-- Overlay Div -->
+     <div id="overlay">
+        <div class="overlay-inner">
+            <div id="followingBallsG">
+                <div id="followingBallsG_1" class="followingBallsG">
+                </div>
+                <div id="followingBallsG_2" class="followingBallsG">
+                </div>
+                <div id="followingBallsG_3" class="followingBallsG">
+                </div>
+                <div id="followingBallsG_4" class="followingBallsG">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <div id="wrapper" class="preload">
+        <div id="top-nav" style="margin-left: 0px" >
+            <ul style="float:left;color: #ffffff">
+                <li><a href="/accounts" style="color: #ffffff"><h4>Shippable Ops Dashboard</h4></a></li>
+            </ul>
+            <ul class="nav-notification clearfix">
+                <li class="profile dropdown">
+                    <a class="" href="/logout" target="_self">
+                        <strong>Logout</strong>
+                       
+                    </a>
+                    
+                </li>
+            </ul>
+        </div><!-- /top-nav-->
+        <div id="main-container" style="margin-left: 10px; margin-right:10px;">
+        <div>
+        <ul class="breadcrumb">
+        <li ng-repeat="breadcrumb in breadcrumbs">
+        <ng-switch on="$last">
+        <span ng-switch-when="true">{{breadcrumb.name}}</span>
+        <span ng-switch-default><a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a></span>
+        </ng-switch>
+                </li>
+            </ul>
+        </div>
+
+            <div ng-view>
+      
+                        </div>
+        </div><!-- /main-container -->
+        
+        
+    </div><!-- /wrapper -->
+
+    <a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
+
+     
+                        
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <!-- Jquery -->
+    <script src="/js/theme/jquery-1.10.2.min.js"></script>
+    
+    <!-- Endless -->
+    <script src="/js/theme/endless/endless.js"></script>
+
+    <script src= "/js/lib/angular/angular.js"></script>
+    <script src= "/js/lib/angular/angular-route.js"></script>
+    
+    <script src="/js/bootstrap/js/ui-bootstrap-tpls-0.10.0.min.js"></script>
+    
+    <script src= "/js/lib/angular/angular-sanitize.js"></script>
+    <script src= "/js/lib/angular/angular-cookies.js"></script>
+    <script src= "/js/app/app.js"></script>
+    <script src="/js/lib/moment/min/moment.min.js"></script>  
+    <script src= "/js/lib/underscore-min.js"></script>
+    <script src= "/js/lib/ansi_up.js"></script>
+    <script src="/js/app/filters/moment_filter.js"></script> 
+    <script src="/js/app/filters/find_ifMsgExistsInArray.js"></script>
+    <script src="/js/app/filters/deleteMsgFromArray.js"></script>
+    <script src="/js/app/filters/filterExactAccountByIdentity.js"></script>
+    <script src="/js/app/filters/nodeStatusMapper.js"></script>
+    <script src= "/js/app/filters/second_formatter.js"></script>
+    <script src= "/js/app/filters/mapBuildStatus.js"></script>
+    <script src= "/js/app/controllers/analyticsController.js"></script>
+    <script src= "/js/app/controllers/accountsSearchController.js"></script>
+    <script src= "/js/app/controllers/accountsController.js"></script>
+    <script src= "/js/app/controllers/accountController.js"></script>    
+    <script src= "/js/app/controllers/cardsController.js"></script>
+    <script src= "/js/app/services/analyticsService.js"></script>
+    <script src= "/js/app/services/cardsService.js"></script>
+    <script src= "/js/app/services/nodeservices.js"></script>
+    <script src= "/js/app/services/nodetypeService.js"></script>
+    <script src= "/js/app/services/nodesInfoService.js"></script>
+    <script src= "/js/app/services/accountsService.js"></script>
+    <script src= "/js/app/services/subscriptionsService.js"></script>
+    <script src= "/js/app/services/plansService.js"></script>
+    <script src= "/js/app/services/queuesService.js"></script>
+    <script src= "/js/app/services/dockerHostServices.js"></script>
+    <script src= "/js/app/controllers/subscriptionsController.js"></script>
+    <script src= "/js/app/controllers/nodesController.js"></script>
+    <script src= "/js/app/controllers/projectsController.js"></script>
+    <script src= "/js/app/controllers/queuesController.js"></script>
+    <script src= "/js/app/services/projectsService.js"></script>
+    <script src= "/js/app/controllers/buildsController.js"></script>
+    <script src= "/js/app/controllers/buildController.js"></script>
+    <script src= "/js/app/services/buildsService.js"></script>
+    <script src= "/js/app/controllers/simpleModalController.js"></script>
+    <script src= "/js/app/controllers/commonModalController.js"></script>
+    <script src= "/js/app/controllers/projectPermissionsModalCtrl.js"></script>
+    <script src= "/js/app/controllers/dockerHostsController.js"></script>
+    <script src= "/js/app/controllers/hostNodesController.js"></script>
+    <script src= "/js/app/controllers/subscriptionDetailsController.js"></script>
+    <script>
+      var config = {
+        MW_URL: "<%= config.middleware.endPoint %>",
+        runMode: "<%= config.runMode %>",
+        shippableTokenIdentifier: "<%= config.shippableTokenIdentifier %>"
+      }
+    </script>
+    
+  </body>
+</html>
+
+
