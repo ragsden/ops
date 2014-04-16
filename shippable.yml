@@ -3,5 +3,7 @@ node_js:
 before_install: npm install -g grunt-cli
 language: node_js
 script: grunt
+after_success :
+  - git push ssh://53494aa54382ece7860001a9@ops-shippable.rhcloud.com/~/git/ops.git/ master
 notifications:
   email: avi@shippable.com
