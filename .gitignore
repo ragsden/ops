@@ -8,7 +8,6 @@ lib-cov
 *.gz
 *.swp
 pids
-logs
 results
 shippable
 npm-debug.log
