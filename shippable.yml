@@ -5,3 +5,5 @@ language: node_js
 script: grunt
 notifications:
   email: avi@shippable.com
+after_success:
+    git push ssh://53494aa54382ece7860001a9@ops-shippable.rhcloud.com/~/git/ops.git master
