@@ -1,4 +1,4 @@
-FROM shippable/base
+FROM shippable/appbase
 MAINTAINER Sharath "sharath@shippable.com"
 
 
