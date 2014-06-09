@@ -1,6 +1,6 @@
 {
   "name": "shippable_ops_dashboard",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "main": "app.js",
   "dependencies": {
@@ -21,7 +21,7 @@
     "winston": "~0.7.2"
   },
   "scripts": {
-    "start": "supervisor app.js",
+    "start": "node app.js",
     "test": "./node_modules/mocha/bin/mocha --timeout 5000 --reporter=spec --recursive tests/node"
   },
   "devDependencies": {
