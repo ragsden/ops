@@ -95,13 +95,8 @@ function runapp() {
   analytics.init(app);
 */
 
-  if (config.hostPlatform === "docker") {
-    http.createServer(app).listen(app.get('port'), function () {
-      logger.info('%s: Node server started on %s:%d ...', Date(Date.now()), app.get('port'));
+    http.createServer(app).listen(40000, function () {
+      logger.info('%s: Node server started on %s:%d ...', Date(Date.now()), 40000);
     });
-  } else {
-    http.createServer(app).listen(app.get('port'), app.get('ipaddress'), function () {
-      logger.info('%s: Node server started on %s:%d ...', Date(Date.now()), app.get('ipaddress'), app.get('port'));
-    });
-  }
+
 }

@@ -8,8 +8,8 @@ exports.passport = {
 exports.middleware = {
 	endPoint: process.env.MWEndPoint || 'https://apibeta.shippable.com'
 };
-exports.port = process.env.OPENSHIFT_NODEJS_PORT || 31154;
-exports.ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1",
+exports.port = process.env.OPENSHIFT_NODEJS_PORT || 40000;
+exports.ipaddress = null,
    
 exports.runMode = process.env.runMode || "TEST";
 exports.shippableTokenIdentifier = process.env.tokenIdentifier || "ops.shippable.com:token";
@@ -21,4 +21,4 @@ exports.db = {
 };
 exports.cronJobPattern = "00 59 23 * * *";
 exports.MWToken = process.env.MWToken || "testToken";
-exports.serverURL = process.env.SERVER_URL || "http://localhost:31154";
+exports.serverURL = null;
