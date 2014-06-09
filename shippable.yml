@@ -4,7 +4,7 @@ node_js:
 before_script: mkdir -p shippable/codecoverage
 minion:
   type: beshippable/demo
-  container: shippabletest/episode5
+  container: shippabletest/ops
 before_install: npm install -g grunt-cli
 minion:
   type: beshippable/demo
