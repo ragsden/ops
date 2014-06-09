@@ -10,8 +10,5 @@ minion:
   type: beshippable/demo
   container: shippabletest/episode5
 script: grunt
-after_script:
-  - ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -u tdd
-  - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
 notifications:
   email: avi@shippable.com
