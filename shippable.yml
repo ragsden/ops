@@ -2,6 +2,9 @@ node_js:
   - "0.10"
 before_install: npm install -g grunt-cli
 language: node_js
+minion:
+  type: beshippable/demo
+  container: shippabletest/episode5
 script: grunt
 notifications:
   email: avi@shippable.com

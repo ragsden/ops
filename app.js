@@ -56,27 +56,6 @@ function runapp() {
     app.use(express.errorHandler());
   });
 
-/*
-  mongoose.set('debug', true);
-  mongoose.connect(config.db.host);
-  var shouldRetry = true;
-
-  mongoose.connection.on('error', function (error) {
-    logger.error("Mongodb connection error: " + error);
-    if (shouldRetry) {
-      setTimeout(function () {
-        mongoose.connect(config.db.host);
-      }, 1000);
-    }
-  });
-
-  ///TODO: only proceed if messagequeue is connected
-  mongoose.connection.once('open', function () {
-    logger.info("MongoDB connected");
-    shouldRetry = false;
-  });
-
-*/
   // Routes
 
   app.get('/test', function (req, res) {
