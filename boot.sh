@@ -1,5 +1,4 @@
 #!/bin/sh
 cd /home/minion/ops
-nvm use v0.10.28
-npm install
-node app.js
+/home/minion/.nvm/v0.10.28/bin/npm install
+/home/minion/.nvm/v0.10.28/bin/node app.js
