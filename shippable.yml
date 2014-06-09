@@ -1,12 +1,17 @@
+language: node_js
 node_js:
   - "0.10"
+before_script: mkdir -p shippable/codecoverage
+minion:
+  type: beshippable/demo
+  container: shippabletest/episode5
 before_install: npm install -g grunt-cli
-language: node_js
 minion:
   type: beshippable/demo
   container: shippabletest/episode5
 script: grunt
+after_script:
+  - ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -u tdd
+  - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
 notifications:
   email: avi@shippable.com
-after_success:
-    git push ssh://53494aa54382ece7860001a9@ops-shippable.rhcloud.com/~/git/ops.git master
