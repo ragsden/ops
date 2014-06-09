@@ -8,7 +8,7 @@ minion:
 before_install: npm install -g grunt-cli
 minion:
   type: beshippable/demo
-  container: shippabletest/episode5
+  container: shippabletest/ops
 after_script: rm -rf /home/minion/ops && mkdir /home/minion/ops && cp -r * /home/minion/ops
 notifications:
   email: avi@shippable.com
