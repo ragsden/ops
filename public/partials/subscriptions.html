@@ -20,8 +20,8 @@
  
   <tr ng-repeat="s in subscriptionsModel.subscriptions">
     <td>{{s.name}}</td>
-    <td>NA/storageQuota{{}}</td>
-    <td>{{s.containers.length}}/NA(containerQuota) </td>
+    <td>NA(builds API)/(storageQuota:{{s.storageQuota}})</td>
+    <td>{{s.containers.length}}/(containerQuota:{{s.nodesQuota}}) </td>
     <td>
       <a ng-href="/subscriptions/{{s.id}}/nodes">Manage Nodes</a>
       <button>Jobs</button>
