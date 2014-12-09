@@ -10,7 +10,7 @@ var SubscriptionsController = function($scope,getAccountById, getSubscriptionsBy
     errors: []
   };
   
-  function subscriptionDataObject(id, name, plan, projects, containers, owners, created, updated, storageQuota, nodesQuota){ 
+  function subscriptionDataObject(id, name, plan, projects, containers, owners, created, updated, planName, nodesQuota, privateProjectsQuota, storageQuota){ 
     this.id = id;
     this.name = name;
     this.plan = plan;
@@ -18,8 +18,10 @@ var SubscriptionsController = function($scope,getAccountById, getSubscriptionsBy
     this.owners = owners;
     this.created = created;
     this.updated = updated;
-    this.storageQuota = storageQuota;
+    this.planName = planName;
     this.nodesQuota = nodesQuota;  
+    this.privateProjectsQuota = privateProjectsQuota;
+    this.storageQuota = storageQuota;
   }
 
   var token = $cookieStore.get(config.shippableTokenIdentifier);
@@ -33,7 +35,7 @@ var SubscriptionsController = function($scope,getAccountById, getSubscriptionsBy
      }
      else
       {
-        $scope.subscriptionsModel.errors.push(err);
+        $scope.errors = err;
       }
     });
 
@@ -53,25 +55,26 @@ var SubscriptionsController = function($scope,getAccountById, getSubscriptionsBy
                                                                subsData[i].owners, 
                                                                subsData[i].created, 
                                                                subsData[i].updated,
-                                                               planData.storageGigaBytesQuota,
-                                                               planData.nodesQuota                                
+                                                               planData.name,
+                                                               planData.nodesQuota,
+                                                               planData.privateProjectsQuota,
+                                                               planData.storageGigaBytesQuota
                                                               );           
 
             $scope.subscriptionsModel.subscriptions.push(subscriptionData);
          }else{
-           $scope.subscriptionsModel.errors.push(err);
+            $scope.errors = err ;
          }
          
          });
 
-
+    }
+    }
+    else{
+        $scope.errors = err ;     
+    }
     
-    }
-
-    }else{
-        $scope.subscriptionsModel.errors.push(err) ;     
-    }
-    });
+   });
     
   };
 
