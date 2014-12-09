@@ -10,14 +10,14 @@ describe('Testing routes',function() {
 		});
 	});
 
-	it('should check if containers URL resolves correctly',function() {
+	it('should check if nodesController URL resolves correctly',function() {
 		module('angSpa');
 		inject(function($route) {
-			var controller = $route.routes['/subscriptions/:subscriptionId/containers'].controller;
-			var templateUrl = $route.routes['/subscriptions/:subscriptionId/containers'].templateUrl;
+			var controller = $route.routes['/subscriptions/:subscriptionId/nodes'].controller;
+			var templateUrl = $route.routes['/subscriptions/:subscriptionId/nodes'].templateUrl;
 
-			controller.should.be.equal('containerController');
-			templateUrl.should.be.equal('/partials/containers.html');
+			controller.should.be.equal('nodesController');
+			templateUrl.should.be.equal('/partials/nodes.html');
 
 		});
 	})
