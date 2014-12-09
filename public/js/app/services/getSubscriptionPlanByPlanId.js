@@ -18,7 +18,7 @@ angSpa.factory('getSubscriptionPlanByPlanId',function($http){
      else
       {
         var planUrl = middlewareUrl + "/plans/" + planId ;
-        $http({ method: 'GET', url: planUrl, headers : {Authorization: 'token' + token}}).
+        $http({ method: 'GET', url: planUrl}).
         success(function(data, status, headers, config) {
           done(null,data);
         }).

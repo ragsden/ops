@@ -21,7 +21,7 @@ angSpa.factory('getSubscriptionsByAccountId',function($http){
      else
       {
         var subsUrl = middlewareUrl + "/accounts/" + accountId + "/subscriptions";
-        $http({ method: 'GET', url: subsUrl, headers : {Authorization: 'token' + token}}).
+        $http({ method: 'GET', url: subsUrl}).
         success(function(data, status, headers, config) {
           done(null,data);
         }).
