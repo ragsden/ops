@@ -13,17 +13,13 @@
 <table border="1">
   <tr>
     <th>Subscription Name</th>
-    <th>Storage</th>
-    <th>Nodes</th>
     <th>Options</th>
   </tr>
  
   <tr ng-repeat="s in subscriptionsModel.subscriptions">
     <td>{{s.name}}</td>
-    <td>NA(builds API)/(storageQuota:{{s.storageQuota}})</td>
-    <td>{{s.containers.length}}/(containerQuota:{{s.nodesQuota}}) </td>
     <td>
-      <a ng-href="/subscriptions/{{s.id}}/nodes">Manage Nodes</a>
+      <button ng-click="getToNodesOnSubId(s.id)">Manage Nodes</button>
       <button>Jobs</button>
       <button>Delete</button>
     </td>
@@ -32,7 +28,7 @@
 
 <p>Errors </p>
 <ul>
-  <li>WIRE UP ERRORS!</li>
+  <li ng-repeat="error in errors">{{error}}</li>
   
 </ul>
 

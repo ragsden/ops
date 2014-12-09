@@ -1,7 +1,7 @@
 
 'use strict';
 
-var SubscriptionsController = function($scope,getAccountById, getSubscriptionsByAccountId, getSubscriptionPlanByPlanId, $cookieStore,$routeParams){
+var SubscriptionsController = function($scope, $location, getAccountById, getSubscriptionsByAccountId, getSubscriptionPlanByPlanId, $cookieStore,$routeParams){
   $scope.subscriptionsModel = {
     userId : "",
     userName : "",
@@ -23,7 +23,7 @@ var SubscriptionsController = function($scope,getAccountById, getSubscriptionsBy
     this.privateProjectsQuota = privateProjectsQuota;
     this.storageQuota = storageQuota;
   }
-
+  
   var token = $cookieStore.get(config.shippableTokenIdentifier);
   $scope.init = function(){
     getAccountById.getAccount($routeParams.accountId,token,function(err,data){
@@ -35,15 +35,13 @@ var SubscriptionsController = function($scope,getAccountById, getSubscriptionsBy
      }
      else
       {
-        $scope.errors = err;
+        $scope.subscriptionsModel.errors.push('error in getting account details using account id');
       }
     });
 
     getSubscriptionsByAccountId.getSubscriptions($routeParams.accountId, token, function(err, subsData){
     if(!err){
       for(var i=0; i < subsData.length; i++) {
-       
-       //writing separately for getting plan may not work in Async mode, since subPlan Id will be only available after getSubs api call.
        
          getSubscriptionPlanByPlanId.getSubscriptionPlan(subsData[i].plan, token, function(err, planData){
          if(!err){
@@ -63,7 +61,7 @@ var SubscriptionsController = function($scope,getAccountById, getSubscriptionsBy
 
             $scope.subscriptionsModel.subscriptions.push(subscriptionData);
          }else{
-            $scope.errors = err ;
+            $scope.subscriptionsModel.errors.push('error in getting subscription plan using plan id') ;
          }
          
          });
@@ -71,17 +69,20 @@ var SubscriptionsController = function($scope,getAccountById, getSubscriptionsBy
     }
     }
     else{
-        $scope.errors = err ;     
+        $scope.subscriptionsModel.errors.push('error in getting subscriptions using account id') ;     
     }
     
    });
     
   };
 
+  $scope.getToNodesOnSubId = function(subId){
+    $location.path("/subscriptions/"+subId+"/nodes");
+  }
 $scope.init();
 };
 
-SubscriptionsController.$inject = ["$scope","getAccountById", "getSubscriptionsByAccountId", "getSubscriptionPlanByPlanId", "$cookieStore","$routeParams"];
+SubscriptionsController.$inject = ["$scope", "$location", "getAccountById", "getSubscriptionsByAccountId", "getSubscriptionPlanByPlanId", "$cookieStore","$routeParams"];
 angSpa.controller("subscriptionsController", SubscriptionsController);
 
 
